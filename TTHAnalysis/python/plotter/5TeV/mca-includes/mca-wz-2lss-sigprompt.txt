@@ -4,11 +4,9 @@ WZ+   : W1JetsToLNu : xsec*1.065  : LepGood1_isMatchRightCharge && LepGood2_isMa
 WZ+   : W2JetsToLNu : xsec*1.065  : LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge ; FillColor=ROOT.kOrange
 WZ+   : W3JetsToLNu : xsec*1.065  : LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge ; FillColor=ROOT.kOrange
 
-ZZ2l	: ZZTo2L2Nu   : xsec : LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge; FillColor=ROOT.kGreen+2
-ZZ4l	: ZZTo4L      : xsec : LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge; FillColor=ROOT.kGreen+2
-#ZZ	: ZZTo2L2Nu   : xsec : LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge; FillColor=ROOT.kGreen+2
-#ZZ	: ZZTo4L      : xsec : LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge; FillColor=ROOT.kGreen+2
 WW	: WWTo2L2Nu   : xsec : LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge; FillColor=ROOT.kGreen+2
+ZZ	: ZZTo2L2Nu   : xsec : LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge; FillColor=ROOT.kGreen+2
+ZZ	: ZZTo4L      : xsec : LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge; FillColor=ROOT.kGreen+2
 
 
 

@@ -27,14 +27,10 @@ class lepScaleFactors_WZ5TeV(Module):
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
         for var in ',_ele_up,_ele_dn,_mu_up,_mu_dn'.split(','):
-            self.out.branch('leptonSF_1l_br%s'%var,'F')
-            self.out.branch('leptonSF_1l_sr%s'%var,'F')
             self.out.branch('leptonSF_2l_br%s'%var,'F')
             self.out.branch('leptonSF_2l_sr%s'%var,'F')
             self.out.branch('leptonSF_3l_br%s'%var,'F')
             self.out.branch('leptonSF_3l_sr%s'%var,'F')
-            self.out.branch('leptonSF_4l_br%s'%var,'F')
-            self.out.branch('leptonSF_4l_sr%s'%var,'F')
 
 
     def getLooseToTight(self,lep,var_str):
@@ -84,18 +80,10 @@ class lepScaleFactors_WZ5TeV(Module):
 
         # lepton scale factors
         for var in ''.split(','):
-            leptonSF_1l_br = 1
-            leptonSF_1l_sr = 1
             leptonSF_2l_br = 1
             leptonSF_2l_sr = 1
             leptonSF_3l_br = 1
             leptonSF_3l_sr = 1
-            leptonSF_4l_br = 1
-            leptonSF_4l_sr = 1
-
-            if len(leps) >= 1:
-                leptonSF_1l_br = self.getRecoToLoose(leps[0],var)
-                leptonSF_1l_sr = leptonSF_1l_br * self.getLooseToTight(leps[0],var)
 
             if len(leps) >= 2:
                 leptonSF_2l_br = self.getRecoToLoose(leps[0],var) * self.getRecoToLoose(leps[1],var)
@@ -105,33 +93,17 @@ class lepScaleFactors_WZ5TeV(Module):
                 leptonSF_3l_br = self.getRecoToLoose(leps[0],var) * self.getRecoToLoose(leps[1],var) * self.getRecoToLoose(leps[2],var)
                 leptonSF_3l_sr = leptonSF_3l_br * self.getLooseToTight(lepsW,var) * self.getLooseToTight(lepsZ1,var) 
 
-            if len(leps) >= 4:
-                leptonSF_4l_br = self.getRecoToLoose(leps[0],var) * self.getRecoToLoose(leps[1],var) * self.getRecoToLoose(leps[2],var)* self.getRecoToLoose(leps[3],var)
-                leptonSF_4l_sr = leptonSF_4l_br * self.getLooseToTight(leps[0],var) * self.getLooseToTight(leps[1],var) * self.getLooseToTight(leps[2],var) * self.getLooseToTight(leps[3],var)
 
-
-            self.out.fillBranch('leptonSF_1l_br%s'%var, leptonSF_1l_br)
-            self.out.fillBranch('leptonSF_1l_sr%s'%var, leptonSF_1l_sr)
             self.out.fillBranch('leptonSF_2l_br%s'%var, leptonSF_2l_br)
             self.out.fillBranch('leptonSF_2l_sr%s'%var, leptonSF_2l_sr)
             self.out.fillBranch('leptonSF_3l_br%s'%var, leptonSF_3l_br)
             self.out.fillBranch('leptonSF_3l_sr%s'%var, leptonSF_3l_sr)
-            self.out.fillBranch('leptonSF_4l_br%s'%var, leptonSF_4l_br)
-            self.out.fillBranch('leptonSF_4l_sr%s'%var, leptonSF_4l_sr)
 
         for var in '_ele_up,_ele_dn,_mu_up,_mu_dn'.split(','):
-            leptonSF_1l_br = 1
-            leptonSF_1l_sr = 1
             leptonSF_2l_br = 1
             leptonSF_2l_sr = 1
             leptonSF_3l_br = 1
             leptonSF_3l_sr = 1
-            leptonSF_4l_br = 1
-            leptonSF_4l_sr = 1
-
-            if len(leps) >= 1:
-                leptonSF_1l_br = self.getRecoToLoose(leps[0],var)
-                leptonSF_1l_sr = leptonSF_1l_br * self.getLooseToTight(leps[0],var)
 
             if len(leps) >= 2:
                 leptonSF_2l_br = self.getRecoToLoose(leps[0],var) * self.getRecoToLoose(leps[1],var)
@@ -141,18 +113,11 @@ class lepScaleFactors_WZ5TeV(Module):
                 leptonSF_3l_br = self.getRecoToLoose(leps[0],var) * self.getRecoToLoose(leps[1],var) * self.getRecoToLoose(leps[2],var)
                 leptonSF_3l_sr = leptonSF_3l_br * self.getLooseToTight(lepsW,var) * self.getLooseToTight(lepsZ1,var)
 
-            if len(leps) >= 4:
-                leptonSF_4l_br = self.getRecoToLoose(leps[0],var) * self.getRecoToLoose(leps[1],var) * self.getRecoToLoose(leps[2],var)* self.getRecoToLoose(leps[3],var)
-                leptonSF_4l_sr = leptonSF_4l_br * self.getLooseToTight(leps[0],var) * self.getLooseToTight(leps[1],var) * self.getLooseToTight(leps[2],var) * self.getLooseToTight(leps[3],var)
 
-            self.out.fillBranch('leptonSF_1l_br%s'%var, leptonSF_1l_br)
-            self.out.fillBranch('leptonSF_1l_sr%s'%var, leptonSF_1l_sr)
             self.out.fillBranch('leptonSF_2l_br%s'%var, leptonSF_2l_br)
             self.out.fillBranch('leptonSF_2l_sr%s'%var, leptonSF_2l_sr)
             self.out.fillBranch('leptonSF_3l_br%s'%var, leptonSF_3l_br)
             self.out.fillBranch('leptonSF_3l_sr%s'%var, leptonSF_3l_sr)
-            self.out.fillBranch('leptonSF_4l_br%s'%var, leptonSF_4l_br)
-            self.out.fillBranch('leptonSF_4l_sr%s'%var, leptonSF_4l_sr)
         
 
         return True

@@ -4,6 +4,7 @@ cleanup: minMllAFAS > 12
 #trigger: Trigger_5TeV_1e || Trigger_5TeV_1m || Trigger_5TeV_2e || Trigger_5TeV_2m
 trigger: Trigger_5TeV_1e || Trigger_5TeV_1m
 pt2010: LepGood1_pt>20 && LepGood2_pt>10
+pt2020: LepGood1_pt>20 && LepGood2_pt>20; Disable=True
 etacut1: abs(LepGood1_pdgId) == 13 || (abs(LepGood1_pdgId) == 11 && (abs(LepGood1_eta)<1.479 || abs(LepGood1_eta)>1.566))
 etacut2: abs(LepGood2_pdgId) == 13 || (abs(LepGood2_pdgId) == 11 && (abs(LepGood2_eta)<1.479 || abs(LepGood2_eta)>1.566))
 TT: LepGood1_isLepTight && LepGood2_isLepTight
@@ -14,8 +15,7 @@ Zee_veto: abs(LepGood1_pdgId)!=11 || abs(LepGood2_pdgId) != 11 || abs(mass_2(Lep
 met25: MET_pt>25
 eleID: (abs(LepGood1_pdgId)!=11 || (LepGood1_convVeto && LepGood1_lostHits==0 && LepGood1_tightCharge>=2)) && (abs(LepGood2_pdgId)!=11 || (LepGood2_convVeto && LepGood2_lostHits==0 && LepGood2_tightCharge>=2))
 muTightCharge: (abs(LepGood1_pdgId)!=13 || LepGood1_tightCharge>=1) && (abs(LepGood2_pdgId)!=13 || LepGood2_tightCharge>=1)
-0jet : nJet25==0
-#pt2020: LepGood1_pt>20 && LepGood2_pt>20; Disable=False
+
 
 ##### CR
 crwjets: nLepTight==1; Disable=True
@@ -23,7 +23,7 @@ crwjets: nLepTight==1; Disable=True
 ##### channels
 ee : (abs(LepGood1_pdgId) + abs(LepGood2_pdgId)) == 22 ; Disable=True
 em : (abs(LepGood1_pdgId) + abs(LepGood2_pdgId)) == 24 ; Disable=True
-mm : (abs(LepGood1_pdgId) + abs(LepGood2_pdgId)) == 26 ; Disable=False
+mm : (abs(LepGood1_pdgId) + abs(LepGood2_pdgId)) == 26 ; Disable=True
 
 
 

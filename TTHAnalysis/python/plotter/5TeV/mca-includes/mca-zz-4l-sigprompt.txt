@@ -1,10 +1,7 @@
+WZ	: WZTo3LNu   : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kOrange
+
 ZZ+	: ZZTo4L     : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kGreen+2
 ZZ+	: ZZTo2L2Nu  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kGreen+2
 	
-#ZZ+      : DYJetsToLL_M10to50 : 9156 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kGreen+2
-#ZZ+      : DYJetsToLL_M50     : 2141 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kGreen+2 
-DY      : DYJetsToLL_M10to50 : 9156 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kGreen+2
-DY      : DYJetsToLL_M50     : 2141 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kGreen+2 
-
-WZ	: WZTo3LNu   : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kOrange
-
+ZZ+      : DYJetsToLL_M10to50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kGreen+2
+ZZ+      : DYJetsToLL_M50     : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0 && LepGood4_mcMatchId!=0) ; FillColor=ROOT.kGreen+2 

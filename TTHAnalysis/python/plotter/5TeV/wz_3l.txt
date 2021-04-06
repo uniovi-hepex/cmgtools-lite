@@ -15,8 +15,6 @@ TT: LepGoodW_isLepTight && LepGoodZ1_isLepTight
 m3l: m3l > 100 
 lWpt20: lW_pt > 20
 
-#allchannels: ( (abs(LepGood1_pdgId) + abs(LepGood2_pdgId) + abs(LepGood3_pdgId)) == 33 || (abs(LepGood1_pdgId) + abs(LepGood2_pdgId) + abs(LepGood3_pdgId)) == 35  || (abs(LepGood1_pdgId) + abs(LepGood2_pdgId) + abs(LepGood3_pdgId)) == 37 || (abs(LepGood1_pdgId) + abs(LepGood2_pdgId) + abs(LepGood3_pdgId)) == 39) 
-
 #SingleHLT: Trigger_5TeV_1e || Trigger_5TeV_1m; Disable=True
 
 ###  

@@ -1,4 +1,0 @@
-tot_weight: 1 : 1,0.5,1.5; XTitle = "Selected events", Legend='TR', MoreY=2.0
-mtW:   MTlW                                    : 28,0.,105.; XTitle="W transverse mass (GeV)", MoreY=1.3, YTitle="Events / 15 GeV"
-Zpt:   pt_2(LepGoodZ1_conePt,LepGoodZ1_phi,LepGoodZ2_conePt,LepGoodZ2_phi): 32,0.,160.; XTitle="Z #it{p}_{T} (GeV)", MoreY=1.3,, YTitle="Events / 20 GeV"
-

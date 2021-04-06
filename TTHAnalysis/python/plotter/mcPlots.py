@@ -150,25 +150,15 @@ def doTinyCmsPrelim(textLeft="_default_",textRight="_default_",hasExpo=False,tex
     elif lumi > 3.54e-2: lumitext = "%.0f pb^{-1}" % (lumi*1000)
     elif lumi > 3.54e-3: lumitext = "%.1f pb^{-1}" % (lumi*1000)
     else               : lumitext = "%.2f pb^{-1}" % (lumi*1000)
-    #lumitext = "%.1f fb^{-1}" % float(lumi)
-    lumitext = "%.0f pb^{-1}" % float(lumi*1000)
+    lumitext = "%.1f fb^{-1}" % float(lumi)
     textLeft = textLeft.replace("%(lumi)",lumitext)
     textRight = textRight.replace("%(lumi)",lumitext)
     if textLeft not in ['', None]:
         doSpam(textLeft, (.28 if hasExpo else 0.07 if doWide else .16)+xoffs, .955, .60+xoffs, .995, align=12, textSize=textSize)
     if textRight not in ['', None]:
         doSpam(textRight,(0.5 if doWide else .58)+xoffs, .955, .98+xoffs, .995, align=32, textSize=textSize)
-#WZ 3l mtW
-#def reMax(hist,hist2,islog,factorLin=1.7,factorLog=2.0,doWide=False):
-#WZ 3l Zpt
-#def reMax(hist,hist2,islog,factorLin=1.05,factorLog=2.0,doWide=False):
-#ZZ 2l met
+
 def reMax(hist,hist2,islog,factorLin=1.3,factorLog=2.0,doWide=False):
-#ZZ 2l mll
-#def reMax(hist,hist2,islog,factorLin=1.5,factorLog=2.0,doWide=False):
-#WW and ZZ pt
-#def reMax(hist,hist2,islog,factorLin=1.08,factorLog=2.0,doWide=False):
-#def reMax(hist,hist2,islog,factorLin=1.07,factorLog=2.0,doWide=False):
     if  hist.ClassName() == 'THStack':
         hist = hist.GetHistogram()
     max0 = hist.GetMaximum()
@@ -187,7 +177,6 @@ def reMax(hist,hist2,islog,factorLin=1.3,factorLog=2.0,doWide=False):
 def doShadedUncertainty(h):
     ret = h.graphAsymmTotalErrors()
     ret.SetFillStyle(3244);
-    ret.SetLineWidth(0);
     ret.SetFillColor(ROOT.kGray+2)
     ret.SetMarkerStyle(0)
     ret.Draw("PE2 SAME")
@@ -417,19 +406,15 @@ def doRatioHists(pspec,pmap,total,maxRange,fixRange=False,fitRatio=None,errorsOn
                 x    = ratio.GetX()[i]
                 div  = total.GetBinContent(total.GetXaxis().FindBin(x))
                 ratio.SetPoint(i, x, ratio.GetY()[i]/div if div > 0 else 0)
-                #ratio.SetPointError(i, ratio.GetErrorXlow(i), ratio.GetErrorXhigh(i), 
-                ratio.SetPointError(i, 0, 0, 
+                ratio.SetPointError(i, ratio.GetErrorXlow(i), ratio.GetErrorXhigh(i), 
                                        ratio.GetErrorYlow(i)/div  if div > 0 else 0, 
                                        ratio.GetErrorYhigh(i)/div if div > 0 else 0) 
-                                       #ratio.GetErrorYlow(i)/div  , 
-                                       #ratio.GetErrorYhigh(i)/div ) 
         else:
             ratio = pmap[numkey].Clone("data_div"); 
             ratio.Divide(total.raw())
         ratios.append(ratio)
     unity  = total.raw().Clone("")
     unityErr  = total.graphAsymmTotalErrors(relative=True)
-    #unityErr0 = total.graphAsymmTotalErrors(toadd=['stat'],relative=True)
     unityErr0 = total.graphAsymmTotalErrors(toadd=[],relative=True)
     rmin, rmax =  1,1
     for b in xrange(1,unity.GetNbinsX()+1):
@@ -456,21 +441,15 @@ def doRatioHists(pspec,pmap,total,maxRange,fixRange=False,fitRatio=None,errorsOn
     if (rmax > 2 and rmax <= 2.4): rmax = 2.4
     unity.SetMarkerStyle(1);
     unity.SetMarkerColor(ROOT.kBlue-7);
-    unityErr.SetFillStyle(3244);
-    unityErr.SetFillColor(ROOT.kGray+2)
-    unityErr.SetMarkerStyle(0)
-    #unityErr.Draw("PE2 SAME")
-
-    #unityErr.SetFillStyle(1001);
-    #unityErr.SetFillColor(ROOT.kCyan);
-    #unityErr.SetMarkerStyle(1);
-    #unityErr.SetMarkerColor(ROOT.kCyan);
+    unityErr.SetFillStyle(1001);
+    unityErr.SetFillColor(ROOT.kCyan);
+    unityErr.SetMarkerStyle(1);
+    unityErr.SetMarkerColor(ROOT.kCyan);
     unityErr0.SetFillStyle(1001);
     unityErr0.SetFillColor(ROOT.kBlue-7);
     unityErr0.SetMarkerStyle(1);
     unityErr0.SetMarkerColor(ROOT.kBlue-7);
-    #ROOT.gStyle.SetErrorX(0.5);
-    #ROOT.gStyle.SetErrorX(0);
+    ROOT.gStyle.SetErrorX(0.5);
     unity.Draw("AXIS");
     if errorsOnRef:
         unityErr.Draw("E2");
@@ -481,9 +460,9 @@ def doRatioHists(pspec,pmap,total,maxRange,fixRange=False,fitRatio=None,errorsOn
         unityErr0.SetFillStyle(3013);
         if errorsOnRef:
             unityErr0.Draw("E2 SAME");
-    #else:
-        #if errorsOnRef:
-            #unityErr0.Draw("E2 SAME");
+    else:
+        if errorsOnRef:
+            unityErr0.Draw("E2 SAME");
     unity.Draw("AXIS SAME");
     rmin = float(pspec.getOption("RMin",rmin))
     rmax = float(pspec.getOption("RMax",rmax))
@@ -522,13 +501,13 @@ def doRatioHists(pspec,pmap,total,maxRange,fixRange=False,fitRatio=None,errorsOn
         blist = binlabels.split(",")
         for i in range(1,unity.GetNbinsX()+1): 
             unity.GetXaxis().SetBinLabel(i,blist[i-1]) 
-    #ROOT.gStyle.SetErrorX(0);
+    #$ROOT.gStyle.SetErrorX(0.0);
     line = ROOT.TLine(unity.GetXaxis().GetXmin(),1,unity.GetXaxis().GetXmax(),1)
-    line.SetLineWidth(1);
-    #line.SetLineColor(58);
+    line.SetLineWidth(2);
+    line.SetLineColor(58);
     line.Draw("L")
     for ratio in ratios:
-        ratio.Draw("E1 SAME" if ratio.ClassName() != "TGraphAsymmErrors" else "PZ SAME");
+        ratio.Draw("E SAME" if ratio.ClassName() != "TGraphAsymmErrors" else "PZ SAME");
     leg0 = ROOT.TLegend(0.12 if doWide else 0.2, 0.84, 0.25 if doWide else 0.45, 0.94)
     leg0.SetFillColor(0)
     leg0.SetShadowColor(0)
@@ -536,15 +515,15 @@ def doRatioHists(pspec,pmap,total,maxRange,fixRange=False,fitRatio=None,errorsOn
     leg0.SetTextFont(42)
     leg0.SetTextSize(textSize*0.7/0.3)
     leg0.AddEntry(unityErr0, "stat. unc.", "F")
-    #if showStatTotLegend: leg0.Draw()
+    if showStatTotLegend: leg0.Draw()
     leg1 = ROOT.TLegend(0.25 if doWide else 0.45, 0.84, 0.38 if doWide else 0.7, 0.94)
     leg1.SetFillColor(0)
     leg1.SetShadowColor(0)
     leg1.SetLineColor(0)
     leg1.SetTextFont(42)
     leg1.SetTextSize(textSize*0.7/0.3)
-    leg1.AddEntry(unityErr, "Total unc.", "F")
-    #if showStatTotLegend: leg1.Draw()
+    leg1.AddEntry(unityErr, "total unc.", "F")
+    if showStatTotLegend: leg1.Draw()
     global legendratio0_, legendratio1_
     legendratio0_ = leg0
     legendratio1_ = leg1
@@ -593,8 +572,8 @@ def doLegend(pmap,mca,corner="TR",textSize=0.035,cutoff=1e-2,cutoffSignals=True,
             if mca.getProcessOption(p,'HideInLegend',False): continue
             if p in pmap and pmap[p].Integral() > (cutoff*total if cutoffSignals else 0): 
                 lbl = mca.getProcessOption(p,'Label',p)
-                #if signalPlotScale and signalPlotScale!=1: 
-                #    lbl=lbl+" x "+("%d"%signalPlotScale if floor(signalPlotScale)==signalPlotScale else "%.2f"%signalPlotScale)
+                if signalPlotScale and signalPlotScale!=1: 
+                    lbl=lbl+" x "+("%d"%signalPlotScale if floor(signalPlotScale)==signalPlotScale else "%.2f"%signalPlotScale)
                 myStyle = mcStyle if type(mcStyle) == str else mcStyle[0]
                 sigEntries.append( (pmap[p],lbl,myStyle) )
         backgrounds = mca.listBackgrounds(allProcs=True)
@@ -610,8 +589,7 @@ def doLegend(pmap,mca,corner="TR",textSize=0.035,cutoff=1e-2,cutoffSignals=True,
         if columns > 1: height = 1.3*height/columns
         (x1,y1,x2,y2) = (0.97-legWidth if doWide else .85-legWidth, .9 - height, .90, .91)
         if corner == "TR":
-            #(x1,y1,x2,y2) = (0.97-legWidth if doWide else .85-legWidth, .9 - height, .90, .91)
-            (x1,y1,x2,y2) = (0.97-legWidth if doWide else .9-legWidth, .8 - height, .90, .91)
+            (x1,y1,x2,y2) = (0.97-legWidth if doWide else .85-legWidth, .9 - height, .90, .91)
         elif corner == "TC":
             (x1,y1,x2,y2) = (.5, .9 - height, .55+legWidth, .91)
         elif corner == "TL":
@@ -634,13 +612,10 @@ def doLegend(pmap,mca,corner="TR",textSize=0.035,cutoff=1e-2,cutoffSignals=True,
         leg.SetNColumns(columns)
         entries = []
         if 'data' in pmap: 
-            #entries.append((pmap['data'].raw(), mca.getProcessOption('data','Label','Data', noThrow=True), 'LPE'))
-            entries.append((pmap['data'].raw(), mca.getProcessOption('data','Label','Data', noThrow=True), 'PE'))
+            entries.append((pmap['data'].raw(), mca.getProcessOption('data','Label','Data', noThrow=True), 'LPE'))
         for (plot,label,style) in sigEntries: entries.append((plot.raw(),label,style))
         for (plot,label,style) in  bgEntries: entries.append((plot.raw(),label,style))
-        #if totalError:  entries.append((totalError,"Total unc.","F"))
-        #if totalError:  entries.append((totalError,"Total uncertainty","F"))
-        if totalError:  entries.append((totalError,"Total uncertainty","F"))
+        if totalError:  entries.append((totalError,"Total unc.","F"))
         nrows = int(ceil(len(entries)/float(columns)))
         for r in xrange(nrows):
             for c in xrange(columns):
@@ -661,7 +636,6 @@ class PlotMaker:
         ROOT.gROOT.ProcessLine(".L smearer.cc+")
         ROOT.gStyle.SetOptStat(0)
         ROOT.gStyle.SetOptTitle(0)
-        ROOT.gStyle.SetErrorX(0)
         if self._options.perBin and not "txt" in self._options.printPlots: raise RuntimeError, "Error: cannot print yields per bin if txt option not given" 
  
     def run(self,mca,cuts,plots,makeStack=True,makeCanvas=True):
@@ -871,8 +845,7 @@ class PlotMaker:
                                 ref = pmap['data'].Integral() if 'data' in pmap else 1.0
                                 if (plot.Integral()): plot.Scale(ref/plot.Integral())
                             stack.Add(plot.raw())
-                            #total.SetMaximum(max(total.GetMaximum(),1.3*plot.GetMaximum()))
-                            total.SetMaximum(max(total.GetMaximum(),0.15*plot.GetMaximum()))
+                            total.SetMaximum(max(total.GetMaximum(),1.3*plot.GetMaximum()))
                         if self._options.errors and plotmode != "stack":
                             plot.SetMarkerColor(plot.GetFillColor())
                             plot.SetMarkerStyle(21)
@@ -898,8 +871,7 @@ class PlotMaker:
                 ROOT.gStyle.SetPadLeftMargin(600.*0.18/plotformat[0])
 
                 stack.Draw("GOFF")
-                ytitle = "Events" if not self._options.printBinning else "Events / %s GeV" %(self._options.printBinning)
-                #ytitle = "Events" if not self._options.printBinning else "Events / %s" %(self._options.printBinning)
+                ytitle = "Events" if not self._options.printBinning else "Events / %s" %(self._options.printBinning)
                 total.GetXaxis().SetTitleFont(42)
                 total.GetXaxis().SetTitleSize(0.05)
                 total.GetXaxis().SetTitleOffset(1.1)
@@ -939,7 +911,6 @@ class PlotMaker:
                     p1.Draw();
                     p2 = ROOT.TPad("pad2","pad2",0,0,1,0.30);
                     p2.SetTopMargin(0 if options.attachRatioPanel else 0.06);
-                    #p2.SetTopMargin(0 if options.attachRatioPanel else 0.03);
                     p2.SetBottomMargin(0.3);
                     p2.SetFillStyle(0);
                     p2.Draw();
@@ -961,8 +932,7 @@ class PlotMaker:
                     total.Draw("AXIS SAME")
                 else: 
                     if self._options.errors:
-                        #ROOT.gStyle.SetErrorX(0.0) #to remove horizontal error bars
-                        #ROOT.gStyle.SetErrorX(0.5)
+                        ROOT.gStyle.SetErrorX(0.5)
                         stack.Draw("SAME E NOSTACK")
                     else:
                         stack.Draw("SAME HIST NOSTACK")
@@ -974,20 +944,11 @@ class PlotMaker:
                 is2D = total.InheritsFrom("TH2")
                 if 'data' in pmap: 
                     if options.poisson and not is2D:
-                        #pdata = getDataPoissonErrors(pmap['data'], False, True)
                         pdata = getDataPoissonErrors(pmap['data'], True, True)
-                        if options.noxerrdata:
-                            for i in range(pdata.GetN()):
-                                pdata.SetPointEXlow(i,0)
-                                pdata.SetPointEXhigh(i,0)
-                                
                         pdata.Draw("PZ SAME")
-                        #pdata.Draw("E0 SAME")
                         pmap['data'].poissonGraph = pdata ## attach it so it doesn't get deleted
                     else:
-                        #pmap['data'].Draw("E SAME")
-                        #ROOT.gStyle.SetErrorX(0.000001) #to remove horizontal error bars
-                        pmap['data'].Draw("E1 SAME")
+                        pmap['data'].Draw("E SAME")
                     reMax(total,pmap['data'],islog,doWide=doWide)
                     if xblind[0] < xblind[1]:
                         blindbox = ROOT.TBox(xblind[0],total.GetYaxis().GetXmin(),xblind[1],total.GetMaximum())
@@ -1241,7 +1202,6 @@ def addPlotMakerOptions(parser, addAlsoMCAnalysis=True):
     parser.add_option("--cmsprel", dest="cmsprel", type="string", default="Preliminary", help="Additional text (Simulation, Preliminary, Internal)")
     parser.add_option("--cmssqrtS", dest="cmssqrtS", type="string", default="13 TeV", help="Sqrt of s to be written in the official CMS text.")
     parser.add_option("--printBin", dest="printBinning", type="string", default=None, help="Write 'Events/xx' instead of 'Events' on the y axis")
-    parser.add_option("--noxerrdata", dest="noxerrdata", action="store_true", default=False, help="Don't plot x error in data")
 
 if __name__ == "__main__":
     from optparse import OptionParser

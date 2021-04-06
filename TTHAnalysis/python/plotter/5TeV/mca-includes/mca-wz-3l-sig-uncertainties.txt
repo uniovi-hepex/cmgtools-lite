@@ -9,12 +9,9 @@ WZ_scales_6  : WZTo3LNu :  xsec : LHEScaleWeight[6]; genSumWeightName="LHEScaleS
 WZ_scales_7  : WZTo3LNu :  xsec : LHEScaleWeight[7]; genSumWeightName="LHEScaleSumw[7]/LHEScaleSumw[4]*genEventSumw", 
 WZ_scales_8  : WZTo3LNu :  xsec : LHEScaleWeight[8]; genSumWeightName="LHEScaleSumw[8]/LHEScaleSumw[4]*genEventSumw", 
 
-#weight : Alt$(LHEPdfWeight[0],1)
-#alt-norm : Alt$(LHEPdfSumw[0]/LHEScaleSumw[4]*genEventSumw,genEventSumw)
 
 ## pdf uncertainties:
-WZ_pdf_0  : WZTo3LNu  : xsec : LHEPdfWeight[0]  ; genSumWeightName="genEventSumw",  
-#WZ_pdf_0_alt  : WZTo3LNu  : xsec : LHEPdfSumw[0]/LHEScaleSumw[4]*genEventSumw  ; genSumWeightName="genEventSumw",  
+WZ_pdf_0  : WZTo3LNu  : xsec : LHEPdfWeight[0]  ; genSumWeightName="LHEPdfSumw[0]/LHEScaleSumw[4]*genEventSumw",  
 WZ_pdf_1  : WZTo3LNu  : xsec : LHEPdfWeight[1]  ; genSumWeightName="LHEPdfSumw[1]/LHEScaleSumw[4]*genEventSumw",  
 WZ_pdf_2  : WZTo3LNu  : xsec : LHEPdfWeight[2]  ; genSumWeightName="LHEPdfSumw[2]/LHEScaleSumw[4]*genEventSumw",  
 WZ_pdf_3  : WZTo3LNu  : xsec : LHEPdfWeight[3]  ; genSumWeightName="LHEPdfSumw[3]/LHEScaleSumw[4]*genEventSumw",  

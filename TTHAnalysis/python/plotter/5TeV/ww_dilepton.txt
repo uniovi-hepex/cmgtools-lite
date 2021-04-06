@@ -12,29 +12,10 @@ dilpt:   ptlep12>20
 dphill:  abs(dphilep12) < 2.8
 mtmin:  MTmin>20
 0jet: nJet25==0 
-#0jet: nJet25>1 || nJet25==1 
-nJet20: nJet20==0; Disable=True 
-nJet22: nJet22==0; Disable=True 
-nJet27: nJet27==0; Disable=True 
-nJet30: nJet30==0; Disable=True 
-nJet35: nJet35==0; Disable=True 
-nJet40: nJet40==0; Disable=True 
-noTight: !LepGood1_isLepTight || !LepGood2_isLepTight; Disable=True
-#0jet: if3(nJetSel_Recl>0,Sum$(JetSel_Recl_pt>25)==0,1) 
-#0jet: Sum$(JetSel_Recl_pt>35)==0 
-#0jet: !(if3(nJetSel_Recl>0, JetSel_Recl_pt[0]>25,0)) 
-
-#0jet: nJet40==0 
-#exclusive: nLepTight<=2
-#0jet: (nJetSel_Recl>0 && JetSel_Recl_pt[0]<25) || nJetSel_Recl==0 
 1jet: nJet25==1 && nBJetLoose25==0; Disable=True
 
 ee: abs(LepGood1_pdgId)==11 && abs(LepGood2_pdgId)==11; Disable=True
 mm: abs(LepGood1_pdgId)==13 && abs(LepGood2_pdgId)==13; Disable=True
-#mZveto: mZ1>80 && mZ1<100; Disable=True
-mZveto: mZ1<80 || mZ1>100; Disable=True
-wjetscr: (LepGood1_pdgId*LepGood2_pdgId)>0 ; Disable=True
-#wjetscr: (LepGood1_pdgId*LepGood2_pdgId)>0 && ((abs(LepGood1_pdgId)!=11 || (LepGood1_convVeto && LepGood1_lostHits==0 && LepGood1_tightCharge>=2)) && (abs(LepGood2_pdgId)!=11 || (LepGood2_convVeto && LepGood2_lostHits==0 && LepGood2_tightCharge>=2))) && ((abs(LepGood1_pdgId)!=13 || LepGood1_tightCharge>=1) && (abs(LepGood2_pdgId)!=13 || LepGood2_tightCharge>=1)); Disable=True
 
 
 

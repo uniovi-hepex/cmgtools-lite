@@ -1,9 +1,0 @@
-WZ+	: WZTo3LNu   : xsec*1.065 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0) ; FillColor=ROOT.kOrange
-#WZ+	: WZTo3LNu   : xsec*1.065*0.633 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0) ; FillColor=ROOT.kOrange
-
-ZZ	: ZZTo2L2Nu  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0) ; FillColor=ROOT.kGreen+2
-ZZ	: ZZTo4L     : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && LepGood3_mcMatchId!=0) ; FillColor=ROOT.kGreen+2
-	
-
-
-

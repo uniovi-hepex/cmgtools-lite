@@ -1,3 +1,0 @@
-tot_weight: 1 : 1,0.5,1.5; XTitle = "Selected events", Legend='TR', MoreY=2.0
-#
-met: 		MET_pt					: 40,0,200 ; XTitle="E_{T}^{miss} (GeV)"

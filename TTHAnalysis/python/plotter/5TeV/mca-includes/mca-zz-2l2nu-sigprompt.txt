@@ -1,18 +1,16 @@
 ZZ+	: ZZTo2L2Nu  : xsec	   : LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0; FillColor=ROOT.kGreen+2
 ZZ+	: ZZTo4L     : xsec   	   : LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0; FillColor=ROOT.kGreen+2
-
 WZ 	: WZTo3LNu   : xsec*1.065  : LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0; FillColor=ROOT.kOrange
 WW	: WWTo2L2Nu  : xsec*1.1095 : LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0; FillColor=ROOT.kTeal+5
 
+TT	: TT	       		   : xsec :  (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0) ; FillColor=ROOT.kRed+1, label="top"
+TT	: T_tWch_noFullyHad 	   : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0) ; FillColor=ROOT.kRed+1, label="top"
+TT	: TBar_tWch_noFullyHad 	   : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0) ; FillColor=ROOT.kRed+1, label="top"
 
-DY   : DYJetsToLL_M10to50 : 9156 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
-DY   : DYJetsToLL_M50 	  : 2141 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
-#DY   : DY0JetsToLL_M50 	  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
-#DY   : DY1JetsToLL_M50 	  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
-#DY   : DY2JetsToLL_M50 	  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
-#DY   : DY3JetsToLL_M50 	  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
+DY   : DYJetsToLL_M10to50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
+DY   : DY0JetsToLL_M50 	  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
+DY   : DY1JetsToLL_M50 	  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
+DY   : DY2JetsToLL_M50 	  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
+DY   : DY3JetsToLL_M50 	  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 ) ; FillColor=ROOT.kCyan+1
 
-Top	: TT	       		   : xsec :  (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0) ; FillColor=ROOT.kRed+1
-Top	: T_tWch_noFullyHad 	   : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0) ; FillColor=ROOT.kRed+1
-Top	: TBar_tWch_noFullyHad 	   : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0) ; FillColor=ROOT.kRed+1
 

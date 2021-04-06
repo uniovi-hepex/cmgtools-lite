@@ -2,12 +2,11 @@ Flips	: TT	: xsec	:  (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGoo
 Flips	: T_tWch_noFullyHad : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
 Flips	: TBar_tWch_noFullyHad : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
 
-Flips	: DYJetsToLL_M10to50 : 9156 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
-Flips   : DYJetsToLL_M50 : 2141 : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
-#Flips   : DY0JetsToLL_M50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
-#Flips   : DY1JetsToLL_M50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
-#Flips   : DY2JetsToLL_M50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
-#Flips   : DY3JetsToLL_M50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
+Flips	: DYJetsToLL_M10to50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
+Flips   : DY0JetsToLL_M50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
+Flips   : DY1JetsToLL_M50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
+Flips   : DY2JetsToLL_M50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
+Flips   : DY3JetsToLL_M50 : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
 
 Flips   : WZTo3LNu  : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
 Flips	: WWTo2L2Nu : xsec : (LepGood1_mcMatchId!=0 && LepGood2_mcMatchId!=0 && !(LepGood1_isMatchRightCharge && LepGood2_isMatchRightCharge)) ; FillColor=ROOT.kCyan+1
