@@ -16,16 +16,16 @@ echo -e "$CYAN WARNING!! Remember that you are using the $year dataset!! :D"
 
 function measure_efficiency() {
     # Computes the efficiency using mcPlots
-    extra=$1 
+    extra=$3 
     mca="wz-run3/inclusive_xsec/mca-eff.txt"
     cuts="wz-run3/inclusive_xsec/cuts-total.txt"
     outname="wz-run3/inclusive_xsec/efficiency/$year"
-
     basecmd="python3 wz-run3/wz-run.py plot"
     basecmd="$basecmd --ncores 32" # Add cores
     basecmd="$basecmd --mca $mca" # add mca
     basecmd="$basecmd --cutfile $cuts" # add cuts
-    basecmd="$basecmd --mcpath /lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v2/mc_unskim_Jan2024" #Use unSkim samples trees
+    #basecmd="$basecmd --mcpath /lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v2/mc_unskim_Jan2024" #Use unSkim samples trees
+    basecmd="$basecmd --mcpath /lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v2/mc"
     ##For the year: 2022, 2022EE or all
     basecmd="$basecmd --year $year"
 
@@ -38,7 +38,7 @@ function measure_efficiency() {
     echo $cmd_den | bash
     ##Numerator: Reco
     echo -e "$GREEN Inclusive Fiducial Numerator: $NC"
-    cmd_num="$basecmd --extra '-E ^total -E ^lightleps -E ^fiducial -E ^SRWZ --sP tot_weight' --outname $outname/numerator/inclusive $extra"
+    cmd_num="$basecmd --extra '-E ^SRWZ --sP tot_weight' --outname $outname/numerator/inclusive $extra"
     echo $cmd_num | bash
 
 
@@ -48,7 +48,8 @@ function measure_efficiency() {
     echo $cmd_den | bash
     ##Numerator: Reco
     echo -e "$GREEN Fiducial Numerator eee: $NC"
-    cmd_num="$basecmd --extra '-E ^total -E ^lightleps -E ^fiducial -E ^SRWZ -E ^eeegen -E ^eee --sP tot_weight' --outname $outname/numerator/eee $extra"
+    cmd_num="$basecmd --extra '-E ^SRWZ -E ^flav_eee --sP tot_weight' --outname $outname/numerator/eee $extra"
+    #cmd_num="$basecmd --extra '-E ^SRWZ -E ^eeegen -E ^eee --sP tot_weight' --outname $outname/numerator/eee $extra"
     echo $cmd_num | bash
 
 
@@ -58,7 +59,7 @@ function measure_efficiency() {
     echo $cmd_den | bash
     ##Numerator: Reco
     echo -e "$GREEN Fiducial Numerator eem: $NC"
-    cmd_num="$basecmd --extra '-E ^total -E ^lightleps -E ^fiducial -E ^SRWZ -E ^eemgen -E ^eem --sP tot_weight' --outname $outname/numerator/eem $extra"
+    cmd_num="$basecmd --extra '-E ^SRWZ -E ^flav_eem --sP tot_weight' --outname $outname/numerator/eem $extra"
     echo $cmd_num | bash
 
 
@@ -68,7 +69,7 @@ function measure_efficiency() {
     echo $cmd_den | bash
     ##Numerator: Reco
     echo -e "$GREEN Fiducial Numerator mme: $NC"
-    cmd_num="$basecmd --extra '-E ^total -E ^lightleps -E ^fiducial -E ^SRWZ -E ^mmegen  -E ^mme --sP tot_weight' --outname $outname/numerator/mme $extra"
+    cmd_num="$basecmd --extra '-E ^SRWZ -E ^flav_mme --sP tot_weight' --outname $outname/numerator/mme $extra"
     echo $cmd_num | bash
 
 
@@ -78,7 +79,7 @@ function measure_efficiency() {
     echo $cmd_den | bash
     ##Numerator: Reco
     echo -e "$GREEN Fiducial Numerator mmm: $NC"
-    cmd_num="$basecmd --extra '-E ^total -E ^lightleps -E ^fiducial -E ^SRWZ -E ^mmmgen -E ^mmm --sP tot_weight' --outname $outname/numerator/mmm $extra"
+    cmd_num="$basecmd --extra '-E ^SRWZ -E ^flav_mmm --sP tot_weight' --outname $outname/numerator/mmm $extra"
     echo $cmd_num | bash
 
     # Make the command for the denominator (unweight events)
@@ -105,28 +106,28 @@ function measure_acceptance() {
     case $sample in
         pow)
             mca="wz-run3/inclusive_xsec/mca-acc-powheg.txt"
-            outname="wz-run3/inclusive_xsec/acceptance_powheg"
+            outname="wz-run3/inclusive_xsec/acceptance_powheg/$year"
             ;;
         amc)
             mca="wz-run3/inclusive_xsec/mca-acc-amcnlo.txt"
-            outname="wz-run3/inclusive_xsec/acceptance_amcnlo"
+            outname="wz-run3/inclusive_xsec/acceptance_amcnlo/$year"
     esac
     
     cuts="wz-run3/inclusive_xsec/cuts-total.txt"
 
     basecmd="python3 wz-run3/wz-run.py plot"
-    basecmd="$basecmd --ncores 12" # Add cores
-    basecmd="$basecmd --mca $mca" # add mca
+    basecmd="$basecmd --ncores 32" # Add cores
+    basecmd="$basecmd --mca $mca"
+    basecmd="$basecmd --uncfile wz-run3/inclusive_xsec/systs-acc.txt --unc  "
     basecmd="$basecmd --cutfile $cuts" # add cuts
     basecmd="$basecmd --unweight " # Unweight everything since this is fiducial level
     basecmd="$basecmd --unfriend " # There are no friend trees for the acceptance sample
     basecmd="$basecmd --mcpath $mcpath " # Unweight everything since this is fiducial level
-
     basecmd="$basecmd --year $year"
 
     #cmd_den="$basecmd --extra '-E ^total -E ^lightleps -E ^fiducial --sP tot_weight' --unweight --outname $outname/denominator/inclusive $extra"
- 
 
+    #echo $basecmd 
     echo -e "$PURPLE >> Computing acceptance ($sample) $NC"
 
     #INCLUSIVE

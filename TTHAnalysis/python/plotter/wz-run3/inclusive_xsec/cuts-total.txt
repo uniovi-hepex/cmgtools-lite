@@ -11,8 +11,8 @@ mmegen : abs(genLepZ1_pdgId) + abs(genLepZ2_pdgId) + abs(genLepW_pdgId) == 37; D
 mmmgen : abs(genLepZ1_pdgId) + abs(genLepZ2_pdgId) + abs(genLepW_pdgId) == 39; Disable=True
 
 # To categorize at reco level
-eee    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 0; Disable=True
-eem    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 1; Disable=True
-mme    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 2; Disable=True
-mmm    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 3; Disable=True
+flav_eee    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 0; Disable=True
+flav_eem    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 1; Disable=True
+flav_mme    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 2; Disable=True
+flav_mmm    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 3; Disable=True
 

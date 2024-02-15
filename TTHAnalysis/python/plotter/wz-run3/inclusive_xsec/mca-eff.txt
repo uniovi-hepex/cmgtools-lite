@@ -1,1 +1,1 @@
-prompt_WZ : WZto3LNu_pow* : 5.31 ; FillColor=ROOT.kOrange
+prompt_WZ : WZto3LNu* : 5.31 ; FillColor=ROOT.kOrange
