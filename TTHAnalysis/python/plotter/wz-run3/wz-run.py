@@ -10,6 +10,7 @@ from utils.producer import producer
 from utils.postprocessor_producer import postprocessor_producer
 from utils.ftree_producer import ftree_producer
 from utils.plot_producer import plot_producer
+from utils.dump_producer import dump_producer
 from utils.card_producer import card_producer
 from cfgs.samplepaths import samplepaths as paths
 
@@ -19,6 +20,7 @@ producers = {
  "postproc" : postprocessor_producer,
  "friend"   : ftree_producer,
  "plot"     : plot_producer,
+ "dump"     : dump_producer,
  "card"     : card_producer,
 }
 
