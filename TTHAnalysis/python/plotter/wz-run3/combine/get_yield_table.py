@@ -3,7 +3,7 @@ import ROOT as r
 import sys, os, re
 import math
 sys.path.append( os.path.join(os.environ["CMSSW_BASE"], "src/CMGTools/TTHAnalysis/python/plotter/wz-run3"))
-from logistics.make_latex_table import dict_to_latex_table
+from scripts.make_latex_table import dict_to_latex_table
 from optparse import OptionParser
 
 caption="""
@@ -70,13 +70,13 @@ def get_yields( inpath, maps ):
         if channel_name == "mmm": binIndex = 4
 
         direch = dire.Get( ch )
-        color_msg(f"Considering channel {ch}", "blue")
+        color_msg("Considering channel %s"%ch, "blue")
         for prockey in direch.GetListOfKeys():
             procname = prockey.GetName()
             if procname in ["data", "total", "prompt_WZ",  "prompt_WZ_nonfiducial", "total_covar"]: continue
             proch = direch.Get( procname )
-            color_msg(f"Considering process {procname}", "green", 1)
-            color_msg(f"Summing {proch.Integral()}", indentlevel = 2)
+            color_msg("Considering process %s"%procname, "green", 1)
+            color_msg("Summing %3.2f"%proch.Integral(), indentlevel = 2)
 
             if procname not in yields[channel_name]:
                 yields[channel_name][procname] = [proch.GetBinContent(binIndex), proch.GetBinError(binIndex)]
@@ -111,9 +111,9 @@ def format_table( yields ):
         for ch in yields.keys():
             if proc in yields[ch]:
                 format = "3.0f" if yields[ch][proc][0] > 1 else "3.1f"
-                table[ch].append( f"{yields[ch][proc][0]:{format}} $\pm$ {yields[ch][proc][1]:{format}} " )
+                table[ch].append( "%3.2f $\pm$ %3.2f "%(yields[ch][proc][0], yields[ch][proc][1]) )
             else:
-                table[ch].append( f"0 $\pm$ 0 " )
+                table[ch].append( "0 $\pm$ 0 " )
 
     return table
 
