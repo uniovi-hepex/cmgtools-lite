@@ -1,0 +1,67 @@
+# vim: syntax=sh
+
+# ---------------------------------- #
+# PLOTS DEFINED FOR THE WZ ANALYSIS  #
+# ---------------------------------- #
+
+# ---------- Yield plots ---------- #  
+tot_weight : 1 : 1,0,2 ; XTitle ="Yields"
+
+# ---------- LEPTON PLOTS ---------- #  
+#nLepTight : 4*(abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2 + (LepSel_isTight[0]) + (LepSel_isTight[1])+ (LepSel_isTight[2]) : 16,-0.5,15.5 ; XTitle="nMuon*4+nTight", IncludeOverflow=True,  
+nOSSF : nOSSF_3l : 5,0,5 ; XTitle="nOSSF", IncludeOverflow=True, Logy
+
+
+# + Kinematics of the leading lepton coming from Z
+lepZ1_pt  : LepZ1_pt   : 20,20,300   ; YTitle="Events", XTitle="p_{T\,cone}(Z1 lep.)", Logy
+lepZ1_eta : LepZ1_eta  : 10,-2.5,2.5 ; YTitle="Events", XTitle="#eta(Z1 lep.)", Logy
+lepZ1_phi : LepZ1_phi  : 10,-3.15,3.15; YTitle="Events", XTitle="#phi(Z1 lep.)", Logy
+
+# + Kinematics of the subleading lepton coming from Z
+lepZ2_pt  : LepZ2_pt   : 20,20,300   ; YTitle="Events", XTitle="p_{T\,cone}(Z2 lep.)", Logy
+lepZ2_eta : LepZ2_eta  : 10,-2.5,2.5 ; YTitle="Events", XTitle="#eta(Z2 lep.)", Logy
+lepZ2_phi : LepZ2_phi  : 10,-3.15,3.15; YTitle="Events", XTitle="#phi(Z2 lep.)", Logy
+
+# + Kinematics of the lepton coming from W
+lepW_pt   : LepW_pt    : 20,20,300   ; YTitle="Events", XTitle="p_{T\,cone}(W lep.)", Logy
+lepW_phi  : LepW_phi   : 10,-3.15,3.15; YTitle="Events", XTitle="#phi(W lep.)", Logy
+lepW_eta  : LepW_eta   : 10,-2.5,2.5 ; YTitle="Events", XTitle="#eta(W lep.)", Logy
+
+# + Kinematics of the leptons without tagging
+lep1_pt       : LepSel_pt[0] : 20,20,180  ; XTitle="p_{T}(l1) [GeV]", MoreY=1.5, Logy
+lep2_pt       : LepSel_pt[1] : 20,20,180  ; XTitle="p_{T}(l2) [GeV]", MoreY=1.5, Logy
+#lep3_pt       : LepSel_pt[2] : 20,20,180  ; XTitle="p_{T}(l3) [GeV]", MoreY=1.5
+
+# + Kinematics of the Z pair
+mllZ  : mass_2(LepSel_pt[0],LepSel_eta[0], LepSel_phi[0],0, LepSel_pt[1], LepSel_eta[1], LepSel_phi[1],0): 10,70,120 ; XTitle="M_{Z} (GeV)", Legend="TR", Logy,YMin=0.1
+
+# + Lepton MVA discriminants
+mvatth_legacy   : LepGood_mvaTTH : 20,-1,1; XTitle="mvaTTH score", Logy, Legend='TL', MoreY=1.5
+mvatth_df_iso   : LepGood_mvaTTH_run3_withDF_withISO   : 20,-1,1; XTitle="mvaTTH score", Logy, Legend='TL', MoreY=1.5
+mvatth_df_noiso : LepGood_mvaTTH_run3_withDF_withNoISO : 20,-1,1; XTitle="mvaTTH score", Logy, Legend='TL', MoreY=1.5
+
+
+# + Lepton MVA input variables
+# Leading lepton
+mva_lep1_pt                 : LepGood_pt[0]                                             : 20, 10, 180; XTitle="p_{T} (l1) [GeV]", Logy
+mva_lep1_eta                : LepGood_eta[0]                                            : 20, -2.4, 2.4; XTitle="#eta(l1) [GeV]", Logy, YMin=0.1
+mva_lep1_pfRelIso03_all     : LepGood_pfRelIso03_all[0]                                 : 20, 0, 0.04; XTitle="Relative PF ISO (l1)", Logy, MoreY=1.5
+mva_lep1_minireliso_chg     : LepGood_miniPFRelIso_chg[0]                               : 20, 0, 0.04; XTitle="Mini relative ISO of charged cands. (l1)", Logy, MoreY=1.5
+mva_lep1_minireliso_neutral : LepGood_miniPFRelIso_all[0] - LepGood_miniPFRelIso_chg[0] : 20, 0, 0.04; XTitle="Mini relative ISO of neutral cands. (l1)", Logy, MoreY=1.5
+mva_lep1_jetNDauCharged     : LepGood_jetNDauCharged[0]                                 : 20, 0.4, 1.0; XTitle="Number of close charged daughters (l1)", Logy, MoreY=2.5,Legend="TL"
+mva_lep1_relv2              : LepGood_jetPtRelv2[0]                                     : 20, 0, 40; XTitle="jet p_{T} relv2 (l1)", Logy
+mva_lep1_logdxyabs          : abs_log(LepGood_dxy[0])                                   : 20, -12, -2; XTitle="|log(dxy)| (l1)", Logy
+mva_lep1_logdzabs           : abs_log(LepGood_dz[0])                                    : 20, -12, -2; XTitle="|log(dxy)| (l1)", Logy
+mva_lep1_sip3d              : LepGood_sip3d[0]                                          : 20, 0, 8; XTitle="sip3d (l1)", Logy
+
+# SubLeading lepton
+mva_lep2_pt                 : LepGood_pt[1]                                             : 20, 10, 180; XTitle="p_{T} (l2) [GeV]", Logy
+mva_lep2_eta                : LepGood_eta[1]                                            : 20, -2.4, 2.4; XTitle="#eta(l2) [GeV]", Logy, YMin=0.1
+mva_lep2_pfRelIso03_all     : LepGood_pfRelIso03_all[1]                                 : 20, 0, 0.04; XTitle="Relative PF ISO (l2)", Logy, MoreY=1.5
+mva_lep2_minireliso_chg     : LepGood_miniPFRelIso_chg[1]                               : 20, 0, 0.04; XTitle="Mini relative ISO of charged cands. (l2)", Logy, MoreY=1.5
+mva_lep2_minireliso_neutral : LepGood_miniPFRelIso_all[1] - LepGood_miniPFRelIso_chg[1] : 20, 0, 0.04; XTitle="Mini relative ISO of neutral cands. (l2)", Logy, MoreY=1.5
+mva_lep2_jetNDauCharged     : LepGood_jetNDauCharged[1]                                 : 20, 0.4, 1.0; XTitle="Number of close charged daughters (l2)", Logy, MoreY=2.5,Legend="TL"
+mva_lep2_relv2              : LepGood_jetPtRelv2[1]                                     : 20, 0, 40; XTitle="jet p_{T} relv2 (l2)", Logy
+mva_lep2_logdxyabs          : abs_log(LepGood_dxy[1])                                   : 20, -12, -2; XTitle="|log(dxy)| (l2)", Logy
+mva_lep2_logdzabs           : abs_log(LepGood_dz[1])                                    : 20, -12, -2; XTitle="|log(dxy)| (l2)", Logy
+mva_lep2_sip3d              : LepGood_sip3d[1]                                          : 20, 0, 8; XTitle="sip3d (l2)", Logy

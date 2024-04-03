@@ -1,0 +1,32 @@
+## Data
+data: Muon_Run2022F_part1+Muon_Run2022F_part3+Muon_Run2022F_part2; Label="data"
+data: EGamma_Run2022F_part1+EGamma_Run2022F_part2; Label="data"
+data: MuonEG_Run2022F; Label="data"
+data: Muon_Run2022G; Label="data"
+data: EGamma_Run2022G; Label="data"
+data: MuonEG_Run2022G; Label="data"
+
+
+
+## TOP 
+TOP: TTto2L2Nu*     : 97.4488  ;FillColor=ROOT.kGray+2 , Label="TOP", genSumWeightName="genEventSumw"
+TOP: TWminusto*     : 23.8979  ;FillColor=ROOT.kGray+2 , Label="TOP", genSumWeightName="genEventSumw"
+TOP: TbarWplus*     : 23.8979  ;FillColor=ROOT.kGray+2 , Label="TOP", genSumWeightName="genEventSumw"
+TOP: TTLL_MLL_50    : 0.08646  ;FillColor=ROOT.kGray+2, Label="TOP", genSumWeightName="genEventSumw"
+TOP: TTLL_MLL_4to50 : 0.03949  ;FillColor=ROOT.kGray+2, Label="TOP", genSumWeightName="genEventSumw"
+
+Fakes_TOP: TTtoLNu2Q*: 403.25  ;FillColor=ROOT.kRed+1 , Label="TOP semilep", genSumWeightName="genEventSumw"
+
+## EWK
+VV: ZZto2L2Q*                : 8.08     ;FillColor=ROOT.kGreen+2, Label="VV", genSumWeightName="genEventSumw"
+VV: ZZto2L2Nu*               : 1.19     ;FillColor=ROOT.kGreen+2, Label="VV", genSumWeightName="genEventSumw"
+VV: WWto2L2Nu*               : 12.98    ;FillColor=ROOT.kGreen+2, Label="VV", genSumWeightName="genEventSumw"
+DY+: DYto2L_2Jets_MLL_50*    : 6345.99  ;FillColor=ROOT.kAzure-3, Label="DY", genSumWeightName="genEventSumw"
+DY+: DYto2L_2Jets_MLL_10to50 : 19982.5  ;FillColor=ROOT.kAzure-3, Label="DY", genSumWeightName="genEventSumw"
+
+## WtoLNu_2Jets
+Wjets: WtoLNu_2Jet*: 64481.58  ;FillColor=ROOT.kViolet+7, Label="Wjets", genSumWeightName="genEventSumw"
+
+
+
+

@@ -1,0 +1,33 @@
+# vim: syntax=sh
+
+# -- Systematic uncertainties file for WZ analyis -- #
+
+### Alias definitions
+# fakes
+$alias : DY     : .*DY.*
+$alias : TOP     : .*TOP.*
+$alias : Wjets  : .*Wjets
+$alias : allProcs  : $DY|$TOP|$Wjets
+
+## Lumi uncertainties 
+lumi_2022_early  : $allProcs  : .*  : normSymm  :1.022
+
+## JECs 
+jesHF                  : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesHFUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesHFDown.txt'] 
+jesBBEC1_year          : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesBBEC1_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesBBEC1_yearDown.txt']
+jesFlavorQCD           : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesFlavorQCDUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesFlavorQCDDown.txt'] 
+jesRelativeSample_year : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesRelativeSample_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesRelativeSample_yearDown.txt'] 
+jesEC2                 : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesEC2Up.txt'\,'wz-run3/common/frs-jec/fr-standard-jesEC2Down.txt'] 
+jesHF_year             : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesHF_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesHF_yearDown.txt'] 
+jesRelativeBal         : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesRelativeBalUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesRelativeBalDown.txt'] 
+jesAbsolute_year       : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesAbsolute_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesAbsolute_yearDown.txt'] 
+jesBBEC1               : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesBBEC1Up.txt'\,'wz-run3/common/frs-jec/fr-standard-jesBBEC1Down.txt'] 
+jesEC2_year            : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesEC2_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesEC2_yearDown.txt'] 
+jesAbsolute            : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesAbsoluteUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesAbsoluteDown.txt']
+
+## Lepton SFs 
+#elecidsf : $allProcs : .* : templateAsymm; AddWeights=["electronSF_Up/electronSF"\,"electronSF_Down/electronSF"]
+muonidsf_ID : $allProcs : .* : templateAsymm; AddWeights=["muonSF_IDTightUp/muonSF"\,"muonSF_IDTightDown/muonSF"]
+
+## Pileup
+pileup : $allProcs : .* : templateAsymm; AddWeights=["puWeight_up/puWeight"\,"puWeight_dn/puWeight"]
