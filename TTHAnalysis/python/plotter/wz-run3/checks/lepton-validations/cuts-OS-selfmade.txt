@@ -1,0 +1,39 @@
+# --- Cut file for 2L OS selections
+filters : $DATA{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter} $MC{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter}
+
+trigger : Trigger_ee || Trigger_em || Trigger_mm || Trigger_se || Trigger_sm
+dilep : nLepGood == 2
+
+# Define your leptons
+lep1_pt               : LepGood_correctedpt[0] > 25
+lep1_eta              : abs(LepGood_eta[0]) < 2.5
+eInvMinusPInv_lep1    : LepGood_eInvMinusPInv[0]>-0.04
+hoe_lep1              : LepGood_hoe[0] < 0.10
+#sieie_lep1            : LepGood_sieie[0] < (0.011-(-0.019)*(abs((LepGood_deltaEtaSC[0])-(-LepGood_eta[0]))>1.479))
+sieie_lep1            : LepGood_sieie[0] < (0.011-(-0.019)*(abs(LepGood_eta[0])>1.479))
+convVeto_lep1         : LepGood_convVeto[0] 
+lostHits_lep1         : LepGood_lostHits[0] == 0
+#jetBTagDeepFlavB_lep1 : LepGood_jetBTagDeepFlavB[0] < 0.3196
+mvaTTHRun3_lep1       : LepGood_mvaTTH_run3[0] > 0.97 
+
+lep2_pt               : LepGood_correctedpt[1] > 15
+lep2_eta              : abs(LepGood_eta[1]) < 2.5
+eInvMinusPInv_lep2    : LepGood_eInvMinusPInv[1]>-0.04
+hoe_lep2              : LepGood_hoe[1] < 0.10
+#sieie_lep2            : LepGood_sieie[1] < (0.011-(-0.019)*(abs((LepGood_deltaEtaSC[1])-(-LepGood_eta[1]))>1.479))
+sieie_lep2            : LepGood_sieie[1] < (0.011-(-0.019)*(abs(LepGood_eta[1])>1.479))
+convVeto_lep2         : LepGood_convVeto[1] 
+lostHits_lep2         : LepGood_lostHits[1] == 0
+#jetBTagDeepFlavB_lep2 : LepGood_jetBTagDeepFlavB[1] < 0.3196
+mvaTTHRun3_lep2       : LepGood_mvaTTH_run3[1] > 0.97 
+
+
+BRevent : abs(LepGood_pdgId[0]) < 15 && abs(LepGood_pdgId[1]) < 15
+btag    : nBJetMedium25_Mini == 0
+zPeak   : abs(mass_2(LepGood_correctedpt[0],LepGood_eta[0], LepGood_phi[0], 0, LepGood_correctedpt[1], LepGood_eta[1], LepGood_phi[1], 0) - 91.16) < 15
+
+lowmass : minMllSFOS_Mini > 20 || minMllSFOS_Mini == -1
+
+flav_mm : abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1]) == 26; Disable=True
+flav_ee : abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1]) == 22; Disable=True
+flav_em : abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1]) == 24; Disable=True
