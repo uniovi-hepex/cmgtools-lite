@@ -50,8 +50,8 @@ def create_rootfiles(mode, inpath, files, mva, outpath):
         collection = "Muon"
         presel = lambda lep: (lep.pt > 5 and
                             abs(lep.eta) < 2.4 and
-                            (lep.isGlobal == 1 or lep.isTracker == 1) and
-                            lep.isPFcand and
+                            #(lep.isGlobal == 1 or lep.isTracker == 1) and
+                            #lep.isPFcand and
                             lep.looseId == 1)
     elif mode == "electron":
         collection = "Electron"
@@ -112,38 +112,32 @@ if __name__ == "__main__":
     outpath = os.path.join("lepmva_results", year) 
     if not os.path.exists(outpath): 
         os.system("mkdir -p %s"%outpath)
+    if "muon_legacy" in mode:
+        function = mvacfgs.muon_legacy
+    if "muon_df_train_pt5_tth" in mode:
+        function = mvacfgs.muon_df_train_pt5_tth
+    elif "muon_df_train_pt5_ttw" in mode:
+        function = mvacfgs.muon_df_train_pt5_ttw
+    elif "muon_pnet_train_pt5_tth" in mode:
+        function = mvacfgs.muon_pnet_train_pt5_tth
+    elif "muon_pnet_train_pt5_ttw" in mode:
+        function = mvacfgs.muon_pnet_train_pt5_ttw
     
-    general_mode = mode.replace("_tth", "") 
-    if "electron_pnet" in mode and "Iso" not in mode:
-        function = mvacfgs.electron_pnet    
-    elif "electron_pnet_wNoIso" in mode:
-        function = mvacfgs.electron_pnet_wNoIso
-    elif "electron_pnet_wIso" in mode:
-        function = mvacfgs.electron_pnet_wIso
-    elif "electron_df" in mode and "Iso" not in mode:
-        function = mvacfgs.electron_df
-    elif "electron_df_wNoIso" in mode:
-        function = mvacfgs.electron_df_wNoIso
-    elif "electron_df_wIso" in mode:
-        function = mvacfgs.electron_df_wIso
     elif "electron_legacy" in mode:
         function = mvacfgs.electron_legacy
-    elif "muon_df" in mode:
-        function = mvacfgs.muon_df
-    elif "muon_pnet" in mode:
-        function = mvacfgs.muon_pnet
-    elif "muon_legacy" in mode:
-        function = mvacfgs.muon_legacy
-
-    if "tth" in mode:
-        # Modify the function so that the score it returns is just the raw score.
-        # This is because ttW preselection penalization.
-        cfg = function(year)
-        cfg.name = cfg.name + "_ttH"
-        cfg.convert = lambda s, lep: s 
-        cfg.xmlpath = cfg.xmlpath.replace("ttw", "tth")
-        function = lambda year : cfg 
-
+    elif "electron_mvaISO" in mode:
+        function = mvacfgs.electron_mvaISO
+    elif "electron_mvaNOISO" in mode: 
+        function = mvacfgs.electron_mvaNOISO
+    elif "electron_pnet_wIso" in mode:
+        function = mvacfgs.electron_pnet_wIso
+    elif "electron_df_wIso" in mode:
+        function = mvacfgs.electron_df_wIso
+    elif "electron_pnet" in mode: 
+        function = mvacfgs.electron_pnet
+    elif "electron_df" in mode:   
+        function = mvacfgs.electron_df
+        
     # Get files for input
     mode_to_function = "electron" if "electron" in mode else "muon"
     files = os.listdir(inpath)[:nfiles]

@@ -38,6 +38,8 @@ class mva_histo(object):
         for vname, v in self.vars_.items():
                 color_msg("    + Adding variable: %s "%vname) 
                 self.reader.AddVariable(v[0].name, v[0].var)
+
+        print(self.name, self.xmlpath)
         self.reader.BookMVA(self.name, self.xmlpath)
         return 
     
@@ -103,122 +105,180 @@ def electron_legacy(year):
     )
     return electron_legacy_mva
 
-def muon_df(year):
-    vars_muons_jetdf  = {
-        "Muon_pt" : 
-            [MVAvar("Muon_pt"), lambda lep, jets: lep.pt],
-        "Muon_eta" : 
-            [MVAvar("Muon_eta"), lambda lep, jets: lep.eta],
-        "Muon_pfRelIso03_all" : 
-            [MVAvar("Muon_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
-        "Muon_miniPFRelIso_chg" : 
-            [MVAvar("Muon_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_chg ],
-        "Muon_miniRelIsoNeutral := Muon_miniPFRelIso_all - Muon_miniPFRelIso_chg" :
-            [MVAvar("Muon_miniRelIsoNeutral := Muon_miniPFRelIso_all - Muon_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
-        "Muon_jetNDauCharged" :
-            [MVAvar("Muon_jetNDauCharged"), lambda lep, jets: lep.jetNDauCharged],
-        "Muon_jetPtRelv2" :
-            [MVAvar("Muon_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
-        "Muon_jetBTagDeepFlavB := Muon_jetIdx > -1 ? Jet_btagDeepFlavB[Muon_jetIdx] : 0" : 
-            [MVAvar("Muon_jetBTagDeepFlavB := Muon_jetIdx > -1 ? Jet_btagDeepFlavB[Muon_jetIdx] : 0"), lambda lep, jets: jets[lep.jetIdx].btagDeepFlavB if lep.jetIdx > -1 else 0],
-        "Muon_jetPtRatio := min(1 / (1 + Muon_jetRelIso), 1.5)" : 
-            [MVAvar("Muon_jetPtRatio := min(1 / (1 + Muon_jetRelIso), 1.5)"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
-        "Muon_sip3d" : 
-            [MVAvar("Muon_sip3d"), lambda lep, jets: lep.sip3d],
-        "Muon_log_dxy := log(abs(Muon_dxy))" :
-            [MVAvar("Muon_log_dxy := log(abs(Muon_dxy))"), lambda lep, jets: np.log(abs(lep.dxy))],
-        "Muon_log_dz  := log(abs(Muon_dz))" : 
-            [MVAvar("Muon_log_dz  := log(abs(Muon_dz))"), lambda lep, jets: np.log(abs(lep.dz))],
-        "Muon_segmentComp" : 
-            [MVAvar("Muon_segmentComp"),lambda lep, jets: lep.segmentComp],
+
+def electron_mvaISO(year):
+    electron_legacy_mva = mva_histo(
+        name = "electron_mvaISO",
+        xmlpath=None,
+        vars_ = {},
+        useBranch = "mvaIso"
+    )
+    return electron_legacy_mva
+
+def electron_mvaNOISO(year):
+    electron_legacy_mva = mva_histo(
+        name = "electron_mvaNoISO",
+        xmlpath=None,
+        vars_ = {},
+        useBranch = "mvaNoIso"
+    )
+    return electron_legacy_mva
+
+def muon_df_train_pt5_tth(year):
+    vars_muons_jetdf_train_pt5  = {
+        "pt" : 
+            [MVAvar("LepGood_pt"), lambda lep, jets: lep.pt],
+        "eta" : 
+            [MVAvar("LepGood_eta"), lambda lep, jets: lep.eta],
+        "pfRelIso03_all" : 
+            [MVAvar("LepGood_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
+        "miniPFRelIso_chg" : 
+            [MVAvar("LepGood_miniRelIsoCharged"), lambda lep, jets: lep.miniPFRelIso_chg ],
+        "LepGood_miniRelIsoNeutral" :
+            [MVAvar("LepGood_miniRelIsoNeutral"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
+        "LepGood_jetNDauChargedMVASel" :
+            [MVAvar("LepGood_jetNDauChargedMVASel"), lambda lep, jets: lep.jetNDauCharged],
+        "jetPtRelv2" :
+            [MVAvar("LepGood_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
+        "LepGood_jetDF" : 
+            [MVAvar("LepGood_jetDF"), lambda lep, jets: jets[lep.jetIdx].btagDeepFlavB if lep.jetIdx > -1 else 0],
+        "LepGood_jetPtRatio" : 
+            [MVAvar("LepGood_jetPtRatio"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
+        "LepGood_sip3d" : 
+            [MVAvar("LepGood_sip3d"), lambda lep, jets: lep.sip3d],
+        "LepGood_dxy" :
+            [MVAvar("LepGood_dxy"), lambda lep, jets: np.log(abs(lep.dxy))],
+        "LepGood_dz" : 
+            [MVAvar("LepGood_dz"), lambda lep, jets: np.log(abs(lep.dz))],
+        "LepGood_segmentComp" : 
+            [MVAvar("LepGood_segmentComp"),lambda lep, jets: lep.segmentComp],
     }
 
-    mva_muon_df = mva_histo(
-        name = "muon_df",
-        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/mu_ttw_df_%s_BDTG.weights.xml"%year),
-        vars_ = vars_muons_jetdf,
+    mva_muon_df_train_pt5 = mva_histo(
+        name = "muon_df_train_pt5_tth",
+        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/mu_tth_df_train_pt5_BDTG.weights.xml"),
+        vars_ = vars_muons_jetdf_train_pt5,
+        useBranch = None,
+        convert = lambda s, lep: s #(-1)*(lep.mediumId == 0) + (lep.mediumId == 1)*s
+    )
+    return mva_muon_df_train_pt5
+
+def muon_df_train_pt5_ttw(year):
+    vars_muons_jetdf_train_pt5  = {
+        "pt" : 
+            [MVAvar("LepGood_pt"), lambda lep, jets: lep.pt],
+        "eta" : 
+            [MVAvar("LepGood_eta"), lambda lep, jets: lep.eta],
+        "pfRelIso03_all" : 
+            [MVAvar("LepGood_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
+        "miniPFRelIso_chg" : 
+            [MVAvar("LepGood_miniRelIsoCharged"), lambda lep, jets: lep.miniPFRelIso_chg ],
+        "LepGood_miniRelIsoNeutral" :
+            [MVAvar("LepGood_miniRelIsoNeutral"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
+        "LepGood_jetNDauChargedMVASel" :
+            [MVAvar("LepGood_jetNDauChargedMVASel"), lambda lep, jets: lep.jetNDauCharged],
+        "jetPtRelv2" :
+            [MVAvar("LepGood_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
+        "LepGood_jetDF" : 
+            [MVAvar("LepGood_jetDF"), lambda lep, jets: jets[lep.jetIdx].btagDeepFlavB if lep.jetIdx > -1 else 0],
+        "LepGood_jetPtRatio" : 
+            [MVAvar("LepGood_jetPtRatio"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
+        "LepGood_sip3d" : 
+            [MVAvar("LepGood_sip3d"), lambda lep, jets: lep.sip3d],
+        "LepGood_dxy" :
+            [MVAvar("LepGood_dxy"), lambda lep, jets: np.log(abs(lep.dxy))],
+        "LepGood_dz" : 
+            [MVAvar("LepGood_dz"), lambda lep, jets: np.log(abs(lep.dz))],
+        "LepGood_segmentComp" : 
+            [MVAvar("LepGood_segmentComp"),lambda lep, jets: lep.segmentComp],
+    }
+
+    mva_muon_df_train_pt5 = mva_histo(
+        name = "muon_df_train_pt5_ttw",
+        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/mu_ttw_df_train_pt5_BDTG.weights.xml"),
+        vars_ = vars_muons_jetdf_train_pt5,
         useBranch = None,
         convert = lambda s, lep: (-1)*(lep.mediumId == 0) + (lep.mediumId == 1)*s
     )
-    return mva_muon_df
+    return mva_muon_df_train_pt5
 
-def muon_pnet(year):
-    vars_muons_jetpnet  = {
-        "Muon_pt" : 
-            [MVAvar("Muon_pt"), lambda lep, jets: lep.pt],
-        "Muon_eta" : 
-            [MVAvar("Muon_eta"), lambda lep, jets: lep.eta],
-        "Muon_pfRelIso03_all" : 
-            [MVAvar("Muon_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
-        "Muon_miniPFRelIso_chg" : 
-            [MVAvar("Muon_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_chg ],
-        "Muon_miniRelIsoNeutral := Muon_miniPFRelIso_all - Muon_miniPFRelIso_chg" :
-            [MVAvar("Muon_miniRelIsoNeutral := Muon_miniPFRelIso_all - Muon_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
-        "Muon_jetNDauCharged" :
-            [MVAvar("Muon_jetNDauCharged"), lambda lep, jets: lep.jetNDauCharged],
-        "Muon_jetPtRelv2" :
-            [MVAvar("Muon_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
-        "Muon_jetBTagPNET := Muon_jetIdx > -1 ? Jet_btagPNetB[Muon_jetIdx] : 0" : 
-            [MVAvar("Muon_jetBTagPNET := Muon_jetIdx > -1 ? Jet_btagPNetB[Muon_jetIdx] : 0"), lambda lep, jets: jets[lep.jetIdx].btagPNetB if lep.jetIdx > -1 else 0],
-        "Muon_jetPtRatio := min(1 / (1 + Muon_jetRelIso), 1.5)" : 
-            [MVAvar("Muon_jetPtRatio := min(1 / (1 + Muon_jetRelIso), 1.5)"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
-        "Muon_sip3d" : 
-            [MVAvar("Muon_sip3d"), lambda lep, jets: lep.sip3d],
-        "Muon_log_dxy := log(abs(Muon_dxy))" :
-            [MVAvar("Muon_log_dxy := log(abs(Muon_dxy))"), lambda lep, jets: np.log(abs(lep.dxy))],
-        "Muon_log_dz  := log(abs(Muon_dz))" : 
-            [MVAvar("Muon_log_dz  := log(abs(Muon_dz))"), lambda lep, jets: np.log(abs(lep.dz))],
-        "Muon_segmentComp" : 
-            [MVAvar("Muon_segmentComp"),lambda lep, jets: lep.segmentComp],
+def muon_pnet_train_pt5_tth(year):
+    vars_muons_jetpnet_train_pt5  = {
+        "pt" : 
+            [MVAvar("LepGood_pt"), lambda lep, jets: lep.pt],
+        "eta" : 
+            [MVAvar("LepGood_eta"), lambda lep, jets: lep.eta],
+        "pfRelIso03_all" : 
+            [MVAvar("LepGood_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
+        "miniPFRelIso_chg" : 
+            [MVAvar("LepGood_miniRelIsoCharged"), lambda lep, jets: lep.miniPFRelIso_chg ],
+        "LepGood_miniRelIsoNeutral" :
+            [MVAvar("LepGood_miniRelIsoNeutral"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
+        "LepGood_jetNDauChargedMVASel" :
+            [MVAvar("LepGood_jetNDauChargedMVASel"), lambda lep, jets: lep.jetNDauCharged],
+        "jetPtRelv2" :
+            [MVAvar("LepGood_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
+        "LepGood_jetDF" : 
+            [MVAvar("LepGood_jetPNET"), lambda lep, jets: jets[lep.jetIdx].btagPNetB if lep.jetIdx > -1 else 0],
+        "LepGood_jetPtRatio" : 
+            [MVAvar("LepGood_jetPtRatio"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
+        "LepGood_sip3d" : 
+            [MVAvar("LepGood_sip3d"), lambda lep, jets: lep.sip3d],
+        "LepGood_dxy" :
+            [MVAvar("LepGood_dxy"), lambda lep, jets: np.log(abs(lep.dxy))],
+        "LepGood_dz" : 
+            [MVAvar("LepGood_dz"), lambda lep, jets: np.log(abs(lep.dz))],
+        "LepGood_segmentComp" : 
+            [MVAvar("LepGood_segmentComp"),lambda lep, jets: lep.segmentComp],
     }
 
-    mva_muon_pnet = mva_histo(
-        name = "muon_pnet",
-        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/mu_ttw_pnet_%s_BDTG.weights.xml"%year),
-        vars_ = vars_muons_jetpnet,
+    mva_muon_pnet_train_pt5 = mva_histo(
+        name = "muon_pnet_train_pt5_tth",
+        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/mu_tth_pnet_train_pt5_BDTG.weights.xml"),
+        vars_ = vars_muons_jetpnet_train_pt5,
+        useBranch = None,
+        convert = lambda s, lep: s #(-1)*(lep.mediumId == 0) + (lep.mediumId == 1)*s
+    )
+    return mva_muon_pnet_train_pt5
+
+def muon_pnet_train_pt5_ttw(year):
+    vars_muons_jetpnet_train_pt5  = {
+        "pt" : 
+            [MVAvar("LepGood_pt"), lambda lep, jets: lep.pt],
+        "eta" : 
+            [MVAvar("LepGood_eta"), lambda lep, jets: lep.eta],
+        "pfRelIso03_all" : 
+            [MVAvar("LepGood_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
+        "miniPFRelIso_chg" : 
+            [MVAvar("LepGood_miniRelIsoCharged"), lambda lep, jets: lep.miniPFRelIso_chg ],
+        "LepGood_miniRelIsoNeutral" :
+            [MVAvar("LepGood_miniRelIsoNeutral"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
+        "LepGood_jetNDauChargedMVASel" :
+            [MVAvar("LepGood_jetNDauChargedMVASel"), lambda lep, jets: lep.jetNDauCharged],
+        "jetPtRelv2" :
+            [MVAvar("LepGood_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
+        "LepGood_jetDF" : 
+            [MVAvar("LepGood_jetPNET"), lambda lep, jets: jets[lep.jetIdx].btagPNetB if lep.jetIdx > -1 else 0],
+        "LepGood_jetPtRatio" : 
+            [MVAvar("LepGood_jetPtRatio"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
+        "LepGood_sip3d" : 
+            [MVAvar("LepGood_sip3d"), lambda lep, jets: lep.sip3d],
+        "LepGood_dxy" :
+            [MVAvar("LepGood_dxy"), lambda lep, jets: np.log(abs(lep.dxy))],
+        "LepGood_dz" : 
+            [MVAvar("LepGood_dz"), lambda lep, jets: np.log(abs(lep.dz))],
+        "LepGood_segmentComp" : 
+            [MVAvar("LepGood_segmentComp"),lambda lep, jets: lep.segmentComp],
+    }
+
+    mva_muon_pnet_train_pt5 = mva_histo(
+        name = "muon_pnet_train_pt5_ttw",
+        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/mu_ttw_pnet_train_pt5_BDTG.weights.xml"),
+        vars_ = vars_muons_jetpnet_train_pt5,
         useBranch = None,
         convert = lambda s, lep: (-1)*(lep.mediumId == 0) + (lep.mediumId == 1)*s
     )
-    return mva_muon_pnet
-
-def electron_pnet_wNoIso(year):
-    vars_electron_pnet_wNoIso  = {
-        "Electron_pt" : 
-            [MVAvar("Electron_pt"), lambda lep, jets: lep.pt],
-        "Electron_eta" : 
-            [MVAvar("Electron_eta"), lambda lep, jets: lep.eta],
-        "Electron_pfRelIso03_all" : 
-            [MVAvar("Electron_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
-        "Electron_miniPFRelIso_chg" : 
-            [MVAvar("Electron_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_chg ],
-        "Electron_miniRelIsoNeutral := Electron_miniPFRelIso_all - Electron_miniPFRelIso_chg" :
-            [MVAvar("Electron_miniRelIsoNeutral := Electron_miniPFRelIso_all - Electron_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
-        "Electron_jetNDauCharged" :
-            [MVAvar("Electron_jetNDauCharged"), lambda lep, jets: lep.jetNDauCharged],
-        "Electron_jetPtRelv2" :
-            [MVAvar("Electron_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
-        "Electron_jetBTagPNET := Electron_jetIdx > -1 ? Jet_btagPNetB[Electron_jetIdx] : 0" : 
-            [MVAvar("Electron_jetBTagPNET := Electron_jetIdx > -1 ? Jet_btagPNetB[Electron_jetIdx] : 0"), lambda lep, jets: jets[lep.jetIdx].btagPNetB if lep.jetIdx > -1 else 0],
-        "Electron_jetPtRatio := min(1 / (1 + Electron_jetRelIso), 1.5)" : 
-            [MVAvar("Electron_jetPtRatio := min(1 / (1 + Electron_jetRelIso), 1.5)"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
-        "Electron_sip3d" : 
-            [MVAvar("Electron_sip3d"), lambda lep, jets: lep.sip3d],
-        "Electron_log_dxy := log(abs(Electron_dxy))" :
-            [MVAvar("Electron_log_dxy := log(abs(Electron_dxy))"), lambda lep, jets: np.log(abs(lep.dxy))],
-        "Electron_log_dz  := log(abs(Electron_dz))" : 
-            [MVAvar("Electron_log_dz  := log(abs(Electron_dz))"), lambda lep, jets: np.log(abs(lep.dz))],
-        "Electron_mvaNoIso" : 
-            [MVAvar("Electron_mvaNoIso"),lambda lep, jets: lep.mvaNoIso],
-    }
-
-    mva_electron_pnet_wNoIso = mva_histo(
-        name = "electron_pnet_wNoIso",
-        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/el_ttw_pnet_useNoIso_%s_BDTG.weights.xml"%year),
-        vars_ = vars_electron_pnet_wNoIso,
-        useBranch = None,
-        #convert = lambda s, lep: (-1)*(lep.mvaNoIso == 0) + (lep.mvaNoIso == 1)*s
-    )
-    return mva_electron_pnet_wNoIso
+    return mva_muon_pnet_train_pt5
 
 def electron_pnet_wIso(year):
     vars_electron_pnet_wIso  = {
@@ -252,52 +312,13 @@ def electron_pnet_wIso(year):
 
     mva_electron_pnet_wIso = mva_histo(
         name = "electron_pnet_wIso",
-        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/el_ttw_pnet_useIso_%s_BDTG.weights.xml"%year),
+        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/el_ttw_pnet_BDTG.weights.xml"),
         vars_ = vars_electron_pnet_wIso,
         useBranch = None,
         #convert = lambda s, lep: (-1)*(lep.mvaNoIso == 0) + (lep.mvaNoIso == 1)*s
     )
     return mva_electron_pnet_wIso
 
-
-def electron_df_wNoIso(year):
-    vars_electron_df_wNoIso  = {
-        "Electron_pt" : 
-            [MVAvar("Electron_pt"), lambda lep, jets: lep.pt],
-        "Electron_eta" : 
-            [MVAvar("Electron_eta"), lambda lep, jets: lep.eta],
-        "Electron_pfRelIso03_all" : 
-            [MVAvar("Electron_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
-        "Electron_miniPFRelIso_chg" : 
-            [MVAvar("Electron_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_chg ],
-        "Electron_miniRelIsoNeutral := Electron_miniPFRelIso_all - Electron_miniPFRelIso_chg" :
-            [MVAvar("Electron_miniRelIsoNeutral := Electron_miniPFRelIso_all - Electron_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
-        "Electron_jetNDauCharged" :
-            [MVAvar("Electron_jetNDauCharged"), lambda lep, jets: lep.jetNDauCharged],
-        "Electron_jetPtRelv2" :
-            [MVAvar("Electron_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
-        "Electron_jetBTagDeepFlavB := Electron_jetIdx > -1 ? Jet_btagDeepFlavB[Electron_jetIdx] : 0" : 
-            [MVAvar("Electron_jetBTagDeepFlavB := Electron_jetIdx > -1 ? Jet_btagDeepFlavB[Electron_jetIdx] : 0"), lambda lep, jets: jets[lep.jetIdx].btagDeepFlavB if lep.jetIdx > -1 else 0],
-        "Electron_jetPtRatio := min(1 / (1 + Electron_jetRelIso), 1.5)" : 
-            [MVAvar("Electron_jetPtRatio := min(1 / (1 + Electron_jetRelIso), 1.5)"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
-        "Electron_sip3d" : 
-            [MVAvar("Electron_sip3d"), lambda lep, jets: lep.sip3d],
-        "Electron_log_dxy := log(abs(Electron_dxy))" :
-            [MVAvar("Electron_log_dxy := log(abs(Electron_dxy))"), lambda lep, jets: np.log(abs(lep.dxy))],
-        "Electron_log_dz  := log(abs(Electron_dz))" : 
-            [MVAvar("Electron_log_dz  := log(abs(Electron_dz))"), lambda lep, jets: np.log(abs(lep.dz))],
-        "Electron_mvaNoIso" : 
-            [MVAvar("Electron_mvaNoIso"),lambda lep, jets: lep.mvaNoIso],
-    }
-
-    mva_electron_df_wNoIso = mva_histo(
-        name = "electron_df_wNoIso",
-        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/el_ttw_df_useNoIso_%s_BDTG.weights.xml"%year),
-        vars_ = vars_electron_df_wNoIso,
-        useBranch = None,
-        #convert = lambda s, lep: (-1)*(lep.mvaNoIso == 0) + (lep.mvaNoIso == 1)*s
-    )
-    return mva_electron_df_wNoIso
 
 def electron_df_wIso(year):
     vars_electron_df_wIso  = {
@@ -331,7 +352,7 @@ def electron_df_wIso(year):
 
     mva_electron_df_wIso = mva_histo(
         name = "electron_df_wIso",
-        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/el_ttw_df_useIso_%s_BDTG.weights.xml"%year),
+        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/el_ttw_df_BDTG.weights.xml"),
         vars_ = vars_electron_df_wIso,
         useBranch = None,
         #convert = lambda s, lep: (-1)*(lep.mvaNoIso == 0) + (lep.mvaNoIso == 1)*s
@@ -339,76 +360,3 @@ def electron_df_wIso(year):
     return mva_electron_df_wIso
 
 
-def electron_pnet(year):
-    vars_electron_pnet  = {
-        "Electron_pt" : 
-            [MVAvar("Electron_pt"), lambda lep, jets: lep.pt],
-        "Electron_eta" : 
-            [MVAvar("Electron_eta"), lambda lep, jets: lep.eta],
-        "Electron_pfRelIso03_all" : 
-            [MVAvar("Electron_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
-        "Electron_miniPFRelIso_chg" : 
-            [MVAvar("Electron_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_chg ],
-        "Electron_miniRelIsoNeutral := Electron_miniPFRelIso_all - Electron_miniPFRelIso_chg" :
-            [MVAvar("Electron_miniRelIsoNeutral := Electron_miniPFRelIso_all - Electron_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
-        "Electron_jetNDauCharged" :
-            [MVAvar("Electron_jetNDauCharged"), lambda lep, jets: lep.jetNDauCharged],
-        "Electron_jetPtRelv2" :
-            [MVAvar("Electron_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
-        "Electron_jetBTagPNET := Electron_jetIdx > -1 ? Jet_btagPNetB[Electron_jetIdx] : 0" : 
-            [MVAvar("Electron_jetBTagPNET := Electron_jetIdx > -1 ? Jet_btagPNetB[Electron_jetIdx] : 0"), lambda lep, jets: jets[lep.jetIdx].btagPNetB if lep.jetIdx > -1 else 0],
-        "Electron_jetPtRatio := min(1 / (1 + Electron_jetRelIso), 1.5)" : 
-            [MVAvar("Electron_jetPtRatio := min(1 / (1 + Electron_jetRelIso), 1.5)"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
-        "Electron_sip3d" : 
-            [MVAvar("Electron_sip3d"), lambda lep, jets: lep.sip3d],
-        "Electron_log_dxy := log(abs(Electron_dxy))" :
-            [MVAvar("Electron_log_dxy := log(abs(Electron_dxy))"), lambda lep, jets: np.log(abs(lep.dxy))],
-        "Electron_log_dz  := log(abs(Electron_dz))" : 
-            [MVAvar("Electron_log_dz  := log(abs(Electron_dz))"), lambda lep, jets: np.log(abs(lep.dz))],
-    }
-
-    mva_electron_pnet = mva_histo(
-        name = "electron_pnet",
-        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/el_ttw_pnet_%s_BDTG.weights.xml"%year),
-        vars_ = vars_electron_pnet,
-        useBranch = None,
-        #convert = lambda s, lep: (-1)*(lep.mvaNoIso == 0) + (lep.mvaNoIso == 1)*s
-    )
-    return mva_electron_pnet
-
-def electron_df(year):
-    vars_electron_df  = {
-        "Electron_pt" : 
-            [MVAvar("Electron_pt"), lambda lep, jets: lep.pt],
-        "Electron_eta" : 
-            [MVAvar("Electron_eta"), lambda lep, jets: lep.eta],
-        "Electron_pfRelIso03_all" : 
-            [MVAvar("Electron_pfRelIso03_all"), lambda lep, jets: lep.pfRelIso03_all],
-        "Electron_miniPFRelIso_chg" : 
-            [MVAvar("Electron_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_chg ],
-        "Electron_miniRelIsoNeutral := Electron_miniPFRelIso_all - Electron_miniPFRelIso_chg" :
-            [MVAvar("Electron_miniRelIsoNeutral := Electron_miniPFRelIso_all - Electron_miniPFRelIso_chg"), lambda lep, jets: lep.miniPFRelIso_all - lep.miniPFRelIso_chg],
-        "Electron_jetNDauCharged" :
-            [MVAvar("Electron_jetNDauCharged"), lambda lep, jets: lep.jetNDauCharged],
-        "Electron_jetPtRelv2" :
-            [MVAvar("Electron_jetPtRelv2"), lambda lep, jets: lep.jetPtRelv2],
-        "Electron_jetBTagDeepFlavB := Electron_jetIdx > -1 ? Jet_btagDeepFlavB[Electron_jetIdx] : 0" : 
-            [MVAvar("Electron_jetBTagDeepFlavB := Electron_jetIdx > -1 ? Jet_btagDeepFlavB[Electron_jetIdx] : 0"), lambda lep, jets: jets[lep.jetIdx].btagDeepFlavB if lep.jetIdx > -1 else 0],
-        "Electron_jetPtRatio := min(1 / (1 + Electron_jetRelIso), 1.5)" : 
-            [MVAvar("Electron_jetPtRatio := min(1 / (1 + Electron_jetRelIso), 1.5)"), lambda lep, jets: min(1. / (1. + lep.jetRelIso), 1.5) ],
-        "Electron_sip3d" : 
-            [MVAvar("Electron_sip3d"), lambda lep, jets: lep.sip3d],
-        "Electron_log_dxy := log(abs(Electron_dxy))" :
-            [MVAvar("Electron_log_dxy := log(abs(Electron_dxy))"), lambda lep, jets: np.log(abs(lep.dxy))],
-        "Electron_log_dz  := log(abs(Electron_dz))" : 
-            [MVAvar("Electron_log_dz  := log(abs(Electron_dz))"), lambda lep, jets: np.log(abs(lep.dz))],
-    }
-
-    mva_electron_df = mva_histo(
-        name = "electron_df",
-        xmlpath= os.path.join(os.environ["PWD"], "dataset/weights/el_ttw_df_%s_BDTG.weights.xml"%year),
-        vars_ = vars_electron_df,
-        useBranch = None,
-        #convert = lambda s, lep: (-1)*(lep.mvaNoIso == 0) + (lep.mvaNoIso == 1)*s
-    )
-    return mva_electron_df
