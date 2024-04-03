@@ -20,7 +20,8 @@ class postprocessor_producer(producer):
   def run(self):
     self.doData = "DATA" if self.isData else "MC"
     outname   = "/".join([self.outname])
-    if self.isData: outname.replace("mc", "data")
+    if self.isData: outname =  outname.replace("mc", "data")
+   
       
     year     = self.year
     extra    = self.extra

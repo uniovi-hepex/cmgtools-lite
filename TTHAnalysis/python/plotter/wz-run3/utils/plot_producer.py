@@ -77,7 +77,7 @@ class plot_producer(producer):
 
     # Other plotting stuff 
     plottingStuff =  "--obj Events "
-    plottingStuff += "--maxRatioRange 0.7 1.3 "
+    plottingStuff += "--maxRatioRange 0.6 1.4 "
     plottingStuff += "--fixRatioRange "
     plottingStuff += "--print C,pdf,png,txt "
     plottingStuff += "--legendWidth 0.23 "
@@ -90,15 +90,16 @@ class plot_producer(producer):
     plottingStuff += "--noCms --lspam '#scale[1.1]{#bf{CMS}} #scale[0.9]{#it{Preliminary}}' "
     plottingStuff += "--TotalUncRatioColor 922 922 "
     plottingStuff += "--TotalUncRatioStyle 3444 0 "
-    plottingStuff += "--plotgroup prompt_WZ+=prompt_WZ_nonfiducial"
+    plottingStuff += "--plotgroup prompt_WZ+=prompt_WZ_nonfiducial "
+    plottingStuff += "--plotgroup fakes_DY+=fakes_VV,fakes_TT,fakes_T,wjets "
 
     if self.year != "all":
-        lumi      = lumis[year]
+        lumi   = lumis[year] if self.era == None else lumis[self.era]
         mcpath = os.path.join(self.mcpath, self.year)
         datapath = os.path.join(self.datapath, self.year)
     else:
-        year = ",".join(["%s"%y for y in lumis])
-        lumi = ",".join(["%s"%lumis[y] for y in lumis])
+        year = ",".join(["%s"%y for y in lumis if y in ["2022", "2022EE"]])
+        lumi = ",".join(["%s"%lumis[y] for y in lumis if y in ["2022", "2022EE"]])
         mcpath = self.mcpath
         datapath = self.datapath
     
@@ -108,7 +109,7 @@ class plot_producer(producer):
                    "%s"%self.cutfile,
                    "%s"%self.plotfile,
                    "-l %s"%lumi,
-                   "--year %s"%year,
+                   "--year %s"%year if self.era == None else "--year %s"%self.era,
                    "-f --pdir %s"%outname,
                    "--tree %s "%self.treename,
                    "-P {mcpath} -P {datapath}".format(mcpath = mcpath, datapath = datapath),

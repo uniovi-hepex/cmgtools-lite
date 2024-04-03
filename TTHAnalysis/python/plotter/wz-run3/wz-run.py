@@ -51,6 +51,8 @@ def add_parsing_opts():
     # -- Other stuff
     parser.add_option("--year", dest = "year", default = "2022EE", 
                 help = "Production year")
+    parser.add_option("--era", dest = "era", default = None, 
+                help = "Production year")
     parser.add_option("--extra", dest = "extra", type="string", default = "", 
                 help = "Any extra command one wants to parse to the main CMGTools scripts")
     parser.add_option("--local-test", dest = "local_test", action = "store_true", default = False,

@@ -10,8 +10,8 @@ from functions import color_msg
 
 class dump_producer(producer):
   name = "dump_producer"
-  basecommand = "python3 mcPlots.py"
-  jobname = "CMGPlot"
+  basecommand = "python3 mcDump.py"
+  jobname = "CMGDump"
   
   def add_more_options(self, parser):
     self.parser = parser
@@ -30,7 +30,6 @@ class dump_producer(producer):
     parser.add_option("--expression", dest = "expression", default = "{event|luminosityBlock}",
                   help = ''' Expression to dump.''')
 
-    
     # --- Override main producer option for output path
     parser.add_option("--outname", dest = "outname", type="string", default = "dumps/",
           help = "Output (folder) name")
@@ -61,22 +60,21 @@ class dump_producer(producer):
     mccfile   = self.mccfile
 
     if self.year != "all":
-        lumi      = lumis[year]
+        lumi   = lumis[year] if self.era == None else lumis[self.era]
         mcpath = os.path.join(self.mcpath, self.year)
         datapath = os.path.join(self.datapath, self.year)
     else:
-        year = ",".join(["%s"%y for y in lumis])
-        lumi = ",".join(["%s"%lumis[y] for y in lumis])
+        year = ",".join(["%s"%y for y in lumis if y in ["2022", "2022EE"]])
+        lumi = ",".join(["%s"%lumis[y] for y in lumis if y in ["2022", "2022EE"]])
         mcpath = self.mcpath
         datapath = self.datapath
-    
     
     # List with all the options given to CMGTools
     self.commandConfs = ["%s"%self.mca, 
                    "%s"%self.cutfile,
                    "-l %s"%lumi,
                    "--year %s"%year,
-                   "-f --pdir %s"%outname,
+                   "-f ",
                    "--tree %s "%self.treename,
                    "-P {mcpath} -P {datapath}".format(mcpath = mcpath, datapath = datapath),
                    self.add_friends() if not self.unfriend else "",
@@ -84,6 +82,7 @@ class dump_producer(producer):
                    "-j %s"%(self.ncores),
                    "--mcc %s"%mccfile if mccfile != None else "", 
                    "'%s'"%self.expression,
+                   "--dumpFile %s/out.log"%(outname),
                    "%s"%extra]
     return
 

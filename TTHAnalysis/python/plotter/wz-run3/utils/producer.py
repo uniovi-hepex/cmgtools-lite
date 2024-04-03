@@ -6,7 +6,7 @@ from cfgs.samplepaths import samplepaths as paths
 from functions import color_msg
 
 class producer(object):
-    weights = ['puWeight*bTagWeight*electronSF*muonSF']
+    weights = ['puWeight_fix*bTagWeight*electronSF*muonSF']
     functions = ["wz-run3/functionsWZ.cc", "functions.cc", "wz-run3/functionsMCMatch.cc"]
 
     name = "producer"
@@ -17,6 +17,7 @@ class producer(object):
         self.add_more_options(parser)
         self.unpack_opts()
         self.doData = "data" if self.isData else "mc"
+        
         return
 
     def add_more_options(self, parser):
