@@ -56,20 +56,20 @@ def fit_configs(filters = [], out = "fitResult"):
     config = {
         # ------- For card combination
         "cards" : {
-#            "srwz" : os.path.join( mainpath, "cards/wz/srwz/" ),
+            "srwz" : os.path.join( mainpath, "cards/wz/srwz/" ),
             "crzz" : os.path.join( mainpath, "cards/wz/crzz/" ),
-#            "crtt" : os.path.join( mainpath, "cards/wz/crtt/" ),
-#            "crconv" : os.path.join( mainpath, "cards/wz/crconv/" )
+            "crtt" : os.path.join( mainpath, "cards/wz/crtt/" ),
+            "crconv" : os.path.join( mainpath, "cards/wz/crconv/" )
         },
         "filtercards" : "*{filters}".format( filters = filtertext ),
         # ------- For workspace creation
         "ws" : "workspace_wz.root",
         "pois" : [
-    #        (".*prompt_WZ", "r_wz"), 
+            (".*prompt_WZ", "r_wz"), 
             (".*prompt_.*ZZ", "r_zz"),
-    #        (".*prompt_TTX", "r_ttz"),
+            (".*prompt_TTX", "r_ttz"),
         #    (".*prompt_TZQ", "r_tzq"),
-    #       (".*conv", "r_xg")
+           (".*conv", "r_xg")
         ],
         "combineModel" : "HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel",
         "out" : "{out}".format( out = out ),
