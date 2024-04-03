@@ -23,9 +23,6 @@ def color_msg(msg, color = "none"):
     return  
 
 class lepScaleFactors_wzrun3(Module):
-  
-
-  
   # ============ MAIN METHODS =============== #
   def __init__(self, year_, lepenvars = [], keepOutput = 1, summary = False, verbosity = 0):
     self.files =  {
@@ -35,7 +32,8 @@ class lepScaleFactors_wzrun3(Module):
         },
         
         "electron" : { 
-          "IDTight"    : { "file" : "EGM/{year}/Electrons-mvaTTH-WP097_nanoAODv12", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
+          "IDTight"    : { "file" : "EGM/{year}/Electrons-mvaTTH-WP090_nanoAODv12", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
+          #"IDTight"    : { "file" : "EGM/{year}/Electrons-mvaTTH-WP097_nanoAODv12", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
           "recoLowPt"  : { "file" : "EGM/{year}/Electrons-recoSF-lowPt",            "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
           "recoMidPt"  : { "file" : "EGM/{year}/Electrons-recoSF-mediumPt",         "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
           "recoHighPt" : { "file" : "EGM/{year}/Electrons-recoSF-highPt",           "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]}

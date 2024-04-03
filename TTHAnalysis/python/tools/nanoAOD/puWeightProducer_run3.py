@@ -12,7 +12,7 @@ class puWeightProducer(Module):
                  targetfile,
                  myhist="pileup",
                  targethist="pileup",
-                 name="puWeight",
+                 name="puWeight_fix",
                  norm=True,
                  verbose=False,
                  nvtx_var="Pileup_nTrueInt",
@@ -125,14 +125,6 @@ sysVars = [
     pufile_data2022.replace("69200ub", "66000ub")
 ]
 
-# 2022EE
-pufile_data2022PostEE = "%s/src/CMGTools/TTHAnalysis/data/WZRun3/PU/2022EE/pileupHistogram-Cert_Collisions2022_359022_362760_eraEFG_GoldenJson-13p6TeV-69200ub-99bins.root" % os.environ['CMSSW_BASE']
-sysVars = [
-    pufile_data2022PostEE.replace("69200ub", "72400ub"),
-    pufile_data2022PostEE.replace("69200ub", "66000ub")
-]
-
-
 puAutoWeight_2022 = lambda: puWeightProducer(
     "auto", 
     pufile_data2022, 
@@ -141,6 +133,13 @@ puAutoWeight_2022 = lambda: puWeightProducer(
     doSysVar = sysVars,
     verbose=False
 )
+
+# 2022EE
+pufile_data2022PostEE = "%s/src/CMGTools/TTHAnalysis/data/WZRun3/PU/2022EE/pileupHistogram-Cert_Collisions2022_359022_362760_eraEFG_GoldenJson-13p6TeV-69200ub-99bins.root" % os.environ['CMSSW_BASE']
+sysVars = [
+    pufile_data2022PostEE.replace("69200ub", "72400ub"),
+    pufile_data2022PostEE.replace("69200ub", "66000ub")
+]
 
 puAutoWeight_2022PostEE = lambda: puWeightProducer(
     "auto", 

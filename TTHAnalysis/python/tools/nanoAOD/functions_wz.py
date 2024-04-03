@@ -2,7 +2,7 @@
 
 # ---- Working points for the MVA
 
-el_mva_wp = 0.97
+el_mva_wp = 0.90
 mu_mva_wp = 0.64
 
 import math

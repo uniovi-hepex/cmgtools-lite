@@ -41,7 +41,7 @@ class bTagEffCount(Module):
             for fl in self.flavors:
                     self.branches.append(("nJetPassWP%sFL%s"%(wp,self.flavors[fl]),"I"))
                     self.branches.append(("nJetFailWP%sFL%s"%(wp,self.flavors[fl]),"I"))
-                    for var in ["pt","eta"]:
+                    for var in ["pt_nom","eta"]:
                         self.branches.append(("JetFailWP%sFL%s_%s"%(wp,self.flavors[fl], var) ,"F", 20, "nJetFailWP%sFL%s"%(wp,self.flavors[fl])))
                         self.branches.append(("JetPassWP%sFL%s_%s"%(wp,self.flavors[fl], var) ,"F", 20, "nJetPassWP%sFL%s"%(wp,self.flavors[fl])))
         return self.branches
@@ -90,11 +90,11 @@ class bTagEffCount(Module):
                     message="      * Jet %s: %3.2f ---> Passes wp %s (%3.2f)? %s"%(self.tagger, btag, wp, self.WPs[wp],  "True" if passes == "Pass" else "False")
                     color = "green" if passes == "Pass" else "red"
                         
-                    color_msg(message, color )
+                    color_msg(message, color)
 
-                ret["nJet%sWP%sFL%s"%(passes,wp,self.flavors[fl])] += 1
-                for var in ["pt","eta"]:
-                    ret["Jet%sWP%sFL%s_%s"%(passes,wp, self.flavors[fl], var)].append(getattr(j, var))
+                ret["nJet%sWP%sFL%s"%(passes, wp, self.flavors[fl])] += 1
+                for var in ["pt_nom","eta"]:
+                    ret["Jet%sWP%sFL%s_%s"%(passes, wp, self.flavors[fl], var)].append(getattr(j, var))
         writeOutput(self, ret)
         return True 
 
@@ -139,7 +139,7 @@ if __name__ == '__main__':
     tightlep = lambda lep, jetlist : _tight_lepton(lep, looseDeepFlavB, mediumDeepFlavB, jetlist)
 
 
-    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees/mc/2022EE/"
+    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v2/mc/2022EE/"
     process = "TTto2L2Nu_part9"
 #    process = "TTTo2L2Nu_part17"
     

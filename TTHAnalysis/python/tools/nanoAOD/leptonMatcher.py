@@ -151,17 +151,16 @@ class leptonMatcher(Module):
 
 
                       nParents += 1
-
               self.ret["LepGood_mcUCSX_v2"][i] = self.lepSelFO[i].mcUCSX
 
     def resetMemory(self):
         self.ret = {}
         self.ret["nLepGood_forMemory"] = 0
-        self.ret["LepGood_mcUCSX_v2"] = [0]*8
-        self.ret["LepGood_motherId"]  = [-999]*8
-        self.ret["LepGood_grandmotherId"]  = [-999]*8
-        self.ret["LepGood_motherIdx"]  = [-999]*8
-        self.ret["LepGood_grandmotherIdx"]  = [-999]*8
+        self.ret["LepGood_mcUCSX_v2"] = [0]*20
+        self.ret["LepGood_motherId"]  = [-999]*20
+        self.ret["LepGood_grandmotherId"]  = [-999]*20
+        self.ret["LepGood_motherIdx"]  = [-999]*20
+        self.ret["LepGood_grandmotherIdx"]  = [-999]*20
         return
     
 if __name__ == '__main__':
@@ -172,14 +171,13 @@ if __name__ == '__main__':
     from PhysicsTools.NanoAODTools.postprocessing.framework.output import FriendOutput, FullOutput
     from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import InputTree
     
-    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees/mc/2022EE/"
-    process = "WZto3LNu"
+    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v2/mc_unskim_march2024/2022EE/"
+    process = "WZto3LNu_pow_part4"
 #    process = "TTTo2L2Nu_part17"
     
     friends = [
-      "jmeCorrections",
-      "leptonJetRecleaning",
-      "leptonBuilder"
+      "leptonJetRecleaning_Elewp090",
+      "leptonBuilder_Elewp090"
     ]
     nentries = int(argv[1])
     ### Open the main file
