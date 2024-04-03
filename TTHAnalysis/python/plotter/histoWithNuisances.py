@@ -13,7 +13,7 @@ def _projectionXNoDir(hist2d,name,y1,y2):
     nx = hist2d.GetNbinsX()
     ax = hist2d.GetXaxis()
     xbins = array('f',[(ax.GetBinLowEdge(b+1) if b < nx else ax.GetBinUpEdge(b)) for b in range(0,nx+1)])
-    proj = ROOT.TH1D(name,name,nx,xbins); proj.SetDirectory(None)
+    proj = ROOT.TH1D(name,name,nx,xbins); proj.SetDirectory(ROOT.nullptr)
     proj.GetXaxis().SetTitle(ax.GetTitle()) # in case
     ys = list(range(y1,y2+1))
     for ix in range(1,nx+1):
@@ -26,7 +26,7 @@ def _getHistoInRangeNoDir(hist, name, bin1, bin2): # bin1 is included, bin2 is n
     ax = hist.GetXaxis()
     bins =  [(ax.GetBinLowEdge(b+1) if b < nx else ax.GetBinUpEdge(b)) for b in range(0,nx+1)]
     xbins = array('f',bins[bin1-1:bin2])
-    proj = ROOT.TH1D(name,name,len(xbins)-1,xbins); proj.SetDirectory(None)
+    proj = ROOT.TH1D(name,name,len(xbins)-1,xbins); proj.SetDirectory(ROOT.nullptr)
     proj.GetXaxis().SetTitle(ax.GetTitle()) # in case
     for bx in range(1,bin2-bin1+1):
         proj.SetBinContent( bx, hist.GetBinContent(bx+bin1-1))
@@ -556,7 +556,7 @@ class RooFitContext:
         if ROOT.gROOT.FindObject(name): ROOT.gROOT.FindObject(name).Delete()
         if ROOT.gROOT.FindObject(name+"__"+self.xvar.GetName()): ROOT.gROOT.FindObject(name+"__"+self.xvar.GetName()).Delete()
         histo = pdf.createHistogram(name, self.xvar)
-        histo.SetDirectory(None)
+        histo.SetDirectory(ROOT.nullptr)
         return self.roofit2hist(histo,normobj.getVal(),target=target,add=add)
     def imp(self,obj,*args):    
         self._import(obj,*args)
@@ -1405,32 +1405,32 @@ class HistoWithNuisances:
             self += scaledCopy
     def projectionX(self,name,iy1,iy2):
         h = HistoWithNuisances(_projectionXNoDir(self.central,name,iy1,iy2))
-        h.central.SetDirectory(None)
+        h.central.SetDirectory(ROOT.nullptr)
         for v,p in self.variations.items():
             h.variations[v] = (_projectionXNoDir(p[0], "%s_%s_up"   % (name,v), iy1,iy2),
                                _projectionXNoDir(p[1], "%s_%s_down" % (name,v), iy1,iy2))
-            for hi in h.variations[v]: hi.SetDirectory(None)
+            for hi in h.variations[v]: hi.SetDirectory(ROOT.nullptr)
         if self.nominal == self.central:
             h.nominal = h.central
         else:
             h.nominal = _projectionXNoDir(self.nominal, name+"_nominal", iy1,iy2)
-            h.nominal.SetDirectory(None)
+            h.nominal.SetDirectory(ROOT.nullptr)
         if self._rooFit: h.setupRooFit(self._rooFit["context"])
         h._postFit = self._postFit
         h._usePostFit = self._usePostFit
         return h
     def getHistoInRange(self, name, bin1, bin2): # first bin is included, second is not
         h = HistoWithNuisances(_getHistoInRangeNoDir( self.central, name, bin1,bin2))
-        h.central.SetDirectory(None)
+        h.central.SetDirectory(ROOT.nullptr)
         for v,p in self.variations.items():
             h.variations[v] = (_getHistoInRangeNoDir(p[0], "%s_%s_up"   % (name,v), bin1,bin2),
                                _getHistoInRangeNoDir(p[1], "%s_%s_down" % (name,v), bin1,bin2))
-            for hi in h.variations[v]: hi.SetDirectory(None)
+            for hi in h.variations[v]: hi.SetDirectory(ROOT.nullptr)
         if self.nominal == self.central:
             h.nominal = h.central
         else:
             h.nominal = _getHistoInRangeNoDir(self.nominal, name+"_nominal", bin1,bin2)
-            h.nominal.SetDirectory(None)
+            h.nominal.SetDirectory(ROOT.nullptr)
         if self._rooFit: h.setupRooFit(self._rooFit["context"])
         h._postFit = self._postFit
         h._usePostFit = self._usePostFit
