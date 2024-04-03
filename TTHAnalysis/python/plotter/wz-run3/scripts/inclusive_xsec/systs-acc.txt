@@ -1,5 +1,5 @@
 # vim: syntax=sh
-$alias : WZ  : .*WZ.*
+$alias : WZ  : .*prompt_WZ.*
 
 pdf_1   : $WZ : .* : templateSymm ; FakeRate='wz-run3/common/frs-pdfs/fr-pdf_1.txt'
 pdf_2   : $WZ : .* : templateSymm ; FakeRate='wz-run3/common/frs-pdfs/fr-pdf_2.txt'

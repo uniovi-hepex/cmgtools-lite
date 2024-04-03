@@ -1,0 +1,38 @@
+alwaystrue : 1
+
+# Activate these cuts with -E ^TOTAL.*
+TOTAL_threelep   : nLepGen_gen >= 3; Disable=True
+TOTAL_onZ : mll_3l_gen > 60  && mll_3l_gen < 120; Disable=True
+TOTAL_mll4 : minmllSFOS_gen >= 4 &&  nOSSF_3l_gen > 0; Disable=True
+FID_lightleps  : abs(genLepZ1_pdgId) < 14 && abs(genLepZ2_pdgId) < 14 && abs(genLepW_pdgId) < 14; Disable=True
+
+# Activate these cuts with -E ^FID.*
+FID_kins : genLepZ1_pt >= 25 && genLepZ2_pt >= 15 && genLepW_pt >= 25 && abs(genLepZ1_eta) < 2.5  && abs(genLepZ2_eta) < 2.5  && abs(genLepW_eta) < 2.5  && m3L_gen >= 100 ; Disable=True
+
+
+# Activate these cuts with -E ^SR.*
+SR_filters    : Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter; Disable=True
+SR_trigger    : Trigger_3l || HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL; Disable=True
+SR_trilep     : nLepSel >= 3; Disable=True
+SR_AllTight   : allTight(LepSel_isTight[0], LepSel_isTight[1], LepSel_isTight[2]); Disable=True
+SR_lepPt      : LepZ1_pt >= 25 && LepZ2_pt >= 15 && LepW_pt >= 25; Disable=True
+SR_BRevent    : abs(LepSel_pdgId[0]) < 15 && abs(LepSel_pdgId[1]) < 15 && abs(LepSel_pdgId[2]) < 15 && nOSSF_3l >= 1; Disable=True
+SR_m3l        : m3L >= 100; Disable=True
+SR_exactly3L  : nLepGood < 4; Disable=True
+SR_met        : MET_pt_central > 35; Disable=True
+SR_btag       : nBJetTight25_Mini == 0; Disable=True
+SR_zPeak      : abs(mll_3l - 91.16) < 15; Disable=True
+SR_lowmass    : minMllSFOS_Mini > 4 || minMllSFOS_Mini == -1; Disable=True
+
+
+# Activate these cuts with -E ${flav}_reco
+eee_reco : (abs(LepZ1_pdgId) + abs(LepZ2_pdgId) + abs(LepW_pdgId)) == 33; Disable=True
+eem_reco : (abs(LepZ1_pdgId) + abs(LepZ2_pdgId) + abs(LepW_pdgId)) == 35; Disable=True
+mme_reco : (abs(LepZ1_pdgId) + abs(LepZ2_pdgId) + abs(LepW_pdgId)) == 37; Disable=True
+mmm_reco : (abs(LepZ1_pdgId) + abs(LepZ2_pdgId) + abs(LepW_pdgId)) == 39; Disable=True
+
+# Activate these cuts with -E ${flav}_fid
+eee_fid : abs(genLepZ1_pdgId) + abs(genLepZ2_pdgId) + abs(genLepW_pdgId) == 33; Disable=True
+eem_fid : abs(genLepZ1_pdgId) + abs(genLepZ2_pdgId) + abs(genLepW_pdgId) == 35; Disable=True
+mme_fid : abs(genLepZ1_pdgId) + abs(genLepZ2_pdgId) + abs(genLepW_pdgId) == 37; Disable=True
+mmm_fid : abs(genLepZ1_pdgId) + abs(genLepZ2_pdgId) + abs(genLepW_pdgId) == 39; Disable=True
