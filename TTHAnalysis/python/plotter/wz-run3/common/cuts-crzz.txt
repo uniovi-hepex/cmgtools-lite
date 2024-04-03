@@ -3,7 +3,7 @@
 # --- Basics
 alwaystrue   :  1
 filters : $DATA{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter} $MC{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter}
-trigger : Trigger_3l
+trigger : Trigger_3l || HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL
 
 # --- Four lepton selection
 fourLep    : nLepSel == 4
@@ -23,5 +23,5 @@ flav_mmm    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 3; Dis
 chargeplus  : LepW_pdgId < 0 ; Disable=True
 chargeminus : LepW_pdgId > 0 ; Disable=True
 m3lmetblind : $DATA{m3Lmet <= 400} $MC{1} $FASTSIM{1}; Disable=True
-Cha_Tight   : LepGood_tightCharge[0]==2 && LepGood_tightCharge[1]==2 &&  LepGood_tightCharge[2]==2; Disable= True
+Cha_Tight   : LepGood_tightCharge[0]==2 && LepGood_tightCharge[1]==2 && LepGood_tightCharge[2]==2; Disable= True
 cha3_Tight  : LepGood_tightCharge[iW]==2; Disable= True

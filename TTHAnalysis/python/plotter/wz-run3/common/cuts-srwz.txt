@@ -3,7 +3,7 @@
 # --- Basics
 alwaystrue   :  1
 filters : $DATA{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter} $MC{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter}
-trigger : Trigger_3l
+trigger : Trigger_3l || HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL
 
 # --- Three lepton selection
 trilep     : nLepSel >= 3

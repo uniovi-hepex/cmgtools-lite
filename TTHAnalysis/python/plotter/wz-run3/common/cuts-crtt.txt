@@ -3,7 +3,7 @@
 # --- Basics
 alwaystrue   :  1
 filters : $DATA{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter} $MC{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter}
-trigger : Trigger_3l
+trigger : Trigger_3l || HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL
 
 # --- Three lepton selection
 trilep     : nLepSel >= 3
@@ -13,8 +13,9 @@ BRevent    : abs(LepSel_pdgId[0]) < 15 && abs(LepSel_pdgId[1]) < 15 && abs(LepSe
 m3l        : m3L >= 100
 met        : MET_pt_central > 35
 exactly3L  : nLepGood < 4
-btag       : nBJetMedium25_Mini > 0
+btag       : nBJetTight25_Mini > 0
 lowmass    : minMllSFOS_Mini > 4 || minMllSFOS_Mini == -1
+
 
 # --- Flavor splits
 flav_eee    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 0; Disable=True
