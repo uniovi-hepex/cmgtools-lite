@@ -13,15 +13,23 @@ extra="${@:2}"
 if [[ $mode == *main* ]]; then
 
     echo -e $GREEN SUBMITTING cards for SRWZ $NC
-    python3 wz-run3/wz-run.py card $extra --outname cards/wz/srwz $extra --binname srwz.input2022EE
+    python3 wz-run3/wz-run.py card $extra --outname cards/wz/srwz $extra --binname srwz.input2022EE --ncores 32 --year 2022EE
+    python3 wz-run3/wz-run.py card $extra --outname cards/wz/srwz $extra --binname srwz.input2022 --ncores 32 --year 2022
     echo "-----------------------------"
     
     echo -e $GREEN SUBMITTING cards for CRZZ $NC
-    python3 wz-run3/wz-run.py card $extra --cutfile wz-run3/common/cuts-crzz.txt --outname cards/wz/crzz --binname crzz.input2022EE
+    python3 wz-run3/wz-run.py card $extra --cutfile wz-run3/common/cuts-crzz.txt --outname cards/wz/crzz --binname crzz.input2022EE --ncores 32 --year 2022EE
+    python3 wz-run3/wz-run.py card $extra --cutfile wz-run3/common/cuts-crzz.txt --outname cards/wz/crzz --binname crzz.input2022 --ncores 32 --year 2022
     echo "-----------------------------"
     
     echo -e $GREEN SUBMITTING cards for CRTT $NC
-    python3 wz-run3/wz-run.py card $extra --cutfile wz-run3/common/cuts-crtt.txt --outname cards/wz/crtt --binname crtt.input2022EE
+    python3 wz-run3/wz-run.py card $extra --cutfile wz-run3/common/cuts-crtt.txt --outname cards/wz/crtt --binname crtt.input2022EE --year 2022EE --var "nJet25_Mini" --binning "[-0.5,0.5,1.5,2.5,3.5,4.5]" --ncores 32
+    python3 wz-run3/wz-run.py card $extra --cutfile wz-run3/common/cuts-crtt.txt --outname cards/wz/crtt --binname crtt.input2022 --year 2022 --var "nJet25_Mini" --binning "[-0.5,0.5,1.5,2.5,3.5,4.5]" --ncores 32
+    echo "-----------------------------"
+    
+    echo -e $GREEN SUBMITTING cards for CRCONV $NC
+    python3 wz-run3/wz-run.py card $extra --cutfile wz-run3/common/cuts-crconv.txt --outname cards/wz/crconv --binname crconv.input2022EE --year 2022EE --ncores 32
+    python3 wz-run3/wz-run.py card $extra --cutfile wz-run3/common/cuts-crconv.txt --outname cards/wz/crconv --binname crconv.input2022 --year 2022 --ncores 32
     echo "-----------------------------"
 
 fi

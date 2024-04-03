@@ -23,9 +23,10 @@ lepZ2_eta : LepZ2_eta  : 10,-2.5,2.5 ; YTitle="Events", XTitle="#eta(Z2 lep.)", 
 lepZ2_phi : LepZ2_phi  : 10,-3.15,3.15; YTitle="Events", XTitle="#phi(Z2 lep.)", Logy
 
 # + Kinematics of the lepton coming from W
-lepW_pt   : LepW_pt    : 10,20,160   ; YTitle="Events", XTitle="p_{T\,cone}(W lep.)", Logy, MoreY=1.2
+lepW_pt   : LepW_pt    : 10,0,160   ; YTitle="Events", XTitle="p_{T\,cone}(W lep.)", MoreY=1.2
+#lepW_pt   : LepW_pt    : 10,0,160   ; YTitle="Events", XTitle="p_{T\,cone}(W lep.)", Logy, MoreY=1.2
 lepW_phi  : LepW_phi   : 10,-3.15,3.15; YTitle="Events", XTitle="#phi(W lep.)", Logy, MoreY=1.5
-lepW_eta  : LepW_eta   : 10,-2.5,2.5 ; YTitle="Events", XTitle="#eta(W lep.)", Logy
+lepW_eta  : LepW_eta   : 10,-2.5,2.5 ; YTitle="Events", XTitle="#eta(W lep.)"
 
 # + Kinematics of the leptons without tagging
 lep1_pt       : LepSel_pt[0] : 10,20,180  ; XTitle="p_{T}(l1) [GeV]", MoreY=1.5
@@ -35,33 +36,35 @@ lep3_pt       : LepSel_pt[2] : 20,20,180  ; XTitle="p_{T}(l3) [GeV]", MoreY=1.5
 # + Kinematics of the three lepton system
 m3l         : m3L              : 20,100,300    ; XTitle="m_{3L} (GeV)" ,  Legend="TR", Logy, MoreY=1.2
 mll3l       : mll_3l           : 20,75,105    ; XTitle="M_{ll} (GeV)", Legend="TR", Logy, MoreY=1.2
-mtW3l       : mT_3l            : 20,0,200    ; XTitle="M_{T} (GeV)", Legend="TR", Logy, MoreY=1.2
+#mtW3l       : mT_3l            : 20,0,200    ; XTitle="M_{T} (GeV)", Legend="TR", Logy, MoreY=1.2
+mtW3l       : mT_3l            : 20,0,200    ; XTitle="M_{T} (GeV)", Legend="TR", MoreY=1.2
 mll3lconv   : mll_3l           : 8,35,75    ; XTitle="M_{ll} (GeV)", Legend="TR"
 m3lmet_Meas : m3Lmet           : 10,100,200 ; XTitle="m_{WZ} [GeV]", YTitle='Events/bin', IncludeOverflows=False, MoreY=1.2
 
 # + Kinematics of the Z pair
-mllZ2  : mass_2(LepSel_pt[unused4(mll_i1[0], mll_i2[0], 1)],LepSel_eta[unused4(mll_i1[0], mll_i2[0], 1)], LepSel_phi[unused4(mll_i1[0], mll_i2[0], 1)],0, LepSel_pt[unused4(mll_i1[0], mll_i2[0], 2)], LepSel_eta[unused4(mll_i1[0], mll_i2[0], 2)], LepSel_phi[unused4(mll_i1[0], mll_i2[0], 2)],0): 20,75,105 ; XTitle="M_{Z2} (GeV)", Legend="TR"
+mllZ2  : mass_2(LepSel_pt[unused4(mll_i1[0], mll_i2[0], 1)],LepSel_eta[unused4(mll_i1[0], mll_i2[0], 1)], LepSel_phi[unused4(mll_i1[0], mll_i2[0], 1)],0, LepSel_pt[unused4(mll_i1[0], mll_i2[0], 2)], LepSel_eta[unused4(mll_i1[0], mll_i2[0], 2)], LepSel_phi[unused4(mll_i1[0], mll_i2[0], 2)],0): 10,75,105 ; XTitle="M_{Z2} (GeV)", Legend="TR"
 
 # ---------- HADRONIC-PARTICLES PLOTS ---------- #  
 # + MET
-met         : MET_pt_central    : 20,35,160   ; XTitle="p_{T}^{miss}  (GeV)", Legend="TR", Logy, MoreY=1.2
+#met         : MET_pt_central    : 20,35,160   ; XTitle="p_{T}^{miss}  (GeV)", Legend="TR", Logy, MoreY=1.2
+met         : MET_pt_central    : 20,35,160   ; XTitle="p_{T}^{miss}  (GeV)", Legend="TR", MoreY=1.2
 
-nJet30      : nJet30_Mini       : [-0.5,0.5,1.5,2.5,3.5,4.5] ; XTitle="N(jet\, p_{T} > 30)", Logy 
+nJet30      : nJet30_Mini       : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5] ; XTitle="N(jet\, p_{T} > 30)", Logy 
 nBJet25     : nBJetTight25_Mini : 1,-1,1  ; XTitle="N(b-jet\, p_{T} > 25\, DCSVT)"
-nJet25      : nJet25_Mini       : [-0.5,0.5,1.5,2.5,3.5,4.5]  ; XTitle="N(jet\, p_{T} > 25)" 
+nJet25      : nJet25_Mini       : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5] ; XTitle="N(jet\, p_{T} > 25)" 
 
 # + Leading jet
-jet1_pt   : if3(nJetSel_Mini>0, Jet_pt[iJSel_Mini[0]], -99) : 40,0,400 ; XTitle="p_{T}(leading jet) [GeV]", YTitle="Jets", Logy  
+jet1_pt   : if3(nJetSel_Mini>0, Jet_pt[iJSel_Mini[0]], -99) : 40, 0, 400 ; XTitle="p_{T}(leading jet) [GeV]", YTitle="Jets", Logy  
 jet1_eta  : if3(nJetSel_Mini>0, Jet_eta[iJSel_Mini[0]], -99) : 20,-5.0,5.0 ; XTitle="#eta(leading jet) [GeV]", Logy   
 jet1_deepjet  : if3(nJetSel_Mini>0, Jet_btagDeepFlavB[iJSel_Mini[0]], -99) : 10,0,1 ; XTitle="DeepJet(leading jet)", YTitle="Jets"
 
 # + Subleading jet
-jet2_pt   : if3(nJetSel_Mini>1, Jet_pt[iJSel_Mini[1]], -99) : 40,0,400 ; XTitle="p_{T}(subleading jet) [GeV]", YTitle="Jets"  
+jet2_pt   : if3(nJetSel_Mini>1, Jet_pt[iJSel_Mini[1]], -99) : 40, 0, 400 ; XTitle="p_{T}(subleading jet) [GeV]", YTitle="Jets"  
 jet2_eta  : if3(nJetSel_Mini>1, Jet_eta[iJSel_Mini[1]], -99) : 20,-5.0,5.0 ; XTitle="#eta(subleading jet) [GeV]",   
 jet2_deepjet  : if3(nJetSel_Mini>1, Jet_btagDeepFlavB[iJSel_Mini[1]], -99) : 10,0,1 ; XTitle="DeepJet(subleading jet)", YTitle="Jets"
 
 # + Inclusive observables
-jet_pt   : if3(nJetSel_Mini>0, Jet_pt[iJSel_Mini], -99) : 20,0,200 ; XTitle="p_{T}(jet) [GeV]", YTitle="Jets"  
+jet_pt   : if3(nJetSel_Mini>0, Jet_pt[iJSel_Mini], -99)  : 40, 0, 400 ; XTitle="p_{T}(jet) [GeV]", YTitle="Jets"  
 jet_eta  : if3(nJetSel_Mini>0, Jet_eta[iJSel_Mini], -99) : 20,-5.0,5.0 ; XTitle="#eta(jet)", YTitle="Jets"  
 jet_phi  : if3(nJetSel_Mini>0, Jet_phi[iJSel_Mini], -99) : 20,-3.14,3.14 ; XTitle="#phi(jet)", YTitle="Jets"
 
@@ -72,7 +75,7 @@ wz_LooseBclassifier: wz_LooseBtag_clasifier(nJet30_Mini, nBJetLoose30_Mini): [0.
 
 
 # ---------- FLAVOR COMPOSITION PLOTS ---------- #  
-flavor3l            : (abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2  : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=3.0
+flavor3l            : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2  : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=3.0
 flavorcharge3l      : (abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2+ 4*(LepW_pdgId[0] < 0)  : 8,-0.5,7.5 ; XTitle="flavor", xBinLabels="eee^{-}\,ee#mu^{-}\,e#mu#mu^{-}\,#mu#mu#mu^{-}\,eee^{+}\,ee#mu^{+}\,e#mu#mu^{+}\,#mu#mu#mu^{+}", Legend="TL", MoreY=3.0
 flavorcharge3lLoose : (abs(LepGood_pdgId[0])+abs(LepGood_pdgId[1])+abs(LepGood_pdgId[2])-33)/2+ 4*(LepGood_pdgId[0]+LepGood_pdgId[1] + LepGood_pdgId[2] < 0)  : 8,-0.5,7.5 ; XTitle="flavor", xBinLabels="eee^{-}\,ee#mu^{-}\,e#mu#mu^{-}\,#mu#mu#mu^{-}\,eee^{+}\,ee#mu^{+}\,e#mu#mu^{+}\,#mu#mu#mu^{+}", Legend="TL", MoreY=3.0
 flavorLoose         : (abs(LepGood_pdgId[0])+abs(LepGood_pdgId[1])+abs(LepGood_pdgId[2])-33)/2 : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=2.0
