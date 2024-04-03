@@ -1,0 +1,6 @@
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/GluGlutoContinto2Zto2E2Mu_TuneCP5_13p6TeV_mcfm701-pythia8
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/GluGluToContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/GluGluToContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/GluGlutoContinto2Zto4E_TuneCP5_13p6TeV_mcfm-pythia8
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/GluGlutoContinto2Zto4Mu_TuneCP5_13p6TeV_mcfm-pythia8
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/GluGlutoContinto2Zto4Tau_TuneCP5_13p6TeV_mcfm-pythia8

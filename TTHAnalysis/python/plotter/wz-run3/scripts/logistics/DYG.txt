@@ -1,0 +1,9 @@
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/DYGto2LG-1Jets_MLL-4to50_PTG-100to200_TuneCP5_13p6TeV_amcatnloFXFX-pyt
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/DYGto2LG-1Jets_MLL-4to50_PTG-10to100_TuneCP5_13p6TeV_amcatnloFXFX-pyth
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/DYGto2LG-1Jets_MLL-4to50_PTG-200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/DYGto2LG-1Jets_MLL-50_PTG-100to200_TuneCP5_13p6TeV_amcatnloFXFX-pythia
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/DYGto2LG-1Jets_MLL-50_PTG-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/DYGto2LG-1Jets_MLL-50_PTG-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/DYGto2LG-1Jets_MLL-50_PTG-400to600_TuneCP5_13p6TeV_amcatnloFXFX-pythia
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/DYGto2LG-1Jets_MLL-50_PTG-50to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8
+/lustrefs/hdd_pool_dir/nanoAODv12/24october2023/MC/2022/DYGto2LG-1Jets_MLL-50_PTG-600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8

@@ -2,7 +2,7 @@
 import os,sys
 
 sys.path.append( os.path.join(os.environ["CMSSW_BASE"], "src/CMGTools/TTHAnalysis/python/plotter/wz-run3"))
-from make_latex_table import dict_to_latex_table
+from scripts.make_latex_table import dict_to_latex_table
 from functions import color_msg
 from cfgs.datasets_cfg import mcas, mcas_fr
 
