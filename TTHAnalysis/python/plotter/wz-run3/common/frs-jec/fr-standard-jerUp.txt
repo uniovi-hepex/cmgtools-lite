@@ -1,6 +1,3 @@
-
-change: m3Lmet\b: m3Lmet_jerUp
-change: MET_pt_central\b: PuppiMET_T1_pt_jerUp
 ### --- Please review if that is the branch we have to change.... Rember issue with MET_pt_central and PuppiMet and all that
 change: nBJetTight25_Mini\b: nBJetTight25_Mini_jerUp
 change: nBJetTight25\b: nBJetTight25_Mini_jerUp
