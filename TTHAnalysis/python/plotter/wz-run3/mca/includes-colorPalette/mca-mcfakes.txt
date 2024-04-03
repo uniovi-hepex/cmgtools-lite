@@ -1,0 +1,21 @@
+## TTbar
+fakes_TT : TTto2L2Nu*  : 97.4488  ; FillColor=ROOT.TColor.GetColor(113\,117\,129), Label="Nonprompt", FakeRate="wz-run3/common/fakerate_load_isfake.txt", genSumWeightName="genEventSumw"
+
+## Single T
+fakes_T : TWminusto2L2Nu*   : 23.8979  ; FillColor=ROOT.TColor.GetColor(113\,117\,129) , Label="Nonprompt", FakeRate="wz-run3/common/fakerate_load_isfake.txt", genSumWeightName="genEventSumw"
+fakes_T : TbarWplusto2L2Nu* : 23.8979  ; FillColor=ROOT.TColor.GetColor(113\,117\,129) , Label="Nonprompt", FakeRate="wz-run3/common/fakerate_load_isfake.txt", genSumWeightName="genEventSumw"
+
+## Drell Yan
+fakes_DY : DYto2L_2Jets_MLL_50*     : 6345.99  ; FillColor=ROOT.TColor.GetColor(113\,117\,129), Label="Nonprompt", FakeRate="wz-run3/common/fakerate_load_isfake.txt", genSumWeightName="genEventSumw"
+fakes_DY : DYto2L_2Jets_MLL_10to50* : 19982.5  ; FillColor=ROOT.TColor.GetColor(113\,117\,129), Label="Nonprompt", FakeRate="wz-run3/common/fakerate_load_isfake.txt", genSumWeightName="genEventSumw"
+
+## Diboson
+fakes_VV : ZZto2L2Q*   : 8.08     ; FillColor=ROOT.TColor.GetColor(113\,117\,129), Label="Nonprompt", FakeRate="wz-run3/common/fakerate_load_isfake.txt", genSumWeightName="genEventSumw"
+fakes_VV : ZZto2L2Nu*  : 1.19     ; FillColor=ROOT.TColor.GetColor(113\,117\,129), Label="Nonprompt", FakeRate="wz-run3/common/fakerate_load_isfake.txt", genSumWeightName="genEventSumw"
+fakes_VV : WWto2L2Nu*  : 12.98    ; FillColor=ROOT.TColor.GetColor(113\,117\,129), Label="Nonprompt", FakeRate="wz-run3/common/fakerate_load_isfake.txt", genSumWeightName="genEventSumw"
+
+## WtoLNu_2Jets
+Wjets: WtoLNu_2Jets    : 64481.58 ;FillColor=ROOT.TColor.GetColor(113\,117\,129), Label="Nonprompt", FakeRate="wz-run3/common/fakerate_load_isfake.txt", genSumWeightName="genEventSumw"
+
+
+
