@@ -12,7 +12,7 @@ mcas = {
     "data" : mca("data", ["data"]),
     "signal" : mca("signal", ["WZ"]),
     # ---- Backgrounds
-    "prompts" : mca("prompts", ["ZZ", "ttX", "TZQ", "Others", "VVV"]),
+    "prompts" : mca("prompts", ["ZZ", "ttX", "TZQ", "Others", "VVV", "VH"]),
     "mcfakes" : mca("mcfakes", ["Fakes_TT", "Fakes_ST", "Fakes_DY", "Fakes_VV", "Wjets"]),
     "convs" : mca("convs", ["convs"])
 }
@@ -61,9 +61,15 @@ mcas["signal"].add_dataset( dataset_mc(dbs_mc["WZto3LNu"], "ROOT.kOrange"), "WZ"
 # ---- Prompts
 # + ZZ
 mcas["prompts"].add_dataset( dataset_mc(dbs_mc["ZZto4L"], "ROOT.kGreen+1"), "ZZ")
+mcas["prompts"].add_dataset( dataset_mc(dbs_mc["GluGlutoContinto2Zto2E2Mu"], "ROOT.kGreen+1"), "ZZ")
+mcas["prompts"].add_dataset( dataset_mc(dbs_mc["GluGluToContinto2Zto2E2Tau"], "ROOT.kGreen+1"), "ZZ")
+mcas["prompts"].add_dataset( dataset_mc(dbs_mc["GluGluToContinto2Zto2Mu2Tau"], "ROOT.kGreen+1"), "ZZ")
+mcas["prompts"].add_dataset( dataset_mc(dbs_mc["GluGlutoContinto2Zto4E"], "ROOT.kGreen+1"), "ZZ")
+mcas["prompts"].add_dataset( dataset_mc(dbs_mc["GluGlutoContinto2Zto4Mu"], "ROOT.kGreen+1"), "ZZ")
+mcas["prompts"].add_dataset( dataset_mc(dbs_mc["GluGlutoContinto2Zto4Tau"], "ROOT.kGreen+1"), "ZZ")
 
 # + TZQ
-#mcas["prompts"].add_dataset( dataset_mc(dbs_mc["TZQB_4FS_OnshellZ"], "ROOT.kCyan"), "TZQ")
+mcas["prompts"].add_dataset( dataset_mc(dbs_mc["TZQB"], "ROOT.kCyan"), "TZQ")
 
 # + TTX
 mcas["prompts"].add_dataset( dataset_mc(dbs_mc["TTG_1Jets_PTG_10to100"], "ROOT.kViolet-3"), "ttX")
@@ -87,6 +93,9 @@ mcas["prompts"].add_dataset( dataset_mc(dbs_mc["WWZ_4F"], "ROOT.kRed+1"), "VVV")
 mcas["prompts"].add_dataset( dataset_mc(dbs_mc["WZZ"], "ROOT.kRed+1"), "VVV")
 mcas["prompts"].add_dataset( dataset_mc(dbs_mc["ZZZ"], "ROOT.kRed+1"), "VVV")
 
+# + VH
+mcas["prompts"].add_dataset( dataset_mc(dbs_mc["VH_HtoNonbb"], "ROOT.kRed-1"), "VH")
+
 
 # ---- MC fakes
 # + EWK fakes
@@ -108,8 +117,15 @@ mcas["convs"].add_dataset( dataset_mc(dbs_mc["WGtoLNuG_PTG_10to100"], "ROOT.kOra
 mcas["convs"].add_dataset( dataset_mc(dbs_mc["WGtoLNuG_PTG_100to200"], "ROOT.kOrange-3"), "convs")
 mcas["convs"].add_dataset( dataset_mc(dbs_mc["WGtoLNuG_PTG_200"], "ROOT.kOrange-3"), "convs")
 mcas["convs"].add_dataset( dataset_mc(dbs_mc["WZGtoLNuZG"], "ROOT.kOrange-3"), "convs")
-mcas["convs"].add_dataset( dataset_mc(dbs_mc["ZGto2LG"], "ROOT.kOrange-3"), "convs")
-
+mcas["convs"].add_dataset( dataset_mc(dbs_mc["DYGto2LG_MLL-4to50_PTG-10to100"], "ROOT.kOrange-3"), "convs")
+mcas["convs"].add_dataset( dataset_mc(dbs_mc["DYGto2LG_MLL-4to50_PTG-100to200"], "ROOT.kOrange-3"), "convs")
+mcas["convs"].add_dataset( dataset_mc(dbs_mc["DYGto2LG_MLL-4to50_PTG-200"], "ROOT.kOrange-3"), "convs")
+mcas["convs"].add_dataset( dataset_mc(dbs_mc["DYGto2LG_MLL-50_PTG-100to200"], "ROOT.kOrange-3"), "convs")
+mcas["convs"].add_dataset( dataset_mc(dbs_mc["DYGto2LG_MLL-50_PTG-10to50"], "ROOT.kOrange-3"), "convs")
+mcas["convs"].add_dataset( dataset_mc(dbs_mc["DYGto2LG_MLL-50_PTG-50to100"], "ROOT.kOrange-3"), "convs")
+mcas["convs"].add_dataset( dataset_mc(dbs_mc["DYGto2LG_MLL-50_PTG-200to400"], "ROOT.kOrange-3"), "convs")
+mcas["convs"].add_dataset( dataset_mc(dbs_mc["DYGto2LG_MLL-50_PTG-400to600"], "ROOT.kOrange-3"), "convs")
+mcas["convs"].add_dataset( dataset_mc(dbs_mc["DYGto2LG_MLL-50_PTG-600"], "ROOT.kOrange-3"), "convs")
 
 # ======================== For the FR analysis ========================== #
 # Data

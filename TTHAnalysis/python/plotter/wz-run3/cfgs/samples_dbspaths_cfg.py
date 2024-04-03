@@ -33,14 +33,21 @@ dbs_mc = {
     'WZto3LNu': {'dbs': '/WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8/', 'xsec': 5.31}, 
     
     # Prompts
-    'ZZto4L': {'dbs': '/ZZto4L_TuneCP5_13p6TeV_powheg-pythia8/', 'xsec': 1.65}, 
+    'ZZto4L': {'dbs': '/ZZto4L_TuneCP5_13p6TeV_powheg-pythia8/', 'xsec': 1.65},
+    'GluGlutoContinto2Zto2E2Mu': {'dbs': '/GluGlutoContinto2Zto2E2Mu_TuneCP5_13p6TeV_mcfm701-pythia8/', 'xsec': 0.006114},
+    'GluGluToContinto2Zto2E2Tau': {'dbs': '/GluGluToContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/', 'xsec': 0.006114},
+    'GluGluToContinto2Zto2Mu2Tau': {'dbs': '/GluGluToContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/', 'xsec': 0.006114},
+    'GluGlutoContinto2Zto4E': {'dbs': '/GluGlutoContinto2Zto4E_TuneCP5_13p6TeV_mcfm-pythia8/', 'xsec': 0.003060},
+    'GluGlutoContinto2Zto4Mu': {'dbs': '/GluGlutoContinto2Zto4Mu_TuneCP5_13p6TeV_mcfm-pythia8/', 'xsec': 0.003060},
+    'GluGlutoContinto2Zto4Tau': {'dbs': '/GluGlutoContinto2Zto4Tau_TuneCP5_13p6TeV_mcfm-pythia8/', 'xsec': 0.003060},
     'TTG_1Jets_PTG_10to100': {'dbs': '/TTG-1Jets_PTG-10to100_TuneCP5_13p6TeV_amcatnloFXFXold-pythia8/', 'xsec': 4.216}, 
     'TTG_1Jets_PTG_100to200': {'dbs': '/TTG-1Jets_PTG-100to200_TuneCP5_13p6TeV_amcatnloFXFXold-pythia8/', 'xsec': 0.411}, 
     'TTG_1Jets_PTG_200': {'dbs': '/TTG-1Jets_PTG-200_TuneCP5_13p6TeV_amcatnloFXFXold-pythia8/', 'xsec': 0.128},  
-    'TTHtoNon2B': {'dbs': '/TTHtoNon2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/', 'xsec': 0.574}, 
+    'TTHtoNon2B': {'dbs': '/TTHtoNon2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/', 'xsec': 0.25}, 
     'TTLL_MLL_50': {'dbs': '/TTLL_MLL-50_TuneCP5_13p6TeV_amcatnlo-pythia8/', 'xsec': 0.08646}, 
     'TTLL_MLL_4to50': {'dbs': '/TTLL_MLL-4to50_TuneCP5_13p6TeV_amcatnlo-pythia8/', 'xsec': 0.03949}, 
     'TTLNu_1Jets': {'dbs': '/TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 0.25}, 
+    'TZQB': {'dbs': '/TZQB-Zto2L-4FS_MLL-30_TuneCP5_13p6TeV_amcatnlo-pythia8/', 'xsec': 0.07968}, 
     'WZZ': {'dbs': '/WZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/', 'xsec': 0.06206}, 
     'WWW_4F': {'dbs': '/WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/', 'xsec': 1}, 
     'WWZ_4F': {'dbs': '/WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8/', 'xsec': 0.18510}, 
@@ -69,12 +76,23 @@ dbs_mc = {
     'WtoLNu_2Jets': {'dbs': '/WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 64481.58}, 
 
     # Conversions
+    'VH_HtoNonbb': {'dbs': '/VH_HtoNonbb_M-125_TuneCP5_13p6TeV_amcatnloFXFX-madspin-pythia8/', 'xsec': 1.01}, 
     'WGtoLNuG_PTG_10to100': {'dbs': '/WGtoLNuG-1Jets_PTG-10to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 662.2},
     'WGtoLNuG_PTG_100to200': {'dbs': '/WGtoLNuG-1Jets_PTG-100to200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 2.214}, 
     'WGtoLNuG_PTG_200': {'dbs': '/WGtoLNuG-1Jets_PTG-200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 0.319}, 
     'ZGto2LG': {'dbs': '/ZGto2LG_TuneCP5_13p6TeV_amcatnlo-pythia8/', 'xsec': 1}, 
     'WZGtoLNuZG': {'dbs': '/WZGtoLNuZG_TuneCP5_13p6TeV_amcatnlo-pythia8/', 'xsec': 0.08425}, 
+    "DYGto2LG_MLL-4to50_PTG-10to100": {'dbs': '/DYGto2LG-1Jets_MLL-4to50_PTG-10to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 87.94},
+    "DYGto2LG_MLL-4to50_PTG-100to200": {'dbs': '/DYGto2LG-1Jets_MLL-4to50_PTG-100to200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 0.2423},
+    "DYGto2LG_MLL-4to50_PTG-200": {'dbs': '/DYGto2LG-1Jets_MLL-4to50_PTG-200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 0.04002},
+    "DYGto2LG_MLL-50_PTG-10to50": {'dbs': '/DYGto2LG-1Jets_MLL-50_PTG-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 124.2},
+    "DYGto2LG_MLL-50_PTG-50to100": {'dbs': '/DYGto2LG-1Jets_MLL-50_PTG-50to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 2.10},
+    "DYGto2LG_MLL-50_PTG-100to200": {'dbs': '/DYGto2LG-1Jets_MLL-50_PTG-100to200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 0.045},
+    "DYGto2LG_MLL-50_PTG-200to400": {'dbs': '/DYGto2LG-1Jets_MLL-50_PTG-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 0.00329},
+    "DYGto2LG_MLL-50_PTG-400to600": {'dbs': '/DYGto2LG-1Jets_MLL-50_PTG-400to600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 0.00067},
+    "DYGto2LG_MLL-50_PTG-600": {'dbs': '/DYGto2LG-1Jets_MLL-50_PTG-600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/', 'xsec': 0.0007773},
     
+
     # QCD no skim
     # EM enriched
     'QCD_PT_10to30_EMEnriched': {'dbs': '/QCD_PT-10to30_EMEnriched_TuneCP5_13p6TeV_pythia8/', 'xsec':  6.896e+06}, 
