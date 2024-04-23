@@ -5,6 +5,8 @@ import math
 import ROOT as r
 import os
 import sys
+from correctionlib import _core
+
 
 # -- Define where to extrac the SFs from
 
@@ -32,11 +34,15 @@ class lepScaleFactors_wzrun3(Module):
         },
         
         "electron" : { 
-          "IDTight"    : { "file" : "EGM/{year}/Electrons-mvaTTH-WP090_nanoAODv12", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
+          #"IDTight2"    : { "file" : "EGM/{year}/Electrons-mvaTTH-WP090_nanoAODv12", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
           #"IDTight"    : { "file" : "EGM/{year}/Electrons-mvaTTH-WP097_nanoAODv12", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
-          "recoLowPt"  : { "file" : "EGM/{year}/Electrons-recoSF-lowPt",            "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
-          "recoMidPt"  : { "file" : "EGM/{year}/Electrons-recoSF-mediumPt",         "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
-          "recoHighPt" : { "file" : "EGM/{year}/Electrons-recoSF-highPt",           "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]}
+          #"recoLowPt"  : { "file" : "EGM/{year}/Electrons-recoSF-lowPt",            "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
+          #"recoMidPt"  : { "file" : "EGM/{year}/Electrons-recoSF-mediumPt",         "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
+          #"recoHighPt" : { "file" : "EGM/{year}/Electrons-recoSF-highPt",           "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
+          #"IDLoose" : { "file" : "EGM/{year}/electron.json.gz", "json" : "Electron-ID-SF", "unc" : [("total")]},
+          #"IDTight" : { "file" : "EGM/{year}/electron.json.gz", "json" : "Electron-ID-SF", "unc" : [("total")]},
+          "IDTight" : { "file" : "EGM/{year}/Electrons-mvaTTH-WP090_nanoAODv12_fixCutBasedIssue_NowFullCorrection", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
+          "reco"    : { "file" : "EGM/{year}/electron.json.gz", "json" : "Electron-ID-SF", "unc" : [("total")]},
         }
     }
     
@@ -56,9 +62,8 @@ class lepScaleFactors_wzrun3(Module):
         self.systsLepEn[i+1]    = "%sUp"%var
         self.systsLepEn[-(i+1)] = "%sDown"%var
         
-    # Now load required histograms
-    self.load_histograms()
-    
+    # Now load required histograms or jsons
+    self.load_corrections()
   
     return 
   
@@ -95,15 +100,29 @@ class lepScaleFactors_wzrun3(Module):
         self.outdict["%sSF_%sDown"%(lep, source_sf)] = 1
       
     return 
-  
+
+  def correctTheLeptons(self, event, leps):
+    ''' Method to select the correct pT branch for leptons depending
+        on the lepton scale we are currently processing '''
+
+    # IMPORTANT NOTE: WE ARE NOT CURRENTLY TREATING SCALES, SO WE
+    # WILL ONLY USE THE "PT"  BRANCH.
+    correctedLeps = []
+    for l in leps:
+      setattr(l, "uncorrpt", l.correctedpt)
+      l.pt = getattr(l, "correctedpt") 
+      correctedLeps.append(l) 
+    return correctedLeps
+
   def analyze(self, event):
     
     self.create_outdict()
     
     year = self.year  
     # -- Get the collection of leptons and analyze the topology (i.e. how many leptons are in the event)
-    leps = [l for l in Collection(event, "LepGood")]    
-    nleps = len(leps)
+    leps = [ l for l in Collection(event, "LepGood") ]
+    correctedleps = leps #self.correctTheLeptons(event, leps)
+
     self.event = event
     if self.verbosity > 0:
       color_msg("   ---- Analyzing event %d"%(event.event), "green")
@@ -118,7 +137,7 @@ class lepScaleFactors_wzrun3(Module):
       "electron" : []
     } 
     
-    for ilep, lep in enumerate(leps):
+    for ilep, lep in enumerate(correctedleps):
       lep_pt  = getattr(lep, "conePt")
       lep_eta = lep.eta
       lep_pdg = abs(lep.pdgId)
@@ -149,7 +168,7 @@ class lepScaleFactors_wzrun3(Module):
   def printSummary( self ):
     """ Print a summary of the scale factors """
     for sftype, value in self.outdict.items():
-      color_msg("    *%s : %3.2f"%(sftype, value), "red")
+      color_msg("    *%s : %3.3f"%(sftype, value), "red")
     color_msg(" ----- ", "red")
     return
   
@@ -210,41 +229,145 @@ class lepScaleFactors_wzrun3(Module):
   def getLepSF(self,  pt, eta, flav):
     ''' Function to get all the SFs for a given lepton '''    
     sfret = {}
-    for source, histograms in list(self.leptonSF[flav].items()):
-      
-      ## Nominal histogram
-      h_nom = histograms["nominal"]      
+    if flav == "muon":
+      # Correct for IDTight: input format is a rootfile
+
+      # :: ID
+      # Get the nominal scale factor
+      h_nom = self.leptonSF[flav]["IDTight"]["nominal"]
       sf = self.getFromHisto(pt, abs(eta), h_nom)
-
-      skipThese = []        
-
-      if flav == "electron" and (pt < 20): skipThese = ["recoMidPt", "recoHighPt"]
-      if flav == "electron" and (pt > 20 and pt < 75): skipThese = ["recoLowPt", "recoHighPt"]
-      if flav == "electron" and (pt > 75): skipThese = ["recoLowPt", "recoMidPt"]
-      if source in skipThese:
-      #    print("Skipping %s since %s pT is %3.2f"%(source, flav, pt))
-          continue
-
-      sfret[source] = {"nominal" : sf}
-      ## Now compute uncertainties
-      for uncsource, h_unc in histograms.items():
-        if uncsource == "nominal" : continue 
-
-        variation = self.getFromHisto( pt, abs(eta), h_unc, err=True )
-        
-        var_sf_up = sf + variation
-        var_sf_dn = sf - variation
-        
-        # -- Consider Extrapolation to top-like from DY-like phase space 
-        #    (CMS-AN-"2018"-210) ---> Only for muons!
-
-        #if flav == "muon":
-        #  var_sf_up += 0.005
-        #  var_sf_dn += 0.005
+      sfret["IDTight"] = {"nominal" : sf}
       
-          
-        sfret[source][uncsource] = {"up" : var_sf_up, "dn" : var_sf_dn}
-       
+      # Now compute uncertainties: only one source (total)
+      h_unc = self.leptonSF[flav]["IDTight"]["total"]
+      variation = self.getFromHisto(pt, abs(eta), h_unc, err = True)
+      var_sf_up = sf + variation
+      var_sf_dn = sf - variation
+      sfret["IDTight"]["total"] = {
+        "up" : var_sf_up, 
+        "dn" : var_sf_dn 
+      }
+
+    elif flav == "electron":
+      # Correct for ID and RECO
+      json_era = "2022Re-recoE+PromptFG" if self.year == "2022EE" else "2022Re-recoBCD"
+
+
+      # Try POG SF
+      """
+      # :: ID input format is JSON
+      sf   = self.leptonSF[flav]["IDTight"].evaluate( json_era, "sf", "Tight", eta, pt)
+      sfup = self.leptonSF[flav]["IDTight"].evaluate( json_era, "sfup", "Tight", eta, pt)
+      sfdn = self.leptonSF[flav]["IDTight"].evaluate( json_era, "sfdown", "Tight", eta, pt)
+      sfret["IDTight"] = {"nominal" : sf}
+      sfret["IDTight"]["total"] = {
+        "up" : sfup, 
+        "dn" : sfdn
+      }
+
+      sf   = self.leptonSF[flav]["IDTight"].evaluate( json_era, "sf", "Loose", eta, pt)
+      sfup = self.leptonSF[flav]["IDTight"].evaluate( json_era, "sfup", "Loose", eta, pt)
+      sfdn = self.leptonSF[flav]["IDTight"].evaluate( json_era, "sfdown", "Loose", eta, pt)
+      sfret["IDLoose"] = {"nominal" : sf}
+      sfret["IDLoose"]["total"] = {
+        "up" : sfup, 
+        "dn" : sfdn
+      }
+      
+      """
+      # :: ID: input format is ROOT
+      # Get the nominal scale factor
+      h_nom = self.leptonSF[flav]["IDTight"]["nominal"]
+      sf = self.getFromHisto(pt, abs(eta), h_nom)
+      sfret["IDTight"] = {"nominal" : sf}
+      
+      # Now compute uncertainties: only one source (total)
+      h_unc = self.leptonSF[flav]["IDTight"]["total"]
+      variation = self.getFromHisto(pt, abs(eta), h_unc, err = True)
+      var_sf_up = sf + variation
+      var_sf_dn = sf - variation
+      sfret["IDTight"]["total"] = {
+        "up" : var_sf_up, 
+        "dn" : var_sf_dn 
+      }
+
+      # :: Reco: input format is JSON
+      sf_reco = 1
+      sfup_reco = 1e-5
+      sfdn_reco = 1e-5
+      if pt < 20 and pt >= 10: 
+        sf_reco   = self.leptonSF[flav]["reco"].evaluate( json_era, "sf", "RecoBelow20", eta, pt)
+        sfup_reco = self.leptonSF[flav]["reco"].evaluate( json_era, "sfup", "RecoBelow20", eta, pt)
+        sfdn_reco = self.leptonSF[flav]["reco"].evaluate( json_era, "sfdown", "RecoBelow20", eta, pt)
+      if pt >= 20 and pt < 75: 
+        sf_reco   = self.leptonSF[flav]["reco"].evaluate( json_era, "sf", "Reco20to75", eta, pt)
+        sfup_reco = self.leptonSF[flav]["reco"].evaluate( json_era, "sfup", "Reco20to75", eta, pt)
+        sfdn_reco = self.leptonSF[flav]["reco"].evaluate( json_era, "sfdown", "Reco20to75", eta, pt)
+      if pt >= 75: 
+        sf_reco   = self.leptonSF[flav]["reco"].evaluate( json_era, "sf", "RecoAbove75", eta, pt)
+        sfup_reco = self.leptonSF[flav]["reco"].evaluate( json_era, "sfup", "RecoAbove75", eta, pt)
+        sfdn_reco = self.leptonSF[flav]["reco"].evaluate( json_era, "sfdown", "RecoAbove75", eta, pt)
+      
+      sfret["reco"] = {"nominal" : sf_reco}
+      sfret["reco"]["total"] = {
+        "up" : sfup_reco, 
+        "dn" : sfdn_reco
+      }
+
+
+
+
+    #for source, corrector in list(self.leptonSF[flav].items()):
+    #  
+    #  # Check which type of operation is going to be done:
+    #  # -- If correction comes in ROOT format: corrector is a dictionary with histograms
+    #  # -- If correction comes in CORRECTIONLIB format: corrector is the evaluator
+    #  
+    #  if isinstance(corrector, dict):
+    #    # :: Corrections are in ROOT format
+    #    ## Nominal histogram
+    #    h_nom = corrector["nominal"]      
+    #    sf = self.getFromHisto(pt, abs(eta), h_nom)
+#
+    #    sfret[source] = {"nominal" : sf}
+    #    ## Now compute uncertainties
+    #    for uncsource, h_unc in corrector.items():
+    #      if uncsource == "nominal" : continue 
+#
+    #      variation = self.getFromHisto( pt, abs(eta), h_unc, err=True )
+    #      
+    #      var_sf_up = sf + variation
+    #      var_sf_dn = sf - variation
+    #      
+    #      # -- Consider Extrapolation to top-like from DY-like phase space 
+    #      #    (CMS-AN-"2018"-210) ---> Only for muons!
+#
+    #      #if flav == "muon":
+    #      #  var_sf_up += 0.005
+    #      #  var_sf_dn += 0.005
+    #    
+    #        
+    #      sfret[source][uncsource] = {"up" : var_sf_up, "dn" : var_sf_dn}
+    #  else:
+    #    if self.year == "2022EE":
+    #      self.json_era = "2022Re-recoE+PromptFG"
+    #    else:
+    #      self.json_era = "2022Re-recoBCD"
+    #    
+    #    # :: Correction are in correctionlib format
+    #    evaluator = corrector
+    #    
+    #    if source == "reco" and flav == "electron" and pt < 20: index = "RecoBelow20"
+    #    if source == "reco" and flav == "electron" and pt >= 20 and pt < 75: index = "Reco20to75"
+    #    if source == "reco" and flav == "electron" and pt >= 75: index = "RecoAbove75"
+    #    
+    #    sf   = corrector.evaluate( self.json_era, "sf", index, eta, pt)
+    #    sfup = corrector.evaluate( self.json_era, "sfup", index, eta, pt)
+    #    sfdn = corrector.evaluate( self.json_era, "sfdown", index, eta, pt)
+#
+    #    sfret[source] = {"nominal" : sf}
+    #    sfret[source][uncsource] = {"up" : sfup, "dn" : sfdn}
+
     return sfret
   
   def getFromHisto(self, pt, eta, histo, err = False):
@@ -265,19 +388,33 @@ class lepScaleFactors_wzrun3(Module):
 
             xbin = max(1, min(histo.GetNbinsX(), histo.GetXaxis().FindBin(tmpeta)))
             ybin = max(1, min(histo.GetNbinsY(), histo.GetYaxis().FindBin(pt)))
-
         if err: return histo.GetBinError(xbin, ybin)
         else:   return histo.GetBinContent(xbin, ybin)
         
 
   # ============ LOADING METHODS =============== #
-  def load_histograms(self):
-    ''' Method to load histograms for muon and electron SFs'''
+  def load_corrections(self):
+    ''' Method to load histograms or json files for muon and electron SFs'''
     for flav in ["muon", "electron"]:
       for type_ in self.files[flav]:
-        self.leptonSF[flav][type_] = self.load_histo(self.files[flav][type_])          
+        if "hist" in self.files[flav][type_]: 
+          self.leptonSF[flav][type_] = self.load_histo(self.files[flav][type_])          
+        elif "json" in self.files[flav][type_]:
+          self.leptonSF[flav][type_] = self.load_json(self.files[flav][type_])        
     return
   
+
+  def load_json(self, info):
+    """ Method to load json """
+    fil      = os.path.join( self.lepsfpath, info["file"].format(year = self.year) )
+    evaluator = _core.CorrectionSet.from_file(fil)
+
+
+
+    ret = evaluator[ info["json"] ]
+    return ret
+  
+
   def load_histo(self, info):
     ''' Method to load histograms '''
     fil      = os.path.join( self.lepsfpath, info["file"].format(year = self.year) + ".root" )
@@ -342,12 +479,13 @@ if __name__ == '__main__':
     tightlep = lambda lep, jetlist : _tight_lepton(lep, looseDeepFlavB, mediumDeepFlavB, jetlist)
 
 
-    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees/mc/2022EE/"
-    process = "WZto3LNu"
+    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v2/mc/2022EE/"
+    process = "DYGto2LG_1Jets_MLL_50_PTG_50to100_part2"
 #    process = "TTTo2L2Nu_part17"
     
     friends = [
       "jmeCorrections",
+      "leptonEnergyCorrections",
       "lepmva",
       "leptonJetRecleaning",
       "leptonBuilder",
