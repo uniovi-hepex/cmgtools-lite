@@ -1,1 +1,1 @@
-allprompt: allPrompt(Alt$(LepGood_mcUCSX_v2[iF_Mini[0]],0), Alt$(LepGood_mcUCSX_v2[iF_Mini[1]],0), Alt$(LepGood_mcUCSX_v2[iF_Mini[2]],0), Alt$(LepGood_mcUCSX_v2[iF_Mini[3]],0), 1, 1, 0) 
+allprompt: allPrompt(Alt$(LepGood_mcUCSX_v2[iF_Mini[0]],0), Alt$(LepGood_mcUCSX_v2[iF_Mini[1]],0), Alt$(LepGood_mcUCSX_v2[iF_Mini[2]],0), Alt$(LepGood_mcUCSX_v2[iF_Mini[3]],0), 0, 0, 0) 

@@ -12,9 +12,9 @@ elif [[ $ch == *"el"* ]]; then
 fi
 
 cmd="python3 wz-run3/wz-run.py plot"
-cmd="$cmd --plotfile wz-run3/checkLeptons/plots-leptonSF-xvars.txt"
-cmd="$cmd --cutfile wz-run3/checkLeptons/cuts-OS.txt" 
-cmd="$cmd --unc --uncfile wz-run3/checkLeptons/systs-leptons.txt" 
+cmd="$cmd --plotfile wz-run3/checks/lepton-validations/plots-leptonSF-xvars.txt"
+cmd="$cmd --cutfile wz-run3/checks/lepton-validations/cuts-OS.txt" 
+cmd="$cmd --unc --uncfile wz-run3/checks/lepton-validations/systs-leptons.txt" 
 cmd="$cmd --ncores 32" 
 
 
@@ -47,7 +47,7 @@ function plot_by_era() {
   extra=$2
   flavor=$3
   eras="C D E F G"
-  cmd="$cmd --mca wz-run3/checkLeptons/mca-2lOS-perEra.txt"
+  cmd="$cmd --mca wz-run3/checks/lepton-validations/mca-2lOS-perEra.txt"
   for era in $eras; do
     if [[ $era == C || $era == D ]]; then
       year=2022
@@ -68,7 +68,7 @@ function plot_by_year() {
   cmd=$1
   extra=$2
   flavor=$3
-  cmd="$cmd --mca wz-run3/checkLeptons/mca-2lOS.txt"
+  cmd="$cmd --mca wz-run3/checks/lepton-validations/mca-2lOS.txt"
   for year in 2022 2022EE all; do
     echo ">> Submitting job for era $era (year $year)"
     echo "  + Mode: $mode"

@@ -7,9 +7,10 @@ filters : $DATA{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTight
 trigger : Trigger_3l
 
 # --- Three lepton selection
-trilep     : nLepGood >= 3
-lepPt      : LepZ1_pt >= 25 && LepZ2_pt >= 15 && LepW_pt >= 15
+trilep     : nLepSel >= 3
+lepPt      : LepZ1_pt >= 25 && LepZ2_pt >= 15
 lowmass    : minMllSFOS_Mini > 4 || minMllSFOS_Mini == -1
+met        : MET_pt_central < 35
 
 twoFOAndOneLoose : LepGood_isFO_Mini[0] && LepGood_isFO_Mini[1] && !(LepGood_isTight_Mini[2]); Disable=True
 z1z2tight : LepZ1_isTight    && LepZ2_isTight     ; Disable=True

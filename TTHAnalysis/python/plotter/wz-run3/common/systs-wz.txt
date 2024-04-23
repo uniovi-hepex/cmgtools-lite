@@ -80,7 +80,8 @@ elec_smear_2022PostEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/comm
 
 ## Lepton SFs 
 elecidsf   : $allProcs : .* : templateAsymm; AddWeights=["electronSF_IDTightUp/electronSF_IDTight"\,"electronSF_IDTightDown/electronSF_IDTight"]
-elecrecosf : $allProcs : .* : templateAsymm; AddWeights=["electronSF_recoHighPtUp*electronSF_recoMidPtUp*electronSF_recoLowPtUp/(electronSF_recoHighPt*electronSF_recoMidPt*electronSF_recoLowPt)"\,"electronSF_recoHighPtDown*electronSF_recoMidPtDown*electronSF_recoLowPtDown/(electronSF_recoHighPt*electronSF_recoMidPt*electronSF_recoLowPt)"]
+elecrecosf   : $allProcs : .* : templateAsymm; AddWeights=["electronSF_recoUp/electronSF_reco"\,"electronSF_recoDown/electronSF_reco"]
+#elecrecosf : $allProcs : .* : templateAsymm; AddWeights=["electronSF_recoHighPtUp*electronSF_recoMidPtUp*electronSF_recoLowPtUp/(electronSF_recoHighPt*electronSF_recoMidPt*electronSF_recoLowPt)"\,"electronSF_recoHighPtDown*electronSF_recoMidPtDown*electronSF_recoLowPtDown/(electronSF_recoHighPt*electronSF_recoMidPt*electronSF_recoLowPt)"]
 #elecrecoHighPtsf : $allProcs : .* : templateAsymm; AddWeights=["electronSF_recoHighPtUp/electronSF_recoHighPt"\,"electronSF_recoHighPtDown/electronSF_recoHighPt"]
 #elecrecoMidPtsf : $allProcs : .* : templateAsymm; AddWeights=["electronSF_recoMidPtUp/electronSF_recoMidPt"\,"electronSF_recoMidPtDown/electronSF_recoMidPt"]
 #elecrecoLowPtsf : $allProcs : .* : templateAsymm; AddWeights=["electronSF_recoLowPtUp/electronSF_recoLowPt"\,"electronSF_recoLowPtDown/electronSF_recoLowPt"]

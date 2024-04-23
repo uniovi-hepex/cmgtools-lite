@@ -7,6 +7,12 @@
 # ---------- Yield plots ---------- #  
 tot_weight : 1 : 1,0,2 ; XTitle ="Yields"
 
+flavor3l            : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2  : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=3.0
+flavorcharge3l      : (abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2+ 4*(LepW_pdgId[0] < 0)  : 8,-0.5,7.5 ; XTitle="flavor", xBinLabels="eee^{-}\,ee#mu^{-}\,e#mu#mu^{-}\,#mu#mu#mu^{-}\,eee^{+}\,ee#mu^{+}\,e#mu#mu^{+}\,#mu#mu#mu^{+}", Legend="TL", MoreY=3.0
+flavorcharge3lLoose : (abs(LepGood_pdgId[0])+abs(LepGood_pdgId[1])+abs(LepGood_pdgId[2])-33)/2+ 4*(LepGood_pdgId[0]+LepGood_pdgId[1] + LepGood_pdgId[2] < 0)  : 8,-0.5,7.5 ; XTitle="flavor", xBinLabels="eee^{-}\,ee#mu^{-}\,e#mu#mu^{-}\,#mu#mu#mu^{-}\,eee^{+}\,ee#mu^{+}\,e#mu#mu^{+}\,#mu#mu#mu^{+}", Legend="TL", MoreY=3.0
+flavorLoose         : (abs(LepGood_pdgId[0])+abs(LepGood_pdgId[1])+abs(LepGood_pdgId[2])-33)/2 : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=2.0
+
+
 # ---------- LEPTON PLOTS ---------- #  
 #nLepTight : 4*(abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2 + (LepSel_isTight[0]) + (LepSel_isTight[1])+ (LepSel_isTight[2]) : 16,-0.5,15.5 ; XTitle="nMuon*4+nTight", IncludeOverflow=True,  
 nOSSF : nOSSF_3l : 5,0,5 ; XTitle="nOSSF", IncludeOverflow=True, Logy
