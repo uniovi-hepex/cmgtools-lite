@@ -18,10 +18,13 @@ class ntuple_reader:
             self.files = []
             self.tree = r.TChain()
             self.runs = r.TChain()
+            print(" >> Creating chain")
             for sample in self.samplename:
+                print(f"   o Adding {sample} -- total entries {self.tree.GetEntries()}")
                 self.tree.Add( sample )
                 self.runs.Add( sample )
-
+            print(f"  o Total entries: {self.tree.GetEntries()}")
+           
         else:
             self.rf = r.TFile.Open( self.samplename, "READ" )
             self.tree = self.rf.Get( "Events" )
@@ -35,6 +38,11 @@ class ntuple_reader:
         #ftree = r.TFile.Open(friend)
         #tree = ftree.Get(ftreename)
         #self.tree.AddFriend(tree)
+
+    def add_ntuple(self, ntuple):
+        """ Basically adds the tree of another ntuple """
+        self.tree.Add( ntuple.get_tree() )
+        return
 
     def get_tree(self):
         return self.tree
@@ -53,9 +61,13 @@ class ntuple_reader:
         # Get the histogram
         histo = r.gDirectory.Get(f"{name}")
         histo.SetDirectory(0)
-
+        histo.Integral() # Do not remove, otherwise root might delete things
         if normToGenSum:
             gsw = self._treeSum()
             histo.Scale( 1 / gsw )    
         return deepcopy(histo)
+ 
+    def scan(self, what, selection):
+        """ Scans a tree of this root file """
+        self.tree.Scan( f"{what}", selection)
  
