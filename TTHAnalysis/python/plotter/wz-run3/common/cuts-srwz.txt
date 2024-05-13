@@ -16,7 +16,7 @@ exactly3L  : nLepGood < 4
 btag       : nBJetTight25_Mini == 0
 zPeak      : abs(mll_3l - 91.16) < 15
 lowmass    : minMllSFOS_Mini > 4 || minMllSFOS_Mini == -1
-Cha_Tight   : LepGood_tightCharge[0]==2 && LepGood_tightCharge[1]==2 &&  LepGood_tightCharge[2]==2
+Cha_Tight  : LepGood_tightCharge[0]==2 && LepGood_tightCharge[1]==2 && LepGood_tightCharge[2]==2;Disable=True
 
 # --- Flavor splits
 flav_eee    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 0; Disable=True

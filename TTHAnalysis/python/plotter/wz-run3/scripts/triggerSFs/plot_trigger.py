@@ -9,51 +9,50 @@ def read_json_file(file_path):
         data = json.load(file)
     return data
 
-def plot_efficiency_comparison_perMeasurement(data_folder, mode, years):
-    channels = ['inclusive', 'lowpt', 'highpt', 'barrel0', 'barrel1', 'barrel2', 'barrel3']
-    x_values = range(len(channels))
+def plot_efficiency_comparison_perMeasurement(data_folder, channel, years):
+    modes = ['inclusive', 'lowpt', 'highpt', 'barrel0', 'barrel1', 'barrel2', 'barrel3']
+    x_values = range(len(modes))
 
 
     for idx, year in enumerate(years):
-
         fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(8, 8), sharex='col', gridspec_kw={'height_ratios': [7, 3]})
-        data_efficiencies = {channel: {'eff': 0, 'eff_errup': 0, 'eff_errdn': 0} for channel in channels}
-        mc_efficiencies = {channel: {'eff': 0, 'eff_errup': 0, 'eff_errdn': 0} for channel in channels}
+        data_efficiencies = {mode: {'eff': 0, 'eff_errup': 0, 'eff_errdn': 0} for mode in modes}
+        mc_efficiencies = {mode: {'eff': 0, 'eff_errup': 0, 'eff_errdn': 0} for mode in modes}
 
         # Read data_results.json
-        for channel in channels:
-            data_file_path = os.path.join(data_folder, year, "inclusive", channel, 'data_results.json')
+        for mode in modes:
+            data_file_path = os.path.join(data_folder, year, "2022CD" if year == "PreEE" else "2022EFG", channel, mode, 'data_results.json')
             if os.path.exists(data_file_path):
                 data_json = read_json_file(data_file_path)
-                data_efficiencies[channel]['pass_num'] = data_json['pass_num']
-                data_efficiencies[channel]['pass_den'] = data_json['pass_den']
-                data_efficiencies[channel]['eff'] = data_json['eff']
-                data_efficiencies[channel]['eff_errup'] = data_json['eff_errup']
-                data_efficiencies[channel]['eff_errdn'] = data_json['eff_errdn']
+                data_efficiencies[mode]['pass_num'] = data_json['pass_num']
+                data_efficiencies[mode]['pass_den'] = data_json['pass_den']
+                data_efficiencies[mode]['eff'] = data_json['eff']
+                data_efficiencies[mode]['eff_errup'] = data_json['eff_errup']
+                data_efficiencies[mode]['eff_errdn'] = data_json['eff_errdn']
 
         # Read mc_results.json
-        for channel in channels:
-            mc_file_path = os.path.join(data_folder, year, "inclusive", channel, 'mc_results.json')
+        for mode in modes:
+            mc_file_path = os.path.join(data_folder, year, "2022CD" if year == "PreEE" else "2022EFG", channel, mode, 'mc_results.json')
             if os.path.exists(mc_file_path):
                 mc_json = read_json_file(mc_file_path)
-                mc_efficiencies[channel]['pass_num'] = mc_json['pass_num']
-                mc_efficiencies[channel]['pass_den'] = mc_json['pass_den']
-                mc_efficiencies[channel]['eff'] = mc_json['eff']
-                mc_efficiencies[channel]['eff_errup'] = mc_json['eff_errup']
-                mc_efficiencies[channel]['eff_errdn'] = mc_json['eff_errdn']        
+                mc_efficiencies[mode]['pass_num'] = mc_json['pass_num']
+                mc_efficiencies[mode]['pass_den'] = mc_json['pass_den']
+                mc_efficiencies[mode]['eff'] = mc_json['eff']
+                mc_efficiencies[mode]['eff_errup'] = mc_json['eff_errup']
+                mc_efficiencies[mode]['eff_errdn'] = mc_json['eff_errdn']        
 
         # Calculate ratios
-        data_ratios = {channel: data_efficiencies[channel]['eff'] / mc_efficiencies[channel]['eff'] for channel in channels}
+        data_ratios = {mode: data_efficiencies[mode]['eff'] / mc_efficiencies[mode]['eff'] for mode in modes}
 
         # Plot data and MC for each channel
         first = True
-        for channel, x in zip(channels, x_values):
+        for mode, x in zip(modes, x_values):
             # Upper subplot: Efficiency comparison
-            axes[0].errorbar(x, data_efficiencies[channel]['eff'], yerr=[[data_efficiencies[channel]['eff_errdn']], [data_efficiencies[channel]['eff_errup']]], fmt='ro', label='Data' if channel == 'inclusive' else '')
-            axes[0].errorbar(x, mc_efficiencies[channel]['eff'], yerr=[[mc_efficiencies[channel]['eff_errdn']], [mc_efficiencies[channel]['eff_errup']]], fmt='ko', label='MC' if channel == 'inclusive' else '')
+            axes[0].errorbar(x, data_efficiencies[mode]['eff'], yerr=[[data_efficiencies[mode]['eff_errdn']], [data_efficiencies[mode]['eff_errup']]], fmt='ro', label='Data' if mode == 'inclusive' else '')
+            axes[0].errorbar(x, mc_efficiencies[mode]['eff'], yerr=[[mc_efficiencies[mode]['eff_errdn']], [mc_efficiencies[mode]['eff_errup']]], fmt='ko', label='MC' if mode == 'inclusive' else '')
 
             # Lower subplot: Ratio
-            axes[1].plot(x, data_ratios[channel], 'bo' if idx == 0 else 'bo')
+            axes[1].plot(x, data_ratios[mode], 'bo' if idx == 0 else 'bo')
 
 # Add labels below each point
             #axes[0, idx].text(x+0.05, data_efficiencies[channel]['eff'] - 0.15, f"Data: {data_efficiencies[channel]['pass_num']}/{data_efficiencies[channel]['pass_den']:.2f}", ha='left', fontsize=8)
@@ -61,7 +60,7 @@ def plot_efficiency_comparison_perMeasurement(data_folder, mode, years):
 
 
         axes[0].set_xticks(x_values)
-        axes[0].set_xticklabels(channels)
+        axes[0].set_xticklabels(modes)
         axes[0].set_title(f'{year}')
         axes[0].set_ylabel('Efficiency')
         axes[0].set_ylim(0.8, 1.05)  # Set y-axis range
@@ -76,14 +75,15 @@ def plot_efficiency_comparison_perMeasurement(data_folder, mode, years):
           ylimvals_ratio = 0.975, 1.025
           window = 0.01
         axes[1].set_xticks(x_values)
-        axes[1].set_xticklabels(channels)
+        axes[1].set_xticklabels(modes)
         axes[1].set_ylabel('Data/MC')
         axes[1].fill_between(x_values, 1-window, 1+window, where=[0.9 <= ratio <= 1.1 for ratio in data_ratios.values()], color='gray', alpha=0.2)
-        axes[1].set_ylim(ylimvals_ratio[0], ylimvals_ratio[1])  # Set y-axis range
+        #axes[1].set_ylim(ylimvals_ratio[0], ylimvals_ratio[1])  # Set y-axis range
+        axes[1].set_ylim(0.95, 1.05)  # Set y-axis range
         axes[1].grid(True)
 
         plt.tight_layout()
-        fig.savefig("%s-perMeasurement-%s.png"%(mode, year))
+        fig.savefig("%s-perMeasurement-%s.png"%(channel, year))
 
 def plot_efficiency_comparison(data_folder, mode, years):
     channels = ['eee', 'eem', 'mme', 'mmm', 'inclusive']
@@ -97,7 +97,7 @@ def plot_efficiency_comparison(data_folder, mode, years):
 
         # Read data_results.json
         for channel in channels:
-            data_file_path = os.path.join(data_folder, year, channel, mode, 'data_results.json')
+            data_file_path = os.path.join(data_folder, year, "2022CD" if year == "PreEE" else "2022EFG", channel, mode, 'data_results.json')
             if os.path.exists(data_file_path):
                 data_json = read_json_file(data_file_path)
                 data_efficiencies[channel]['pass_num'] = data_json['pass_num']
@@ -108,7 +108,7 @@ def plot_efficiency_comparison(data_folder, mode, years):
 
         # Read mc_results.json
         for channel in channels:
-            mc_file_path = os.path.join(data_folder, year, channel, mode, 'mc_results.json')
+            mc_file_path = os.path.join(data_folder, year, "2022CD" if year == "PreEE" else "2022EFG", channel, mode, 'mc_results.json')
             if os.path.exists(mc_file_path):
                 mc_json = read_json_file(mc_file_path)
                 mc_efficiencies[channel]['pass_num'] = mc_json['pass_num']
@@ -119,7 +119,7 @@ def plot_efficiency_comparison(data_folder, mode, years):
 
         # Calculate ratios
         data_ratios = {channel: data_efficiencies[channel]['eff'] / mc_efficiencies[channel]['eff'] for channel in channels}
-
+        
         # Plot data and MC for each channel
         first = True
         for channel, x in zip(channels, x_values):
@@ -151,7 +151,7 @@ def plot_efficiency_comparison(data_folder, mode, years):
         axes[1, idx].set_xlabel('Channel')
         axes[1, idx].set_ylabel('Ratio')
         axes[1, idx].fill_between(x_values, 0.98, 1.02, where=[0.9 <= ratio <= 1.1 for ratio in data_ratios.values()], color='gray', alpha=0.2)
-        axes[1, idx].set_ylim(0.97, 1.03)  # Set y-axis range
+        axes[1, idx].set_ylim(0.95, 1.05)  # Set y-axis range
         axes[1, idx].grid(True)
 
     plt.tight_layout()
@@ -161,7 +161,9 @@ def plot_efficiency_comparison(data_folder, mode, years):
 data_folder = 'results'
 years = ['PreEE', 'PostEE']
 
-plot_efficiency_comparison_perMeasurement(data_folder, "inclusive", years)
+for ch in ["inclusive", "eee", "eem", "mme", "mmm"]:
+    plot_efficiency_comparison_perMeasurement(data_folder, ch, years)
+
 for mode in ["inclusive", "lowpt", "highpt", "barrel0", "barrel1", "barrel2", "barrel3"]:
     plot_efficiency_comparison(data_folder, mode, years)
 

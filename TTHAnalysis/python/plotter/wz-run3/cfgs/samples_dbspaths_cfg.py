@@ -35,8 +35,8 @@ dbs_mc = {
     # Prompts
     'ZZto4L': {'dbs': '/ZZto4L_TuneCP5_13p6TeV_powheg-pythia8/', 'xsec': 1.65},
     'GluGlutoContinto2Zto2E2Mu': {'dbs': '/GluGlutoContinto2Zto2E2Mu_TuneCP5_13p6TeV_mcfm701-pythia8/', 'xsec': 0.006114},
-    'GluGluToContinto2Zto2E2Tau': {'dbs': '/GluGluToContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/', 'xsec': 0.006114},
-    'GluGluToContinto2Zto2Mu2Tau': {'dbs': '/GluGluToContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/', 'xsec': 0.006114},
+    'GluGlutoContinto2Zto2E2Tau': {'dbs': '/GluGlutoContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/', 'xsec': 0.006114},
+    'GluGlutoContinto2Zto2Mu2Tau': {'dbs': '/GluGlutoContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/', 'xsec': 0.006114},
     'GluGlutoContinto2Zto4E': {'dbs': '/GluGlutoContinto2Zto4E_TuneCP5_13p6TeV_mcfm-pythia8/', 'xsec': 0.003060},
     'GluGlutoContinto2Zto4Mu': {'dbs': '/GluGlutoContinto2Zto4Mu_TuneCP5_13p6TeV_mcfm-pythia8/', 'xsec': 0.003060},
     'GluGlutoContinto2Zto4Tau': {'dbs': '/GluGlutoContinto2Zto4Tau_TuneCP5_13p6TeV_mcfm-pythia8/', 'xsec': 0.003060},

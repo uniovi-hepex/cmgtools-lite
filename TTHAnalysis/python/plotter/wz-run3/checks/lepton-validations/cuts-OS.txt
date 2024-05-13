@@ -3,7 +3,7 @@ alwaystrue   :  1
 filters : $DATA{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter} $MC{Flag_eeBadScFilter && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter}
 trigger  : Trigger_ee || Trigger_em || Trigger_mm || Trigger_se || Trigger_sm
 
-dilep : nLepSel >= 2
+dilep     : nLepSel >= 2
 exactly2L : nLepGood < 3
 AllTight  : allTight(LepSel_isTight[0], LepSel_isTight[1])
 os_only   : LepSel_pdgId[0]*LepSel_pdgId[1] < 0

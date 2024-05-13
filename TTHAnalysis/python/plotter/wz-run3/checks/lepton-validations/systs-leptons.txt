@@ -3,4 +3,5 @@
 # -- Systematic uncertainties file for checking leptons analyis -- #
 ## Lepton SFs 
 elecidsf : .*DY.* : .* : templateAsymm; AddWeights=["electronSF_Up/electronSF"\,"electronSF_Down/electronSF"]
+#elecbias  : .*DY.*  : .*  : normSymm  :1.06
 muonidsf_ID : .*DY.* : .* : templateAsymm; AddWeights=["muonSF_Up/muonSF"\,"muonSF_Down/muonSF"]

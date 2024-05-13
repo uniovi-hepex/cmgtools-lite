@@ -47,6 +47,9 @@ convs : WGtoLNuG_1Jets_PTG_100to200  : 2.214 ; FillColor=ROOT.kOrange-3 ,  Label
 
 convs : WZGtoLNuZG                   : 0.08425  ; FillColor=ROOT.kOrange-3,  Label="X+g"
 
+
+data: SingleMuon_Run2022C*; Label="data", years="2022"
+data: DoubleMuon_Run2022C*; Label="data", years="2022"
 data: Muon_Run2022C*; Label="data", years="2022"
 data: Muon_Run2022D*; Label="data", years="2022"
 data: Muon_Run2022E*; Label="data", years="2022EE"
