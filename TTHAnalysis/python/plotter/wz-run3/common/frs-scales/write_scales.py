@@ -13,7 +13,9 @@ scale_vars = [
 ]
 
 
-txt = """weight : Alt$(LHEScaleWeight[{idx}],1)\nalt-norm : Alt$(LHEScaleSumw[{idx}]/LHEScaleSumw[4],1)\n"""
+txt = """weight : Alt$(LHEScaleWeight[{idx}],1)
+alt-norm : Alt$(LHEScaleSumw[{idx}]/LHEScaleSumw[4],1)
+"""
 filename_template = "fr-muR_{mur}_muF_{muf}.txt"
 for scalevar in scale_vars:
     mur, muf, scaleindex = scalevar
