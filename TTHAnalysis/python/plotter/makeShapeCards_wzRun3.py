@@ -94,7 +94,6 @@ def apply_categorisation(mca, cuts, report, options, allreports, binname):
   catlabels = options.categ[2].split(",")
   if len(catlabels) != report["data_obs"].GetNbinsY(): 
     raise RuntimeError("Mismatch between category labels and bins")
-    
   for icat, label in enumerate(catlabels):
     kk = {}
     for (k, h) in report.items():
@@ -207,8 +206,23 @@ def get_systematics(mca, cuts, report, options, binname, shapes):
     # Iterate over processes
     for p in procs:
       h = report[p]
+
+      # Make use of param name to filter by channel
+      if "eee" in name and "eee" not in binname:  
+          print(" >> Skipping %s for %s"%(name, binname))
+          continue
+      if "eem" in name and "eem" not in binname:
+          print(" >> Skipping %s for %s"%(name, binname))
+          continue
+      if "mme" in name and "mme" not in binname:
+          print(" >> Skipping %s for %s"%(name, binname))
+          continue
+      if "mmm" in name and "mmm" not in binname: 
+          print(" >> Skipping %s for %s"%(name, binname))
+          continue
+
       n0 = h.Integral()
-      
+       
       # First, check if the process has this variation
       if not h.hasVariation(name): continue
       
@@ -367,7 +381,7 @@ if __name__ == "__main__":
     allreports = apply_categorisation_ranges(mca, cuts, report, options, allreports, binname)
   else:
     allreports = {binname : report}
-
+  
   ## Filtering
   if options.filter:
     allreports = apply_filtering(mca, cuts, report, allreports, options)
