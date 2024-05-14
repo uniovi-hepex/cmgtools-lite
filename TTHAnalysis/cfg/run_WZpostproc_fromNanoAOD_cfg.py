@@ -176,7 +176,15 @@ else:
       "WGtoLNuG_1Jets_PTG_200",
       "WGtoLNuG_1Jets_PTG_100to200",
       "WGtoLNuG_1Jets_PTG_10to100", 
-      "ZGTo2LG",
+      "DYGto2LG_1Jets_MLL_4to50_PTG_10to100",
+      "DYGto2LG_1Jets_MLL_4to50_PTG_100to200",
+      "DYGto2LG_1Jets_MLL_4to50_PTG_200",
+      "DYGto2LG_1Jets_MLL_50_PTG_10to50",
+      "DYGto2LG_1Jets_MLL_50_PTG_50to100",
+      "DYGto2LG_1Jets_MLL_50_PTG_100to200",
+      "DYGto2LG_1Jets_MLL_50_PTG_200to400",
+      "DYGto2LG_1Jets_MLL_50_PTG_400to600",
+      "DYGto2LG_1Jets_MLL_50_PTG_600",
       # ----------------- ttV
       #"TTWToLNu_fxfx", 
       #"TTZToLLNuNu", 
@@ -197,6 +205,7 @@ else:
       "TTG_1Jets_PTG_200",
       "TTG_1Jets_PTG_10to100",
       "TTG_1Jets_PTG_100to200",
+      "TZQB_Zto2L_4FS_MLL_30",
       #"TZQToLL",
       #"tWll",
       # "TTWW","TTWW_LO",
@@ -209,6 +218,12 @@ else:
       "ZZto4L",
       "ZZto2L2Nu",
       "ZZto2L2Q",
+      "GluGlutoContinto2Zto4Tau",
+      "GluGlutoContinto2Zto4Mu",
+      "GluGlutoContinto2Zto4E",
+      "GluGlutoContinto2Zto2E2Mu",
+      "GluGlutoContinto2Zto2E2Tau",
+      "GluGlutoContinto2Zto2Mu2Tau",
       "WWto2L2Nu",
       #"WWTo2L2Nu"
       #"WW_DPS", 
@@ -220,6 +235,7 @@ else:
       "WZZ", 
       "ZZZ",
       "WZG",
+      "VH_HtoNonbb_M_125",
       # ----------------- Other Higgs processes
       "ggHtoZZto4L",
       #"qqHZZ4L", 
@@ -277,7 +293,10 @@ from CMGTools.TTHAnalysis.tools.nanoAOD.wzsm_modules import lepCollector_data_FR
 from CMGTools.TTHAnalysis.tools.nanoAOD.wzsm_modules import lepCollector_EE_FR
 from CMGTools.TTHAnalysis.tools.nanoAOD.wzsm_modules import lepCollector_EE_data_FR
 
-from CMGTools.TTHAnalysis.tools.nanoAOD.wzsm_modules import lepCollector_fiducial
+#Muestras quitando skim
+from CMGTools.TTHAnalysis.tools.nanoAOD.wzsm_modules import lepCollector_EE_nS
+from CMGTools.TTHAnalysis.tools.nanoAOD.wzsm_modules import lepCollector_nS
+
 
 
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import PostProcessor
@@ -305,7 +324,7 @@ if yearstr == "2022":
     else:
       print(" >> Using lepCollector_FR")
       modules = lepCollector_FR
-      
+
   # ------------- Fiducial analysis -------------- #
   elif analysis == "fiducial":
     if doData:
@@ -313,8 +332,8 @@ if yearstr == "2022":
       sys.exit()
     else:
       print(" >> Using lepCollector_FR")
-      modules = lepCollector_fiducial
-
+      modules = lepCollector_nS
+      
 # ----------------------------- For 2022 postEE ANALYSIS -------------------------- #    
 elif yearstr == "2022EE":
   # ------------- Main analysis -------------- #
@@ -334,7 +353,7 @@ elif yearstr == "2022EE":
     else:
       print(" >> Using lepCollector_EE_FR")
       modules = lepCollector_EE_FR
-      
+ 
   # ------------- Fiducial analysis -------------- #
   elif analysis == "fiducial":
     if doData:
@@ -342,9 +361,9 @@ elif yearstr == "2022EE":
       sys.exit()
     else:
       print(" >> Using lepCollector_FR")
-      modules = lepCollector_fiducial
-  
-         
+      #modules = lepCollector_fiducial
+      modules = lepCollector_EE_nS     
+        
 if (doData):
   from CMGTools.TTHAnalysis.tools.nanoAOD.remove_overlap import OverlapRemover
   modules.extend( [lambda : OverlapRemover()] ) 
