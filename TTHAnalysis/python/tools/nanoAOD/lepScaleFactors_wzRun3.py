@@ -32,9 +32,8 @@ class lepScaleFactors_wzrun3(Module):
         "muon"     : {
           "IDTight"  : { "file" : "MUO/{year}/Muons-mvaTTH-WP064_nanoAODv12", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]} 
         },
-        
         "electron" : { 
-          "IDTight" : { "file" : "EGM/{year}/Electrons-mvaTTH-WP090_nanoAODv12_fixCutBasedIssue_NowFullCorrection", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
+          "IDTight" : { "file" : "EGM/{year}/Electrons-mvaTTH-WP090_nanoAODv12-fullID-AfterPreApproval", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
           "reco"    : { "file" : "EGM/{year}/electron.json.gz", "json" : "Electron-ID-SF", "unc" : [("total")]},
         }
     }
