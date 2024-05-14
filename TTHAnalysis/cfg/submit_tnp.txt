@@ -1,0 +1,48 @@
+
+#=========================== 2022 =========================== #
+# -- Electrons
+# Nominal LO sample
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022" --option flavor=Electron --option selectComponents='MC' --option analysis=nominal --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Electron/2022/MC
+
+# Alternative NLO sample
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022" --option flavor=Electron --option selectComponents='MC' --option analysis=alternative  --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Electron/2022/MCAlt  
+
+# Data
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022" --option flavor=Electron --option selectComponents='DATA' --option analysis=nominal --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Electron/2022/Data
+
+
+# -- Muons
+# Nominal LO sample
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022" --option flavor=Muon --option selectComponents='MC' --option analysis=nominal --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Muon/2022/MC
+
+# Alternative NLO sample
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022" --option flavor=Muon --option selectComponents='MC' --option analysis=alternative --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Muon/2022/MCAlt  
+
+# Data
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022" --option flavor=Muon --option selectComponents='DATA' --option analysis=nominal --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Muon/2022/Data
+
+
+
+#=========================== 2022EE =========================== #
+
+# -- Electrons
+# Nominal LO sample
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022EE" --option flavor=Electron --option selectComponents='MC' --option analysis=nominal --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Electron/2022EE/MC
+
+# Alternative NLO sample
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022EE" --option flavor=Electron --option selectComponents='MC' --option analysis=alternative  --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Electron/2022EE/MCAlt  
+
+# Data
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022EE" --option flavor=Electron --option selectComponents='DATA' --option analysis=nominal --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Electron/2022EE/Data
+
+
+# -- Muons
+# Nominal LO sample
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022EE" --option flavor=Muon --option selectComponents='MC' --option analysis=nominal --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Muon/2022EE/MC
+
+# Alternative NLO sample
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022EE" --option flavor=Muon --option selectComponents='MC' --option analysis=alternative --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Muon/2022EE/MCAlt  
+
+# Data
+nanopy_batch.py run_tnp_cfg_Nanov12.py -b 'sbatch batchScript.sh' --option year="2022EE" --option flavor=Muon --option selectComponents='DATA' --option analysis=nominal --output-dir /pool/phedexrw/userstorage/cvico/wz/apr2024/tnp/Muon/2022EE/Data
+
