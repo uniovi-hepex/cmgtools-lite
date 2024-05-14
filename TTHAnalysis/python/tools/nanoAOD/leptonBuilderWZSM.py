@@ -129,16 +129,18 @@ class leptonBuilderWZSM(Module):
 
       for vvar in ["pt", "eta", "phi", "mass", "conePt","genpt", "geneta", "genphi", "genmass","unc"]:
         if self.isData and ("gen" in vvar or "mc" in vvar or "Match" in vvar): continue
-        branches.append(("LepSel_" + vvar+ var, "F", 4, "nLepSel_forMemory"))
+        branches.append(("LepSel_" + vvar+ var, "F", 20, "nLepSel_forMemory"))
         branches.append(("LepZ1_"  + vvar+ var, "F"))
         branches.append(("LepZ2_"  + vvar+ var, "F"))
         branches.append(("LepW_"   + vvar+ var, "F"))
+        branches.append(("LepZ3_"   + vvar+ var, "F"))
       for vvar in ["pdgId", "isTight"]:
         if self.isData and ("gen" in vvar or "mc" in vvar or "Match" in vvar): continue
-        branches.append(("LepSel_" + vvar+ var, "I", 4, "nLepSel_forMemory"))
+        branches.append(("LepSel_" + vvar+ var, "I", 20, "nLepSel_forMemory"))
         branches.append(("LepZ1_"  + vvar+ var, "I"))
         branches.append(("LepZ2_"  + vvar+ var, "I"))
         branches.append(("LepW_"   + vvar+ var, "I"))
+        branches.append(("LepZ3_"   + vvar+ var, "I"))
       for vvar in ["pt", "conePt"]:
         branches.append(("wzBalance_" + vvar+ var, "F"))
       branches.append(("mT_3l"       + var, "F"))
@@ -194,6 +196,7 @@ class leptonBuilderWZSM(Module):
       # -- Analyze objects -- #
       if self.verbosity > 0:
         color_msg("     * There are %d leptons in this event"%(len(self.lepSelFO)), "blue")
+        print("     * ", [(lep, "PdgId: %3.2f, pT: %3.2f"%(lep.pdgId, lep.pt)) for lep in self.lepSelFO])
       self.analyzeTopology()
       # -- Write lepton objects -- #
       self.writeLepSel()     
@@ -251,8 +254,6 @@ class leptonBuilderWZSM(Module):
     if self.verbosity > 0:
       color_msg("     * Finding best pair")
     self.findBestOSpair(3)
-    if self.verbosity > 0:
-      color_msg("     * Finding minimum Mt value")
     self.findMtMin(3)
     self.makeMassMET(3)
     self.makeUncMassMET(3)
@@ -327,11 +328,13 @@ class leptonBuilderWZSM(Module):
     # Make sure the first pair is the SF one (easier to tag from Z decays).
     # If there are none, then just use the first pair.
     allpairs.sort()
-    
+   
+    if self.verbosity > 0: 
+        print("      o There are %d pairs"%len(allpairs))
     for pair in range(len(allpairs)):
       ospair = allpairs[pair][2]
       if self.verbosity > 0:
-        print("        o pair diff to target mass of %3.2f GeV"%ospair.target, ospair.diff)
+        print("        o pair diff to target mass: %3.2f GeV (%3.2f GeV - %3.2f GeV)"%(ospair.diff, ospair.target, ospair.mll ), ", leptons: ", ospair.l1, " and ", ospair.l2)
     
     self.bestOSPair = allpairs[0][2]
     if self.verbosity > 0:
@@ -340,15 +343,13 @@ class leptonBuilderWZSM(Module):
     
     self.ret["mll_" + str(maxlep) + "l"] = self.bestOSPair.mll
     
-
-    
     lz1 = self.bestOSPair.l1
     lz2 = self.bestOSPair.l2
 
     # The following list, by construction, is never empty.
     used = [lz1, lz2] if self.bestOSPair else []
     if self.verbosity > 0:
-      print("       + leps from best pair: ", used) 
+      print("       + leps from best pair: ", used[0], used[1]) 
 
 
     # --- Fill info for the leptons coming from the Z decay (as tagged by the algorithm)
@@ -361,8 +362,9 @@ class leptonBuilderWZSM(Module):
     for var in ["pdgId", "isTight"]:
       if self.isData and ("gen" in var or "mc" in var or "Match" in var): continue
       self.ret["LepZ1_" + var] = int(getattr(lz1, var, 0))
-      self.ret["LepZ2_" + var] = int(getattr(lz1, var, 0))
+      self.ret["LepZ2_" + var] = int(getattr(lz2, var, 0))
 
+     
     # --- The remaining one (if any) is coming from the W
     lw_cands = [l for l in self.lepSelFO if l not in [lz1, lz2] ]
     if len(lw_cands) == 0:
@@ -379,6 +381,16 @@ class leptonBuilderWZSM(Module):
         if self.isData and ("gen" in var or "mc" in var or "Match" in var): continue
         self.ret["LepW_" + var] = int(getattr(lw, var, 0))
         self.ret["LepW_" + var] = int(getattr(lw, var, 0))
+
+    if len(lw_cands) > 1: # For cases with 4l, useful to track which one is unused
+        lz3 = lw_cands[1]
+        for var in ["pt", "eta", "phi", "mass", "conePt", "genpt", "geneta", "genphi", "genmass"]:
+            if self.isData and ("gen" in var or "mc" in var or "Match" in var): continue
+            self.ret["LepZ3_" + var] = getattr(lz3, var, 0)
+        for var in ["pdgId", "isTight"]:
+            if self.isData and ("gen" in var or "mc" in var or "Match" in var): continue
+            self.ret["LepZ3_" + var] = int(getattr(lz3, var, 0))
+            self.ret["LepZ3_" + var] = int(getattr(lz3, var, 0))
 
     # Compute the difference in deltaR between the Z candidate and the W boson candidate.    
     Z_vecp4 = lz1.p4()
@@ -463,7 +475,7 @@ class leptonBuilderWZSM(Module):
     combs = itertools.combinations(self.lepSelFO, 2)
 
     for icomb, comb in enumerate(combs):
-      if self.verbosity > 0: print("        o Checking combination %d: "%(icomb), (comb[0], comb[0].pdgId,comb[1], comb[1].pdgId))
+      if self.verbosity > 0: print("        o Checking combination %d: "%(icomb), (comb[0], comb[1]))
       l1 = comb[0]
       l2 = comb[1]
       
@@ -635,15 +647,17 @@ class leptonBuilderWZSM(Module):
     self.ret["nLepSel"] = 0
     self.ret["nLepSel_forMemory"] = 0
     for var in ["pt", "eta", "phi", "mass", "conePt", "genpt", "geneta", "genphi", "genmass"]:
-      self.ret["LepSel_" + var] = [0.]*4
+      self.ret["LepSel_" + var] = [0.]*20
       self.ret["LepZ1_"  + var] = 0.
       self.ret["LepZ2_"  + var] = 0.
       self.ret["LepW_"   + var] = 0.
+      self.ret["LepZ3_"   + var] = 0.
     for var in ["pdgId", "isTight"]:
-      self.ret["LepSel_" + var] = [0]*4
+      self.ret["LepSel_" + var] = [0]*20
       self.ret["LepZ1_"  + var] = 0
       self.ret["LepZ2_"  + var] = 0
       self.ret["LepW_"   + var] = 0
+      self.ret["LepZ3_"   + var] = 0
     for var in ["pt", "conePt"]:
       self.ret["wzBalance_" + var] = 0
 
@@ -678,7 +692,7 @@ if __name__ == '__main__':
     from PhysicsTools.NanoAODTools.postprocessing.framework.output import FriendOutput, FullOutput
     from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import InputTree
     
-    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v2/mc/2022EE/"
+    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v2/mc/2022/"
     process = "WZto3LNu"
 #    process = "TTTo2L2Nu_part17"
     
@@ -704,8 +718,8 @@ if __name__ == '__main__':
     module_test =  leptonBuilderWZSM("Mini", 
                         metbranch="PuppiMET",
                         systsJEC  = [],
-                        lepScaleSysts = ["ScaleUp", "ScaleDown", "SmearUp", "SmearDown"],
-                        verbosity = -2)
+                        lepScaleSysts = [],
+                        verbosity = 2)
     module_test.beginJob()
     (nall, npass, timeLoop) = eventLoop([module_test], file_, outFile, tree, outTree, maxEvents = nentries)
     print(('Processed %d preselected entries from %s (%s entries). Finally selected %d entries' % (nall, __file__.split("/")[-1].replace(".py", ""), nentries, npass)))

@@ -63,7 +63,7 @@ def _loose_muon(lep):
 def _loose_electron(lep):
     """ Electron loose ID criteria """
     #if         lep.pt < 10: return False # changed wrt Run2 to match preselection cuts
-    if         conept(lep) < 10: return False # changed wrt Run2 to match preselection cuts
+    if       conept(lep) < 10: return False # changed wrt Run2 to match preselection cuts
     if not (abs(lep.eta)<2.5): return False
     if not (lep.sip3d<8): return False
     if not (abs(lep.dxy)<0.05): return False

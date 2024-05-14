@@ -210,7 +210,7 @@ from CMGTools.TTHAnalysis.tools.nanoAOD.calculateJECS import JetEnergyCorrector
 from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetHelperRun2 import createJMECorrector
 
 addJECs_2022_mc = lambda : JetEnergyCorrector(
-    year = 2022, era = "CD", jec = "Summer22_22Sep2023", jer = "Summer22EEPrompt22", jecveto = "Summer22_23Sep2023", isMC = True,
+    year = 2022, era = "CD", jec = "Summer22_22Sep2023", jer = "Summer22_22Sep2023", jecveto = "Summer22_23Sep2023", isMC = True,
     algo = "AK4PFPuppi", metbranchname = "PuppiMET", rhoBranchName = "Rho_fixedGridRhoFastjetAll",
     hjetvetomap = "jetvetomap",
     unc = "Total", saveMETUncs = ["T1", "T1Smear"], 
@@ -218,7 +218,7 @@ addJECs_2022_mc = lambda : JetEnergyCorrector(
 )
 
 addJECs_2022_data = lambda : JetEnergyCorrector(
-    year = 2022, era = "CD", jec = "Summer22_22Sep2023", jer = "Summer22EEPrompt22", jecveto = "Summer22_23Sep2023", isMC = False,
+    year = 2022, era = "CD", jec = "Summer22_22Sep2023", jer = "Summer22_22Sep2023", jecveto = "Summer22_23Sep2023", isMC = False,
     algo = "AK4PFPuppi", metbranchname = "PuppiMET", rhoBranchName = "Rho_fixedGridRhoFastjetAll",
     hjetvetomap = "jetvetomap",
     unc = "Total", saveMETUncs = ["T1", "T1Smear"], 
@@ -226,7 +226,7 @@ addJECs_2022_data = lambda : JetEnergyCorrector(
 )
 
 addJECs_2022EE_mc = lambda : JetEnergyCorrector(
-    year = "2022EE", era = "EFG", jec = "Summer22EE_22Sep2023", jer = "Summer22EEPrompt22", jecveto = "Summer22EE_23Sep2023", isMC = True,
+    year = "2022EE", era = "EFG", jec = "Summer22EE_22Sep2023", jer = "Summer22EE_22Sep2023", jecveto = "Summer22EE_23Sep2023", isMC = True,
     algo = "AK4PFPuppi", metbranchname = "PuppiMET", rhoBranchName = "Rho_fixedGridRhoFastjetAll",
     hjetvetomap = "jetvetomap",
     unc = "Total", saveMETUncs = ["T1", "T1Smear"], 
@@ -234,7 +234,7 @@ addJECs_2022EE_mc = lambda : JetEnergyCorrector(
 )
 
 addJECs_2022EE_data = lambda : JetEnergyCorrector(
-    year = "2022EE", era = "EFG", jec = "Summer22EE_22Sep2023", jer = "Summer22EEPrompt22", jecveto = "Summer22EE_23Sep2023", isMC = False,
+    year = "2022EE", era = "EFG", jec = "Summer22EE_22Sep2023", jer = "Summer22EE_22Sep2023", jecveto = "Summer22EE_23Sep2023", isMC = False,
     algo = "AK4PFPuppi", metbranchname = "PuppiMET", rhoBranchName = "Rho_fixedGridRhoFastjetAll",
     hjetvetomap = "jetvetomap",
     unc = "Total", saveMETUncs = ["T1", "T1Smear"],
@@ -455,7 +455,6 @@ leptonMCMatcher =  lambda: leptonMatcher("Mini")
 leptonMCBuilder = lambda : lepgenVarsWZSM("Mini")
 leptonGENBuilder = [leptonMCMatcher, leptonMCBuilder]
 lepGENBuilder_withtaus = lambda : lepgenVarsWZSM_nondressed_withtaus("Mini")
-
 leptonGENBuilder_nondressed_withTaus = [leptonMCMatcher, lepGENBuilder_withtaus]
 
 # -------------------------------------------------------------------------------------------------------------------------- #

@@ -6,14 +6,14 @@ import os
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection 
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 
-def conept_TTH(lep):
+def conept_TTH(lep, pt):
     if (abs(lep.pdgId)!=11 and abs(lep.pdgId)!=13): 
-        return lep.pt
+        return pt 
     if (abs(lep.pdgId)==13 and lep.mediumId>0 and lep.mvaTTH > 0.64): 
-        return lep.pt
-    if (abs(lep.pdgId)==11  and lep.mvaTTH > 0.97): 
-        return lep.pt
-    else: return 0.90 * lep.pt * (1+lep.jetRelIso)
+        return pt
+    if (abs(lep.pdgId)==11  and lep.mvaTTH > 0.90): 
+        return pt
+    else: return 0.90 * pt * (1+lep.jetRelIso)
     
 _rootLeafType2rootBranchType = {'UChar_t': 'b', 
                                 'Char_t' : 'B', 
@@ -236,13 +236,15 @@ class addTnpTree(Module):
             self.out.fillBranch('Tag_jetBTagDeepFlavB', 0 if tag.jetIdx < 0 else jet[tag.jetIdx].btagDeepFlavB)
 
             self.out.fillBranch('Tag_conept',       conept_TTH(tag))
+            self.out.fillBranch('Tag_conept_corrected', conept_TTH(tag, tag.correctedpt))
             self.out.fillBranch('Tag_mvaTTHRun3',   tag.mvaTTH_run3)
 
             #print ("probe jetidx %d" %probe.jetIdx)
             probeMatch = 1 if isdata else  self.matchesPrompt(probe, genparts)
             self.out.fillBranch("Probe_isGenMatched", probeMatch)
             self.out.fillBranch('Probe_jetBTagDeepFlavB', 0 if probe.jetIdx < 0 else jet[probe.jetIdx].btagDeepFlavB) 
-            self.out.fillBranch('Probe_conept',       conept_TTH(probe))
+            self.out.fillBranch('Probe_conept',       conept_TTH(probe, probe.pt))
+            self.out.fillBranch('Probe_conept_corrected',       conept_TTH(probe, probe.correctedpt))
             self.out.fillBranch('Probe_mvaTTHRun3',   probe.mvaTTH_run3)
 
             # TnP variables

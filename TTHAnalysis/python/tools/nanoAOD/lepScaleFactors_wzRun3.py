@@ -34,13 +34,6 @@ class lepScaleFactors_wzrun3(Module):
         },
         
         "electron" : { 
-          #"IDTight2"    : { "file" : "EGM/{year}/Electrons-mvaTTH-WP090_nanoAODv12", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
-          #"IDTight"    : { "file" : "EGM/{year}/Electrons-mvaTTH-WP097_nanoAODv12", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
-          #"recoLowPt"  : { "file" : "EGM/{year}/Electrons-recoSF-lowPt",            "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
-          #"recoMidPt"  : { "file" : "EGM/{year}/Electrons-recoSF-mediumPt",         "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
-          #"recoHighPt" : { "file" : "EGM/{year}/Electrons-recoSF-highPt",           "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
-          #"IDLoose" : { "file" : "EGM/{year}/electron.json.gz", "json" : "Electron-ID-SF", "unc" : [("total")]},
-          #"IDTight" : { "file" : "EGM/{year}/electron.json.gz", "json" : "Electron-ID-SF", "unc" : [("total")]},
           "IDTight" : { "file" : "EGM/{year}/Electrons-mvaTTH-WP090_nanoAODv12_fixCutBasedIssue_NowFullCorrection", "hist" : "EGamma_SF2D", "unc"  : [("total", "EGamma_SF2D")]},
           "reco"    : { "file" : "EGM/{year}/electron.json.gz", "json" : "Electron-ID-SF", "unc" : [("total")]},
         }
@@ -278,12 +271,12 @@ class lepScaleFactors_wzrun3(Module):
       # :: ID: input format is ROOT
       # Get the nominal scale factor
       h_nom = self.leptonSF[flav]["IDTight"]["nominal"]
-      sf = self.getFromHisto(pt, abs(eta), h_nom)
+      sf = self.getFromHisto(pt, eta, h_nom)
       sfret["IDTight"] = {"nominal" : sf}
       
       # Now compute uncertainties: only one source (total)
       h_unc = self.leptonSF[flav]["IDTight"]["total"]
-      variation = self.getFromHisto(pt, abs(eta), h_unc, err = True)
+      variation = self.getFromHisto(pt, eta, h_unc, err = True)
       var_sf_up = sf + variation
       var_sf_dn = sf - variation
       sfret["IDTight"]["total"] = {
@@ -313,60 +306,6 @@ class lepScaleFactors_wzrun3(Module):
         "up" : sfup_reco, 
         "dn" : sfdn_reco
       }
-
-
-
-
-    #for source, corrector in list(self.leptonSF[flav].items()):
-    #  
-    #  # Check which type of operation is going to be done:
-    #  # -- If correction comes in ROOT format: corrector is a dictionary with histograms
-    #  # -- If correction comes in CORRECTIONLIB format: corrector is the evaluator
-    #  
-    #  if isinstance(corrector, dict):
-    #    # :: Corrections are in ROOT format
-    #    ## Nominal histogram
-    #    h_nom = corrector["nominal"]      
-    #    sf = self.getFromHisto(pt, abs(eta), h_nom)
-#
-    #    sfret[source] = {"nominal" : sf}
-    #    ## Now compute uncertainties
-    #    for uncsource, h_unc in corrector.items():
-    #      if uncsource == "nominal" : continue 
-#
-    #      variation = self.getFromHisto( pt, abs(eta), h_unc, err=True )
-    #      
-    #      var_sf_up = sf + variation
-    #      var_sf_dn = sf - variation
-    #      
-    #      # -- Consider Extrapolation to top-like from DY-like phase space 
-    #      #    (CMS-AN-"2018"-210) ---> Only for muons!
-#
-    #      #if flav == "muon":
-    #      #  var_sf_up += 0.005
-    #      #  var_sf_dn += 0.005
-    #    
-    #        
-    #      sfret[source][uncsource] = {"up" : var_sf_up, "dn" : var_sf_dn}
-    #  else:
-    #    if self.year == "2022EE":
-    #      self.json_era = "2022Re-recoE+PromptFG"
-    #    else:
-    #      self.json_era = "2022Re-recoBCD"
-    #    
-    #    # :: Correction are in correctionlib format
-    #    evaluator = corrector
-    #    
-    #    if source == "reco" and flav == "electron" and pt < 20: index = "RecoBelow20"
-    #    if source == "reco" and flav == "electron" and pt >= 20 and pt < 75: index = "Reco20to75"
-    #    if source == "reco" and flav == "electron" and pt >= 75: index = "RecoAbove75"
-    #    
-    #    sf   = corrector.evaluate( self.json_era, "sf", index, eta, pt)
-    #    sfup = corrector.evaluate( self.json_era, "sfup", index, eta, pt)
-    #    sfdn = corrector.evaluate( self.json_era, "sfdown", index, eta, pt)
-#
-    #    sfret[source] = {"nominal" : sf}
-    #    sfret[source][uncsource] = {"up" : sfup, "dn" : sfdn}
 
     return sfret
   
