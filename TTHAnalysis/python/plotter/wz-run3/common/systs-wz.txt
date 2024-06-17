@@ -76,7 +76,7 @@ trigeff_stat_mmm_2022PostEE  : $allProcs : .*  : normSymm : 1.005; year="2022EE"
 trigeff_bias_eee_2022PostEE  : $allProcs : .*  : normSymm : 1.01;  year="2022EE"
 trigeff_bias_eem_2022PostEE  : $allProcs : .*  : normSymm : 1.01;  year="2022EE"
 trigeff_bias_mme_2022PostEE  : $allProcs : .*  : normSymm : 1.01;  year="2022EE"
-trigeff_bias_mmm_2022PostEE  : $allProcs : .*  : normSymm : 1.01;  year="2022EE"
+
 
 ## Normalization 
 normVVV   : $VVV         : .* : normSymm : 1.50

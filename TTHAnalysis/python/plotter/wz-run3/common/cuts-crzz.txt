@@ -8,15 +8,14 @@ trigger : Trigger_3l || HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL
 # --- Four lepton selection
 fourLep    : nLepSel == 4
 ZZTight    : allTight(LepSel_isTight[0], LepSel_isTight[1], LepSel_isTight[2], LepSel_isTight[3])
-lepPt2      : LepZ1_pt >= 25 && LepZ2_pt >= 15 && LepW_pt >= 25 && LepZ3_pt > 15; Disable=True
-lepPt      : LepZ1_pt >= 25 && LepZ2_pt >= 15 && LepW_pt >= 25 && LepSel_pt[3] > 15
+lepPt      : LepZ1_pt >= 25 && LepZ2_pt >= 15 && LepW_pt >= 25 && LepZ3_pt > 15
 BRevent    : abs(LepSel_pdgId[0]) < 15 && abs(LepSel_pdgId[1]) < 15 && abs(LepSel_pdgId[2]) < 15 && nOSSF_3l >= 1
 m3l        : m3L >= 100
 btag       : nBJetTight25_Mini == 0
 zPeak      : abs(mll_3l - 91.16) < 15
 lowmass    : minMllSFOS_Mini > 4 || minMllSFOS_Mini == -1
 RemoveEmu  : ((abs(LepSel_pdgId[0]) + abs(LepSel_pdgId[1]) + abs(LepSel_pdgId[2]) + abs(LepSel_pdgId[3]) - 44)/2)%2 == 0
-Cha_Tight  : LepGood_tightCharge[0]==2 && LepGood_tightCharge[1]==2 && LepGood_tightCharge[2]==2 && LepGood_tightCharge[3]==2;Disable=True
+Cha_Tight  : LepGood_tightCharge[0]==2 && LepGood_tightCharge[1]==2 && LepGood_tightCharge[2]==2 && LepGood_tightCharge[3]==2
 
 # --- Flavor splits
 flav_eee    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 0; Disable=True
@@ -31,4 +30,3 @@ mmmm_flav : (abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])+abs(
 chargeplus  : LepW_pdgId < 0 ; Disable=True
 chargeminus : LepW_pdgId > 0 ; Disable=True
 m3lmetblind : $DATA{m3Lmet <= 400} $MC{1} $FASTSIM{1}; Disable=True
-cha3_Tight  : LepGood_tightCharge[iW]==2; Disable= True

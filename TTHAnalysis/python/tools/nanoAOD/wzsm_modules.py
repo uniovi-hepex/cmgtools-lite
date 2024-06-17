@@ -168,6 +168,7 @@ pufile_data2022PostEE = "%s/src/CMGTools/TTHAnalysis/data/WZRun3/PU/2022EE/MyDat
     'CMSSW_BASE']
 pufile_data2022PreEE = "%s/src//CMGTools/TTHAnalysis/data/WZRun3/PU/2022/MyDataPileupHistogram_2022PreEE.root" % os.environ[
     'CMSSW_BASE']
+
 puAutoWeight_2022 = lambda : puWeightProducer(
     "auto", pufile_data2022PreEE, "pu_mc", "pileup", name="puWeight_fix", verbose=False)
 puAutoWeight_2022PostEE = lambda : puWeightProducer(
@@ -175,27 +176,14 @@ puAutoWeight_2022PostEE = lambda : puWeightProducer(
                  
 
 
-lepCollector            = [lepMerge, lepSkim] + [tagger, puAutoWeight_2022] + triggerSequence
-lepCollector_data       = [lepMerge,  lepSkim] + [tagger] + triggerSequence
-lepCollector_EE         = [lepMerge_EE, lepSkim] + [tagger, puAutoWeight_2022PostEE] + triggerSequence
-lepCollector_EE_data    = [lepMerge_EE , lepSkim] + [tagger] + triggerSequence
-
+lepCollector            = [lepMerge, lepSkim] + [tagger, puAutoWeight_2022] + triggerSequence + [lepCorrector_2022]
+lepCollector_data       = [lepMerge,  lepSkim] + [tagger] + triggerSequence + [lepCorrector_2022_data]
+lepCollector_EE         = [lepMerge_EE, lepSkim] + [tagger, puAutoWeight_2022PostEE] + triggerSequence + [lepCorrector_2022EE]
+lepCollector_EE_data    = [lepMerge_EE , lepSkim] + [tagger] + triggerSequence + [lepCorrector_2022EE_data]
 
 #No skim postEE samples
-lepCollector_EE_nS      = [lepMerge_EE] + [tagger, puAutoWeight_2022PostEE] + triggerSequence
-lepCollector_nS         = [lepMerge] + [tagger, puAutoWeight_2022] + triggerSequence
-
-# This was temporarily done to fix an issue in the puweight variations
-#pileupfix_2022 = [puAutoWeight_2022]
-#pileupfix_2022EE = [puAutoWeight_2022PostEE]
-
-# ---------------------------------------------------------------------------------------------------------------------------- #
-# -----------------  REDO SCALE CORRECTIONS (TEMPORAL, WILL MOVE TO POSTPROCESSING STEP)    ---------------------------------- # 
-# ---------------------------------------------------------------------------------------------------------------------------- #
-lepEnergyCorrection_2022   = [lepCorrector_2022]
-lepEnergyCorrection_2022_data   = [lepCorrector_2022_data]
-lepEnergyCorrection_2022EE = [lepCorrector_2022EE]
-lepEnergyCorrection_2022EE_data = [lepCorrector_2022EE_data]
+lepCollector_EE_nS      = [lepMerge_nS] + [tagger, puAutoWeight_2022PostEE] + triggerSequence + [lepCorrector_2022EE]
+lepCollector_nS         = [lepMerge_nS] + [tagger, puAutoWeight_2022] + triggerSequence + [lepCorrector_2022]
 
 # --------------------------------------------------------------------------------------------------------------------------- #
 # ---------------------------------------------------- JET CORRECTIONS ------------------------------------------------------ # 
