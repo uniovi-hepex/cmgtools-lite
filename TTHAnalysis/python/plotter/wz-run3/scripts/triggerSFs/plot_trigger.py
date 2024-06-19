@@ -10,7 +10,7 @@ def read_json_file(file_path):
     return data
 
 def plot_efficiency_comparison_perMeasurement(data_folder, channel, years):
-    modes = ['inclusive', 'lowpt', 'highpt', 'barrel0', 'barrel1', 'barrel2', 'barrel3']
+    modes = ['inclusive', 'lowpt', 'highpt', 'barrel0', 'barrel1', 'barrel2', 'barrel3', ]
     x_values = range(len(modes))
 
 
@@ -161,9 +161,9 @@ def plot_efficiency_comparison(data_folder, mode, years):
 data_folder = 'results'
 years = ['PreEE', 'PostEE']
 
-for ch in ["inclusive", "eee", "eem", "mme", "mmm"]:
-    plot_efficiency_comparison_perMeasurement(data_folder, ch, years)
+#for ch in ["inclusive", "eee", "eem", "mme", "mmm"]:
+#    plot_efficiency_comparison_perMeasurement(data_folder, ch, years)
 
-for mode in ["inclusive", "lowpt", "highpt", "barrel0", "barrel1", "barrel2", "barrel3"]:
+for mode in ["lowpt_closeToOffline"]:#"inclusive", "lowpt", "highpt", "barrel0", "barrel1", "barrel2", "barrel3"]:
     plot_efficiency_comparison(data_folder, mode, years)
 

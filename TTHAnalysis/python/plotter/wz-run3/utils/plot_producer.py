@@ -77,7 +77,7 @@ class plot_producer(producer):
 
     # Other plotting stuff 
     plottingStuff =  "--obj Events "
-    plottingStuff += "--maxRatioRange 0.6 1.4 "
+    plottingStuff += "--maxRatioRange 0.75 1.2 "
     plottingStuff += "--fixRatioRange "
     plottingStuff += "--print C,pdf,png,txt "
     plottingStuff += "--legendWidth 0.23 "
@@ -97,11 +97,13 @@ class plot_producer(producer):
         lumi   = lumis[year] if self.era == None else lumis[self.era]
         mcpath = os.path.join(self.mcpath, self.year)
         datapath = os.path.join(self.datapath, self.year)
+        mcpath_sf = "/pool/phedex/userstorage/cvico/wz/apr2024/%s "%self.year
     else:
         year = ",".join(["%s"%y for y in lumis if y in ["2022", "2022EE"]])
         lumi = ",".join(["%s"%lumis[y] for y in lumis if y in ["2022", "2022EE"]])
         mcpath = self.mcpath
         datapath = self.datapath
+        mcpath_sf = "/pool/phedex/userstorage/cvico/wz/apr2024/ "
     
     
     # List with all the options given to CMGTools
@@ -112,7 +114,7 @@ class plot_producer(producer):
                    "--year %s"%year if self.era == None else "--year %s"%self.era,
                    "-f --pdir %s"%outname,
                    "--tree %s "%self.treename,
-                   "-P {mcpath} -P {datapath}".format(mcpath = mcpath, datapath = datapath),
+                   "-P {mcpath_sf} -P {mcpath} -P {datapath}".format(mcpath = mcpath, datapath = datapath, mcpath_sf = mcpath_sf),
                    self.add_friends() if not self.unfriend else "",
                    "-L " + " -L ".join(self.functions),
                    "-W '%s'"%("*".join(self.weights)) if not unweight else "", # Always keep PU weights

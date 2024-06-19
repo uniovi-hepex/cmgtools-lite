@@ -9,6 +9,48 @@ def inclusive(selection, flav_cut):
         for the full statistical power of the sample."""
 	return " && ".join(selection), caption
 
+def lowpt_closeToOffline_lz1_lz2(selection, flav_cut):
+	""" For inclusive measurement """
+	selection.append( "LepZ1_pt >= 25 && LepZ1_pt < 35" )
+	#selection.append( "LepW_pt >= 25 && LepW_pt < 35" )
+	selection.append( "LepZ2_pt <= 25 && LepZ2_pt > 15" )
+	selection.append( flav_cut )
+	caption = """Trigger efficiency measurements in different data
+        and MC samples in a \pt region close to the offline threshold of all the trigger legs ($25 < \pt(\ell_{1}) < 35 \GeV$, $25 < \pt(\ell_{1}) < 35 \GeV$, $\pt(\ell_{3}) < 25 \GeV$). Uncertainties in the efficiency measurements are statistical only. \WZ events are not normalized to the cross section to properly account for the full statistical power of the sample."""
+	return " && ".join(selection), caption
+
+def lowpt_closeToOffline_lw_lz2(selection, flav_cut):
+	""" For inclusive measurement """
+	#selection.append( "LepZ1_pt >= 25 && LepZ1_pt < 35" )
+	selection.append( "LepW_pt >= 25 && LepW_pt < 35" )
+	selection.append( "LepZ2_pt <= 25 && LepZ2_pt > 15" )
+	selection.append( flav_cut )
+	caption = """Trigger efficiency measurements in different data
+        and MC samples in a \pt region close to the offline threshold of all the trigger legs ($25 < \pt(\ell_{1}) < 35 \GeV$, $25 < \pt(\ell_{1}) < 35 \GeV$, $\pt(\ell_{3}) < 25 \GeV$). Uncertainties in the efficiency measurements are statistical only. \WZ events are not normalized to the cross section to properly account for the full statistical power of the sample."""
+	return " && ".join(selection), caption
+
+
+
+def lowpt_closeToOffline_lz1(selection, flav_cut):
+	""" For inclusive measurement """
+	selection.append( "LepZ1_pt >= 25 && LepZ1_pt < 35" )
+	#selection.append( "LepW_pt >= 25 && LepW_pt < 35" )
+	#selection.append( "LepZ2_pt <= 25 && LepZ2_pt > 15" )
+	selection.append( flav_cut )
+	caption = """Trigger efficiency measurements in different data
+        and MC samples in a \pt region close to the offline threshold of all the trigger legs ($25 < \pt(\ell_{1}) < 35 \GeV$, $25 < \pt(\ell_{1}) < 35 \GeV$, $\pt(\ell_{3}) < 25 \GeV$). Uncertainties in the efficiency measurements are statistical only. \WZ events are not normalized to the cross section to properly account for the full statistical power of the sample."""
+	return " && ".join(selection), caption
+
+def lowpt_closeToOffline_lw(selection, flav_cut):
+	""" For inclusive measurement """
+	#selection.append( "LepZ1_pt >= 25 && LepZ1_pt < 35" )
+	selection.append( "LepW_pt >= 25 && LepW_pt < 35" )
+	#selection.append( "LepZ2_pt <= 25 && LepZ2_pt > 15" )
+	selection.append( flav_cut )
+	caption = """Trigger efficiency measurements in different data
+        and MC samples in a \pt region close to the offline threshold of all the trigger legs ($25 < \pt(\ell_{1}) < 35 \GeV$, $25 < \pt(\ell_{1}) < 35 \GeV$, $\pt(\ell_{3}) < 25 \GeV$). Uncertainties in the efficiency measurements are statistical only. \WZ events are not normalized to the cross section to properly account for the full statistical power of the sample."""
+	return " && ".join(selection), caption
+
 def lowpt(selection, flav_cut):
 	""" For inclusive measurement """
 	selection.append( "LepZ2_pt <= 25 && LepZ2_pt > 15" )

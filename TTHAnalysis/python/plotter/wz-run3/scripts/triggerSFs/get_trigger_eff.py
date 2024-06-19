@@ -281,6 +281,14 @@ if __name__ == "__main__":
     elif opts.mode == "barrel3": 
         function = trg.barrel3
         title = r"3 barrel leptons"
+    elif opts.mode == "lowpt_closeToOffline_lw":
+        function = trg.lowpt_closeToOffline_lw
+    elif opts.mode == "lowpt_closeToOffline_lz1":
+        function = trg.lowpt_closeToOffline_lz1
+    elif opts.mode == "lowpt_closeToOffline_lw_lz2":
+        function = trg.lowpt_closeToOffline_lw_lz2
+    elif opts.mode == "lowpt_closeToOffline_lz1_lz2":
+        function = trg.lowpt_closeToOffline_lz1_lz2
     else:
         print(f" >> Mode {opts.mode} not available. ")
 

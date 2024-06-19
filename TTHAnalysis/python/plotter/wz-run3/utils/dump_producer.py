@@ -27,7 +27,7 @@ class dump_producer(producer):
     # --- More options for customization --- #
     parser.add_option("--cutfile", dest = "cutfile", default = "wz-run3/common/cuts-srwz.txt",
                   help = ''' Region for cut application.''')
-    parser.add_option("--expression", dest = "expression", default = "{event|luminosityBlock}",
+    parser.add_option("--expression", dest = "expression", default = "{run}|{event}|{luminosityBlock}",
                   help = ''' Expression to dump.''')
 
     # --- Override main producer option for output path

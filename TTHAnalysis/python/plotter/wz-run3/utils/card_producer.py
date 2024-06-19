@@ -47,7 +47,7 @@ class card_producer(plot_producer):
         mcpath = self.mcpath
         datapath = self.datapath
 
-    doAsimov = "--xp data --asimov signal" if "srwz" in self.cutfile else "" # Always blind the fit for SR!!!
+    doAsimov = ""# "--xp data --asimov signal" if "srwz" in self.cutfile else "" # Always blind the fit for SR!!!
     # List with all the options given to CMGTools
     self.commandConfs = ["%s"%self.mca, 
                    "%s"%cutfile,
