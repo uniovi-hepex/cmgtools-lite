@@ -1,0 +1,2 @@
+## signal
+incl_signal : + ; IncludeMca="wz-run3/mca/includes-colorPalette/mca-signal.txt"

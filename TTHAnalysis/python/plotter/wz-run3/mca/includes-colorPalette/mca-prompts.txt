@@ -1,8 +1,8 @@
 ## ZZ
 prompt_ZZ: ZZto4L_part*                   : 1.65   ; FillColor=ROOT.TColor.GetColor(63\,144\,218), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="qqZZ", genSumWeightName="genEventSumw"
 prompt_ggZZ: GluGlutoContinto2Zto2E2Mu*   : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
-prompt_ggZZ: GluGluToContinto2Zto2E2Tau*  : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
-prompt_ggZZ: GluGluToContinto2Zto2Mu2Tau* : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
+prompt_ggZZ: GluGlutoContinto2Zto2E2Tau*  : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
+prompt_ggZZ: GluGlutoContinto2Zto2Mu2Tau* : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
 prompt_ggZZ: GluGlutoContinto2Zto4E*      : 0.003  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
 prompt_ggZZ: GluGlutoContinto2Zto4Mu*     : 0.003  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
 prompt_ggZZ: GluGlutoContinto2Zto4Tau*    : 0.003  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"

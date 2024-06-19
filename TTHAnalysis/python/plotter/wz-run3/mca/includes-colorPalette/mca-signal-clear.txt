@@ -1,0 +1,4 @@
+## WZto3LNu
+prompt_WZ+             : WZto3LNu* : 5.31; FillColor=ROOT.TColor.GetColor(255\,169\,14), Label="WZ", genSumWeightName="genEventSumw"
+
+

@@ -1,0 +1,15 @@
+## data
+incl_data : + ; IncludeMca="wz-run3/mca/includes-colorPalette/mca-data.txt"
+
+## signal
+incl_signal : + ; IncludeMca="wz-run3/mca/includes-colorPalette/mca-signal-asymm.txt"
+
+## prompts
+incl_prompts : + ; IncludeMca="wz-run3/mca/includes-colorPalette/mca-prompts.txt"
+
+## mcfakes
+incl_mcfakes : + ; IncludeMca="wz-run3/mca/includes-colorPalette/mca-mcfakes.txt"
+
+## convs
+incl_convs : + ; IncludeMca="wz-run3/mca/includes-colorPalette/mca-convs.txt"
+
