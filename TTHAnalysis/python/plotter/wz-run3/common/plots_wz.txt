@@ -6,20 +6,19 @@
 
 # ---------- Yield plots ---------- #  
 tot_weight : 1 : 1,0,2 ; XTitle ="Yields"
-
 flavor3l            : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2  : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=3.0
 flavorcharge3l      : (abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2+ 4*(LepW_pdgId[0] < 0)  : 8,-0.5,7.5 ; XTitle="flavor", xBinLabels="eee^{-}\,ee#mu^{-}\,e#mu#mu^{-}\,#mu#mu#mu^{-}\,eee^{+}\,ee#mu^{+}\,e#mu#mu^{+}\,#mu#mu#mu^{+}", Legend="TL", MoreY=3.0
 flavorcharge3lLoose : (abs(LepGood_pdgId[0])+abs(LepGood_pdgId[1])+abs(LepGood_pdgId[2])-33)/2+ 4*(LepGood_pdgId[0]+LepGood_pdgId[1] + LepGood_pdgId[2] < 0)  : 8,-0.5,7.5 ; XTitle="flavor", xBinLabels="eee^{-}\,ee#mu^{-}\,e#mu#mu^{-}\,#mu#mu#mu^{-}\,eee^{+}\,ee#mu^{+}\,e#mu#mu^{+}\,#mu#mu#mu^{+}", Legend="TL", MoreY=3.0
 flavorLoose         : (abs(LepGood_pdgId[0])+abs(LepGood_pdgId[1])+abs(LepGood_pdgId[2])-33)/2 : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=2.0
+flavor4l            : if3(nLepSel == 4, (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)+abs(LepZ3_pdgId)-44)/2, -99)  : 3,-0.5,2.5 ; XTitle="flavor", xBinLabels="eeee\,ee#mu#mu\,#mu#mu#mu#mu", Legend="TL", MoreY=3.0
 
 
 # ---------- LEPTON PLOTS ---------- #  
 #nLepTight : 4*(abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2 + (LepSel_isTight[0]) + (LepSel_isTight[1])+ (LepSel_isTight[2]) : 16,-0.5,15.5 ; XTitle="nMuon*4+nTight", IncludeOverflow=True,  
 nOSSF : nOSSF_3l : 5,0,5 ; XTitle="nOSSF", IncludeOverflow=True, Logy
 
-
 # + Kinematics of the leading lepton coming from Z
-lepZ1_pt  : LepZ1_pt   : 10,20,200   ; YTitle="Events", XTitle="p_{T\,cone}(Z1 lep.)", Logy, MoreY=1.2
+lepZ1_pt  : LepZ1_pt   : 10,20,200   ; YTitle="Events", XTitle="p_{T\,cone}(Z1 lep.)", Logy, MoreY=1.3
 lepZ1_eta : LepZ1_eta  : 10,-2.5,2.5 ; YTitle="Events", XTitle="#eta(Z1 lep.)", Logy, MoreY=1.5
 lepZ1_phi : LepZ1_phi  : 10,-3.15,3.15; YTitle="Events", XTitle="#phi(Z1 lep.)", Logy
 
@@ -30,19 +29,21 @@ lepZ2_phi : LepZ2_phi  : 10,-3.15,3.15; YTitle="Events", XTitle="#phi(Z2 lep.)",
 
 # + Kinematics of the lepton coming from W
 lepW_pt   : LepW_pt    : 10,0,160   ; YTitle="Events", XTitle="p_{T\,cone}(W lep.)", MoreY=1.2
-#lepW_pt   : LepW_pt    : 10,0,160   ; YTitle="Events", XTitle="p_{T\,cone}(W lep.)", Logy, MoreY=1.2
 lepW_phi  : LepW_phi   : 10,-3.15,3.15; YTitle="Events", XTitle="#phi(W lep.)", Logy, MoreY=1.5
 lepW_eta  : LepW_eta   : 10,-2.5,2.5 ; YTitle="Events", XTitle="#eta(W lep.)"
 
-# + Kinematics of the leptons without tagging
-lep1_pt       : LepSel_pt[0] : 10,20,180  ; XTitle="p_{T}(l1) [GeV]", MoreY=1.5
-lep2_pt       : LepSel_pt[1] : 10,20,180  ; XTitle="p_{T}(l2) [GeV]", MoreY=1.5
-lep3_pt       : LepSel_pt[2] : 20,20,180  ; XTitle="p_{T}(l3) [GeV]", MoreY=1.5
+# + Kinematics of the (if available) fourth lepton
+lepZ3_pt   : if3(nLepSel == 4, LepZ3_pt, -99)   : 10,10,200     ; XTitle="p_{T\,cone}(Z_{2}^{#ell_1})", xBinLabels="eeee\,ee#mu#mu\,#mu#mu#mu#mu", Legend="TL", MoreY=3.0
+lepZ3_eta  : if3(nLepSel == 4, LepZ3_eta, -99)  : 10,-2.5,2.5    ; XTitle="#eta(Z_{2}^{#ell_1})", xBinLabels="eeee\,ee#mu#mu\,#mu#mu#mu#mu", Legend="TL", MoreY=3.0
+lepZ3_phi  : if3(nLepSel == 4, LepZ3_phi, -99)  : 10,-3.15, 3.15 ; XTitle="#phi(Z_{2}^{#ell_1})", xBinLabels="eeee\,ee#mu#mu\,#mu#mu#mu#mu", Legend="TL", MoreY=3.0
+
+# + Correlation between tag pairs
+Z1_leptons : LepZ1_pdgId:LepZ2_pdgId; YTitle="#ell_{1}^{Z} flavour", XTitle="#ell_{2}^{Z} flavour"
+Z2_leptons : if3(nLepSel == 4, LepZ1_pdgId:LepZ2_pdgId, 0); YTitle="#ell_{1}^{Z_{2}} flavour", XTitle="#ell_{2}^{Z_{2}} flavour"
 
 # + Kinematics of the three lepton system
-m3l         : m3L              : 20,100,300    ; XTitle="m_{3L} (GeV)" ,  Legend="TR", Logy, MoreY=1.2
-mll3l       : mll_3l           : 20,75,105    ; XTitle="M_{ll} (GeV)", Legend="TR", Logy, MoreY=1.2
-#mtW3l       : mT_3l            : 20,0,200    ; XTitle="M_{T} (GeV)", Legend="TR", Logy, MoreY=1.2
+m3l         : m3L              : 20,100,300    ; XTitle="m_{3L} (GeV)" ,  Legend="TR", Logy, MoreY=1.3
+mll3l       : mll_3l           : 20,75,115    ; XTitle="M_{ll} (GeV)", Legend="TR", Logy, MoreY=1.25
 mtW3l       : mT_3l            : 20,0,200    ; XTitle="M_{T} (GeV)", Legend="TR", MoreY=1.2
 mll3lconv   : mll_3l           : 8,35,75    ; XTitle="M_{ll} (GeV)", Legend="TR"
 m3lmet_Meas : m3Lmet           : 10,100,200 ; XTitle="m_{WZ} [GeV]", YTitle='Events/bin', IncludeOverflows=False, MoreY=1.2
@@ -52,7 +53,6 @@ mllZ2  : mass_2(LepSel_pt[unused4(mll_i1[0], mll_i2[0], 1)],LepSel_eta[unused4(m
 
 # ---------- HADRONIC-PARTICLES PLOTS ---------- #  
 # + MET
-#met         : MET_pt_central    : 20,35,160   ; XTitle="p_{T}^{miss}  (GeV)", Legend="TR", Logy, MoreY=1.2
 met         : MET_pt_central    : 20,35,160   ; XTitle="p_{T}^{miss}  (GeV)", Legend="TR", MoreY=1.2
 
 nJet30      : nJet30_Mini       : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5] ; XTitle="N(jet\, p_{T} > 30)", Logy 
@@ -80,15 +80,9 @@ wz_MediumBclassifier: wz_MediumBtag_clasifier(nJet30_Mini, nBJetMedium30_Mini): 
 wz_LooseBclassifier: wz_LooseBtag_clasifier(nJet30_Mini, nBJetLoose30_Mini): [0.5,1.5,2.5,3.5,4.5,5.5,6.5]; XTitle="nJet nBJet clasification", Logy,YMin=1 , YMax=20e3,  XNDdiv=505, IncludeOverflows=False, xBinLabels="0j0t\,1j0t\,>2j0t\,1j1t\,>2j1t\,2j2t"
 
 
-# ---------- FLAVOR COMPOSITION PLOTS ---------- #  
-flavor3l            : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2  : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=3.0
-flavorcharge3l      : (abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2+ 4*(LepW_pdgId[0] < 0)  : 8,-0.5,7.5 ; XTitle="flavor", xBinLabels="eee^{-}\,ee#mu^{-}\,e#mu#mu^{-}\,#mu#mu#mu^{-}\,eee^{+}\,ee#mu^{+}\,e#mu#mu^{+}\,#mu#mu#mu^{+}", Legend="TL", MoreY=3.0
-flavorcharge3lLoose : (abs(LepGood_pdgId[0])+abs(LepGood_pdgId[1])+abs(LepGood_pdgId[2])-33)/2+ 4*(LepGood_pdgId[0]+LepGood_pdgId[1] + LepGood_pdgId[2] < 0)  : 8,-0.5,7.5 ; XTitle="flavor", xBinLabels="eee^{-}\,ee#mu^{-}\,e#mu#mu^{-}\,#mu#mu#mu^{-}\,eee^{+}\,ee#mu^{+}\,e#mu#mu^{+}\,#mu#mu#mu^{+}", Legend="TL", MoreY=3.0
-flavorLoose         : (abs(LepGood_pdgId[0])+abs(LepGood_pdgId[1])+abs(LepGood_pdgId[2])-33)/2 : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=2.0
-
 # ---------- CHARGE SPLIT PLOTS ---------- #  
-
 charge3l_sign3TC  : if3(LepSel_pdgId[0]>0,-1,1)+if3(LepSel_pdgId[1]>0,-1,1)+if3(LepSel_pdgId[2]>0,-1,1) : 7,-3.5,3.5 ; XTitle="charge", Legend="TL", MoreY=3.0
 charge3l_eee3TC   : if3(LepSel_pdgId[0]>0,-1,1)+if3(LepSel_pdgId[1]>0,-1,1)+if3(LepSel_pdgId[2]>0,-1,1) : 7,-3.5,3.5 ; XTitle="charge", Legend="TL", MoreY=3.0
 charge3l_mme3TC   : if3(LepSel_pdgId[0]>0,-1,1)+if3(LepSel_pdgId[1]>0,-1,1)+if3(LepSel_pdgId[2]>0,-1,1) : 7,-3.5,3.5 ; XTitle="charge", Legend="TL", MoreY=3.0
 charge3l          : if3(LepSel_pdgId[0]>0,-1,1)+if3(LepSel_pdgId[1]>0,-1,1)+if3(LepSel_pdgId[2]>0,-1,1) : 1,-1,1 ; XTitle="charge", Legend="TL", MoreY=3.0
+

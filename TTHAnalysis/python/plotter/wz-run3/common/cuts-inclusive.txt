@@ -1,0 +1,11 @@
+# ---- Cut file for WZ signal region ---- #
+
+# --- Basics
+alwaystrue   :  1
+
+# --- Three lepton selection
+trilep     : nLepSel >= 3
+AllTight   : allTight(LepSel_isTight[0], LepSel_isTight[1], LepSel_isTight[2])
+lepPt      : LepZ1_pt >= 25 && LepZ2_pt >= 15 && LepW_pt >= 25
+
+flav_mmm    : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2 == 0

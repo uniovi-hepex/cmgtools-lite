@@ -1,3 +1,2 @@
-
-weight : Alt$(LHEScaleWeight[2],1)
-alt-norm : Alt$(LHEScaleSumw[2]/LHEScaleSumw[4],1)
+weight : LHEScaleWeight[2]
+alt-norm : LHEScaleSumw[2]

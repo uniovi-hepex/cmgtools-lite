@@ -3,8 +3,12 @@ import os
 pdfs_indices = range(104)
 template = "LHEPdfWeight[{idx}]"
 
-txt = """weight : Alt$(LHEPdfWeight[{idx}], 1)
-alt-norm : Alt$(LHEPdfSumw[{idx}]/LHEPdfSumw[4],1)
+#txt = """weight : Alt$(LHEPdfWeight[{idx}], 1)
+#alt-norm : Alt$(LHEPdfSumw[{idx}],1)
+#"""
+
+txt = """weight : LHEPdfWeight[{idx}]
+alt-norm : LHEPdfSumw[{idx}]
 """
  
 filename_template = "fr-pdf_{idx}.txt"

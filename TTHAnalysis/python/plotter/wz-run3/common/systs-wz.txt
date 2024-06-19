@@ -15,12 +15,13 @@ $alias : vh           : .*prompt_VH.*
 $alias : promptMC     : $ZZ|$VVV|$ttx|$tzq
 
 # fakes
-$alias : DY     : .*fakes_DY.*
-$alias : VV     : .*fakes_VV.*
-$alias : TT     : .*fakes_TT.*
-$alias : ST     : .*fakes_T
-$alias : Wjets  : .*Wjets.*
-$alias : NonpromptMC  : $DY|$VV|$TT|$ST|$Wjets
+#$alias : DY     : .*fakes_DY.*
+#$alias : VV     : .*fakes_VV.*
+#$alias : TT     : .*fakes_TT.*
+#$alias : ST     : .*fakes_T
+#$alias : Wjets  : .*Wjets.*
+#$alias : NonpromptMC  : $DY|$VV|$TT|$ST|$Wjets
+$alias : NonpromptMC  : .*fakes.* 
 
 # convs
 $alias : convs : .*conv.*

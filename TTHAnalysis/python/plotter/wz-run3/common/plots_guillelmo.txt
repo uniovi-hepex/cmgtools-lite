@@ -1,0 +1,34 @@
+# vim: syntax=sh
+
+# ---------------------------------- #
+# PLOTS DEFINED FOR THE WZ ANALYSIS  #
+# ---------------------------------- #
+
+# ---------- Yield plots ---------- #  
+tot_weight : 1 : 1,0,2 ; XTitle ="Yields"
+
+# ---------- LEPTON PLOTS ---------- #  
+#nLepTight : 4*(abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2 + (LepSel_isTight[0]) + (LepSel_isTight[1])+ (LepSel_isTight[2]) : 16,-0.5,15.5 ; XTitle="nMuon*4+nTight", IncludeOverflow=True,  
+nOSSF : nOSSF_3l : 5,0,5 ; XTitle="nOSSF", IncludeOverflow=True, Logy
+
+
+# + Kinematics of the leading lepton coming from Z
+lepZ1_pt  : LepZ1_pt   : [0, 20, 50, 180]   ; YTitle="Events", XTitle="p_{T\,cone}(Z1 lep.)", MoreY=1.5
+lepZ1_eta : LepZ1_eta  : 10,-2.5,2.5 ; YTitle="Events", XTitle="#eta(Z1 lep.)", Logy, MoreY=2.0, YMin=100
+lepZ1_phi : LepZ1_phi  : 10,-2.5,2.5; YTitle="Events", XTitle="#phi(Z1 lep.)", Logy
+
+# + Kinematics of the subleading lepton coming from Z
+lepZ2_pt  : LepZ2_pt   : [0, 20, 50, 180] ; YTitle="Events", XTitle="p_{T\,cone}(Z2 lep.)", MoreY=2.0
+lepZ2_eta : LepZ2_eta  : 20,-2.5,2.5 ; YTitle="Events", XTitle="#eta(Z2 lep.)", Logy, MoreY=2.0, YMin=100
+lepZ2_phi : LepZ2_phi  : 30,-3.15,3.15; YTitle="Events", XTitle="#phi(Z2 lep.)", Logy
+
+# + Kinematics of the lepton coming from W
+lepW_pt   : LepW_pt    : [0, 20, 50, 180] ; YTitle="Events", XTitle="p_{T\,cone}(W lep.)", MoreY=1.5
+lepW_pt_binning2   : LepW_pt    : [0, 20, 30, 40, 50, 60, 70, 80, 90, 100, 180] ; YTitle="Events", XTitle="p_{T\,cone}(W lep.)", MoreY=1.5
+lepW_pt_binning2   : LepW_pt  : 6,0,180 ; YTitle="Events", XTitle="p_{T\,cone}(W lep.)", MoreY=1.5
+lepW_phi  : LepW_phi   : 20,-2.5,2.5;  YTitle="Events", XTitle="#phi(W lep.)", Logy, MoreY=2.0, YMin=100
+lepW_eta  : LepW_eta   : 30,-2.5,2.5 ; YTitle="Events", XTitle="#eta(W lep.)", Logy
+
+# + Kinematics of the three lepton system
+m3l         : m3L              : 30,100,300    ; XTitle="m_{3L} (GeV)",  Legend="TR", Logy, MoreY=1.8
+mll3l       : mll_3l           : 30,25,175    ; XTitle="M_{ll} (GeV)", Legend="TR", Logy, MoreY=1.5

@@ -1,0 +1,101 @@
+# vim: syntax=sh
+
+# -- Systematic uncertainties file for WZ analyis -- #
+### Alias definitions
+# signal
+$alias : WZ           : .*prompt_WZ.*
+
+# prompts
+$alias : ZZ           : .*prompt_.*ZZ.*
+$alias : VVV          : .*prompt_VVV.*
+$alias : ttx          : .*prompt_TTX.*
+$alias : tzq          : .*prompt_TZQ.*
+$alias : vh           : .*prompt_VH.*
+$alias : promptMC     : $ZZ|$VVV|$ttx|$tzq
+
+# fakes
+$alias : DY     : .*fakes_DY.*
+$alias : VV     : .*fakes_VV.*
+$alias : TT     : .*fakes_TT.*
+$alias : ST     : .*fakes_T
+$alias : Wjets  : .*Wjets.*
+$alias : NonpromptMC  : $DY|$VV|$TT|$ST|$Wjets
+
+# convs
+$alias : convs : .*conv.*
+
+# Correlated groups
+$alias : bkg : $promptMC|$NonpromptMC|$convs
+$alias : allProcs : $WZ|$bkg
+
+## Lumi uncertainties 
+lumi_2022_early  : $allProcs  : .*  : normSymm  :1.014
+
+## Trigger
+trigeffbias_2022PreEE  : $allProcs : .*  : normSymm  : 1.005; year="2022"
+trigeffbias_2022PostEE : $allProcs : .*  : normSymm  : 1.01;  year="2022EE"
+trigeffstat_2022PreEE  : $allProcs : .*  : normSymm  : 1.02;  year="2022"
+trigeffstat_2022PostEE : $allProcs : .*  : normAsymm : 0.991/1.004; year="2022EE"
+
+## Normalization 
+normVVV   : $VVV         : .* : normSymm : 1.50
+#normConvs : $convs       : .* : normSymm : 1.12
+normfakes : $NonpromptMC : .* : normSymm : 1.30
+normttx   : $tzq         : .* : normSymm : 1.15
+normvh    : $vh          : .* : normSymm : 1.25
+
+## JECs 
+jestotal_2022PreEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesTotalUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesTotalDown.txt'], year="2022"
+jestotal_2022PostEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesTotalUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesTotalDown.txt'], year="2022EE"
+#jesFlavorQCD             : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesFlavorQCDUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesFlavorQCDDown.txt'] 
+#
+#jesBBEC1                 : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesBBEC1Up.txt'\,'wz-run3/common/frs-jec/fr-standard-jesBBEC1Down.txt'] 
+#jesBBEC1_2022            : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesBBEC1_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesBBEC1_yearDown.txt'], year="2022"
+#jesBBEC1_2022EE          : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesBBEC1_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesBBEC1_yearDown.txt'], year="2022EE"
+#
+#jesHF                    : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesHFUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesHFDown.txt'] 
+#jesHF_2022               : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesHF_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesHF_yearDown.txt'], year="2022" 
+#jesHF_2022EE             : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesHF_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesHF_yearDown.txt'], year="2022EE"
+#
+#jesRelativeBal           : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesRelativeBalUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesRelativeBalDown.txt'] 
+#jesRelativeSample_2022   : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesRelativeSample_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesRelativeSample_yearDown.txt'], year="2022" 
+#jesRelativeSample_2022EE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesRelativeSample_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesRelativeSample_yearDown.txt'], year="2022EE" 
+#
+#jesEC2                   : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesEC2Up.txt'\,'wz-run3/common/frs-jec/fr-standard-jesEC2Down.txt'] 
+#jesEC2_2022              : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesEC2_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesEC2_yearDown.txt'], year="2022" 
+#jesEC2_2022EE            : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesEC2_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesEC2_yearDown.txt'], year="2022EE"
+#
+#jesAbsolute              : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesAbsoluteUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesAbsoluteDown.txt']
+#jesAbsolute_2022         : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesAbsolute_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesAbsolute_yearDown.txt'], year="2022" 
+#jesAbsolute_2022EE       : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesAbsolute_yearUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesAbsolute_yearDown.txt'], year="2022EE" 
+
+jer_2022PreEE                 : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jerUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jerDown.txt'], year="2022"
+jer_2022PostEE               : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jerUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jerDown.txt'], year="2022EE"
+
+## Electron scales and smearings
+elec_scale_2022PreEE   : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-lepScales/fakerate_standard_ScaleUp.txt'\,'wz-run3/common/frs-lepScales/fakerate_standard_ScaleDown.txt'], year="2022" 
+elec_scale_2022PostEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-lepScales/fakerate_standard_ScaleUp.txt'\,'wz-run3/common/frs-lepScales/fakerate_standard_ScaleDown.txt'], year="2022EE" 
+elec_smear_2022PreEE   : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-lepScales/fakerate_standard_SmearUp.txt'\,'wz-run3/common/frs-lepScales/fakerate_standard_SmearDown.txt'], year="2022" 
+elec_smear_2022PostEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-lepScales/fakerate_standard_SmearUp.txt'\,'wz-run3/common/frs-lepScales/fakerate_standard_SmearDown.txt'], year="2022EE" 
+
+## Lepton SFs 
+elecidsf               : $allProcs : .* : templateAsymm; AddWeights=["electronSF_IDTightUp/electronSF_IDTight"\,"electronSF_IDTightDown/electronSF_IDTight"]
+elecid_closure_2022EE  : $allProcs : .* : templateSymm; AddWeight='dy_bias_2022EE(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, if3(nLepSel == 4\, abs(LepSel_pdgId[3])\, 0)) ', year="2022EE"
+elecrecosf  : $allProcs : .* : templateAsymm; AddWeights=["electronSF_recoUp/electronSF_reco"\,"electronSF_recoDown/electronSF_reco"]
+muonidsf_ID : $allProcs : .* : templateAsymm; AddWeights=["muonSF_Up/muonSF"\,"muonSF_Down/muonSF"]
+
+## Pileup
+pileup : $allProcs : .* : templateAsymm; AddWeights=["puWeight_fix_up/puWeight_fix"\,"puWeight_fix_dn/puWeight_fix"]
+
+## btag SFs
+btag_LF_corr         : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_mistag_correlatedUp/bTagWeight'\,'bTagWeight_mistag_correlatedDown/bTagWeight']
+btag_LF_2022         : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_mistag_uncorrelatedUp/bTagWeight'\,'bTagWeight_mistag_uncorrelatedDown/bTagWeight'], year="2022"
+btag_LF_2022PostEE   : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_mistag_uncorrelatedUp/bTagWeight'\,'bTagWeight_mistag_uncorrelatedDown/bTagWeight'], year="2022EE"
+
+btag_HF_Corr           : $allProcs : .* : templateAsymm; AddWeights=['bTagWeight_btag_correlatedUp/bTagWeight'\,'bTagWeight_btag_correlatedDown/bTagWeight']
+btagging_HF_2022       : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_btag_uncorrelatedUp/bTagWeight'\,'bTagWeight_btag_uncorrelatedDown/bTagWeight'], year="2022"
+btagging_HF_2022PostEE : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_btag_uncorrelatedUp/bTagWeight'\,'bTagWeight_btag_uncorrelatedDown/bTagWeight'], year="2022EE"
+
+## Signal uncertainties
+ISR  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-ps/fr-isrUp.txt'\,'wz-run3/common/frs-ps/fr-isrDown.txt']
+FSR  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-ps/fr-fsrUp.txt'\,'wz-run3/common/frs-ps/fr-fsrDown.txt']

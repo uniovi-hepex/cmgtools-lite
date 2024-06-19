@@ -8,18 +8,19 @@
 tot_weight : 1 : 1,0,2 ; XTitle ="Yields"
 
 # ---------- FLAVOR COMPOSITION PLOTS ---------- #  
+flavor3l_lepsel            : (abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])-33)/2  : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=3.0
 flavor3l   : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2  : 4,-0.5,3.5 ; XTitle="flavor", xBinLabels="eee\,ee#mu\,e#mu#mu\,#mu#mu#mu", Legend="TL", MoreY=3.0
 
-flavor4l   : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)+abs(LepZ3_pdgId)-44)/4  : 3,-0.5,2.5 ; XTitle="flavor", xBinLabels="eeee\,ee#mu#mu\,#mu#mu#mu#mu", Legend="TL", MoreY=3.0
+flavor4l   : (abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)+abs(LepSel_pdgId[unused4(mll_i1[0], mll_i2[0], 2)])-44)/4  : 3,-0.5,2.5 ; XTitle="flavor", xBinLabels="eeee\,ee#mu#mu\,#mu#mu#mu#mu", Legend="TL", MoreY=3.0
 
 flavor4l_lepsel   : (abs(LepSel_pdgId[0])+abs(LepSel_pdgId[1])+abs(LepSel_pdgId[2])+abs(LepSel_pdgId[3])-44)/4  : 3,-0.5,2.5 ; XTitle="flavor", xBinLabels="eeee\,ee#mu#mu\,#mu#mu#mu#mu", Legend="TL", MoreY=3.0
 
 crzz_endcap : crzz_clasifier(LepSel_pdgId[0], LepSel_pdgId[1], LepSel_pdgId[2], LepSel_pdgId[3], LepSel_eta[0], LepSel_eta[1], LepSel_eta[2], LepSel_eta[3]): 15,-0.5,14.5 ; XTitle="Flavor in eta regions", xBinLabels="4e\,2e2#mu\,4#mu\,4e\,2e2#mu\,4#mu\,4e\,2e2#mu\,4#mu\,4e\,2e2#mu\,4#mu\,4e\,2e2#mu\,4#mu", Legend="TL", MoreY=2.0
 
-ratios : ratio_clasifier(LepZ1_pdgId, LepZ2_pdgId, LepW_pdgId, LepZ3_pdgId): 4,-0.5,3.5 ; XTitle="Ratios", xBinLabels="eeee\,2e2mu\,2mu2e\,mmmm", Legend="TL", MoreY=2.0
+ratios : ratio_clasifier(LepZ1_pdgId, LepZ2_pdgId, LepW_pdgId, LepSel_pdgId[unused4(mll_i1[0], mll_i2[0], 2)]): 4,-0.5,3.5 ; XTitle="Ratios", xBinLabels="eeee\,2e2mu\,2mu2e\,mmmm", Legend="TL", MoreY=2.0
 
 mZ1  : mass_2(LepZ1_pt, LepZ1_eta, LepZ1_phi, 0, LepZ2_pt, LepZ2_eta, LepZ2_phi, 0): 10,75,105 ; XTitle="M_{Z1} (GeV)", Logy, YMin=1, YMax=500000, Legend="TR" 
-mZ2  : mass_2(LepW_pt, LepW_eta, LepW_phi, 0, LepZ3_pt, LepZ3_eta, LepZ3_phi, 0): 10,10,120 ; XTitle="M_{Z2} (GeV)", Logy, YMin=1, YMax=500000, Legend="TR"
+mZ2  : mass_2(LepW_pt, LepW_eta, LepW_phi, 0, LepSel_pt[unused4(mll_i1[0], mll_i2[0], 2)], LepSel_eta[unused4(mll_i1[0], mll_i2[0], 2)] , LepSel_phi[unused4(mll_i1[0], mll_i2[0], 2)], 0): 10,10,120 ; XTitle="M_{Z2} (GeV)", Logy, YMin=1, YMax=500000, Legend="TR"
 mll3l  : mll_3l           : 10,75,105    ; XTitle="M_{ll} (GeV)", Legend="TR", Logy, MoreY=1.2
 mllZ2  : mass_2(LepSel_pt[unused4(mll_i1[0], mll_i2[0], 1)],LepSel_eta[unused4(mll_i1[0], mll_i2[0], 1)], LepSel_phi[unused4(mll_i1[0], mll_i2[0], 1)],0, LepSel_pt[unused4(mll_i1[0], mll_i2[0], 2)], LepSel_eta[unused4(mll_i1[0], mll_i2[0], 2)], LepSel_phi[unused4(mll_i1[0], mll_i2[0], 2)],0): 10,10,120 ; XTitle="M_{Z2} (GeV)", Logy, Legend="TR"
 
@@ -40,11 +41,6 @@ lepW_pt  : LepW_pt   : [10, 25, 30, 35, 40, 45, 55, 70, 100, 500]   ; YTitle="Ev
 lepW_pt_recobin      : LepW_pt   : [10, 20, 75, 200, 500]   ; YTitle="Events", XTitle="p_{T\,cone}(sub lep. Z2)",  MoreY=1.2
 lepW_eta : LepW_eta  : [-2.5, -2.0, -1.566, -1.444, -1.0, -0.5,0,0.5,1.0,1.444,1.566,2.0,2.5] ; YTitle="Events", XTitle="|#eta(lead lep. Z2)|",  MoreY=1.5
 lepW_pdgId        : LepW_pdgId   : [-15, -13, 11, 0, 11, 13, 15]   ; YTitle="Events", XTitle="pdgId(lead lep. Z2)", MoreY=1.2
-
-lepZ3_pt  : LepZ3_pt   : [10, 25, 30, 35, 40, 45, 55, 70, 100, 500]   ; YTitle="Events", XTitle="p_{T\,cone}(sub lep. Z2)", MoreY=1.2
-lepZ3_pt_recobin       : LepZ3_pt   : [10, 20, 75, 200, 500]   ; YTitle="Events", XTitle="p_{T\,cone}(sub lep. Z2)",  MoreY=1.2
-lepZ3_eta : LepZ3_eta  : [-2.5, -2.0, -1.566, -1.444, -1.0, -0.5,0,0.5,1.0,1.444,1.566,2.0,2.5] ; YTitle="Events", XTitle="|#eta(lead lep. Z2)|",  MoreY=1.5
-lepZ3_pdgId        : LepZ3_pdgId   : [-15, -13, 11, 0, 11, 13, 15]   ; YTitle="Events", XTitle="pdgId(sub lep. Z2)", MoreY=1.2
 
 nOSSF : nOSSF_3l : 5,0,5 ; XTitle="nOSSF", IncludeOverflow=True, Logy
 
