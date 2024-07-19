@@ -67,12 +67,6 @@ lepMerge_EE = collectionMerger(
     selector = dict(Muon = muonSelection, Electron = elecSelection_EE)
 )
 
-lepMerge_nS = collectionMerger(
-    input = ["Electron", "Muon"], 
-    output = "LepGood",
-    selector = dict(Muon = lambda l : 1, Electron = lambda l : 1)
-)
-
 # --- Lepton energy corrections for muons and electrons
 # : So far it really only correct the electrons. 
 from CMGTools.TTHAnalysis.tools.nanoAOD.leptonEnergyCorrections import leptonEnergyCorrections 
@@ -182,8 +176,8 @@ lepCollector_EE         = [lepMerge_EE, lepSkim] + [tagger, puAutoWeight_2022Pos
 lepCollector_EE_data    = [lepMerge_EE , lepSkim] + [tagger] + triggerSequence + [lepCorrector_2022EE_data]
 
 #No skim postEE samples
-lepCollector_EE_nS      = [lepMerge_nS] + [tagger, puAutoWeight_2022PostEE] + triggerSequence + [lepCorrector_2022EE]
-lepCollector_nS         = [lepMerge_nS] + [tagger, puAutoWeight_2022] + triggerSequence + [lepCorrector_2022]
+lepCollector_nS         = [lepMerge] + [tagger, puAutoWeight_2022] + triggerSequence + [lepCorrector_2022]
+lepCollector_EE_nS      = [lepMerge_EE] + [tagger, puAutoWeight_2022PostEE] + triggerSequence + [lepCorrector_2022EE]
 
 # --------------------------------------------------------------------------------------------------------------------------- #
 # ---------------------------------------------------- JET CORRECTIONS ------------------------------------------------------ # 

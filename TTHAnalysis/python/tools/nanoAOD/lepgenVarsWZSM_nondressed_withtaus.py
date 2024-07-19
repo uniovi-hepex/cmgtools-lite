@@ -58,6 +58,7 @@ class lepgenVarsWZSM_nondressed_withtaus(Module):
         return
     
     def analyze(self, event):
+        #print(f" >> Event {event.event}")
         self.resetMemory()
         self.collectObjects(event)
         self.analyzeTopology()
@@ -247,12 +248,18 @@ class lepgenVarsWZSM_nondressed_withtaus(Module):
         self.bestOSPair = None
 
         all = []
+        #all2 = []
         for os in self.OS:
             all.append((0 if os.isZ else 1, 0 if os.isSF else 1, os.diff, os)) # priority to SF, then difference to target
-            #all.append((0 if os.isSF else 1, 1 if os.wTau else 0, os.diff, os)) # priority to SF, then light, then difference to target
+            #all2.append((0 if os.isZ else 1, 0 if os.isSF else 1, os.diff, os)) # priority to SF, then difference to target
 
         if all:
-            all.sort( key = lambda el: el[0] )
+            #all.sort( key = lambda el: el[0] )
+            all.sort() 
+            #all2.sort()
+            #print("        ", all)
+            #print("        ", "-")
+            #print("        ", all2)
             self.bestOSPair = all[0][3]
             self.ret["mll_" + str(max) + "l_gen"] = self.bestOSPair.mll
             used = [self.bestOSPair.l1, self.bestOSPair.l2] if self.bestOSPair else []
@@ -418,10 +425,16 @@ class lepgenVarsWZSM_nondressed_withtaus(Module):
 
 
         all = []
+        #all2 = []
         for os in self.OS:
             all.append((0 if os.isSF else 1, 1 if os.wTau else 0, os.diff, os)) # priority to SF, then light, then difference to target
+        #    all2.append((0 if os.isSF else 1, 1 if os.wTau else 0, os.diff, os)) # priority to SF, then light, then difference to target
         if all:
-            all.sort( key = lambda el: el[0] )
+            #all.sort( key = lambda el: el[0] )
+            all.sort()
+            #print("        ", all)
+            #print("        ", "-")
+            #print("        ", all2)
             self.ret["nOS_gen"] = len(all)
             #for i,os in enumerate(all):
             #    self.ret["mll_gen"][i] = os[3].mll

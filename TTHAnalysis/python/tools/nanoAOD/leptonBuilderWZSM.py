@@ -692,12 +692,11 @@ if __name__ == '__main__':
     from PhysicsTools.NanoAODTools.postprocessing.framework.output import FriendOutput, FullOutput
     from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import InputTree
     
-    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v2/mc/2022/"
-    process = "WZto3LNu"
+    mainpath = "/lustrefs/hdd_pool_dir/nanoAODv12/wz-run3/trees_v3/mc/2022/"
+    process = "ZZto4L_part1"
 #    process = "TTTo2L2Nu_part17"
     
     friends = [
-      "leptonEnergyCorrections",
       "jmeCorrections",
       "leptonJetRecleaning"
     ]
