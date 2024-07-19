@@ -37,10 +37,10 @@ def dict_to_latex_table(data, caption, label):
 
     # Begin table format
     latex_str = "\\begin{table}\n" 
+    latex_str += "\caption{\label{%s} %s}\n"%(label, caption)
     latex_str += "  \\centering\n"
     latex_str += "  \\resizebox{\\textwidth}{!}{\n"
-    latex_str += "  \\begin{tabular}{" + "|c" * column_count + "|}\n"
-    latex_str += "  \\hline\n"
+    latex_str += "  \\begin{tabular}{" + "c" * column_count + "}\n"
 
     # Header
     for key, value in data.items():
@@ -48,7 +48,9 @@ def dict_to_latex_table(data, caption, label):
             latex_str += f" \\multicolumn{{{len(value)}}}{{|c|}}{{{key}}} & "
         else:
             latex_str += key + " & "
-    latex_str = latex_str.rstrip(" & ") + "\\\\\n\\hline\n"
+
+    latex_str = latex_str.rstrip(" & ") + "\\\\\n"
+    latex_str += "  \\hline\n"
 
     # Subheaders for multicolumns
     has_subheaders = any(isinstance(value, dict) for value in data.values())
@@ -59,7 +61,7 @@ def dict_to_latex_table(data, caption, label):
                     latex_str += sub_key + " & "
             else:
                 latex_str += "& "
-        latex_str = latex_str.rstrip(" & ") + "\\\\\n\\hline\n"
+        latex_str = latex_str.rstrip(" & ") + "\\\\\n"
 
     # Rows
     row_count = max(len(value) if not isinstance(value, dict) else max(len(sub_value) for sub_value in value.values()) for value in data.values())
@@ -77,10 +79,9 @@ def dict_to_latex_table(data, caption, label):
                 else:
                     latex_str += "& "
                     
-        latex_str = latex_str.rstrip(" & ") + "\\\\\n\\hline\n"
+        latex_str = latex_str.rstrip(" & ") + "\\\\\n"
     # End table format
     latex_str += "  \\end{tabular}}\n"
-    latex_str += "\caption{\label{%s} %s}\n"%(label, caption)
     latex_str += "\\end{table}\n"
 
     return latex_str

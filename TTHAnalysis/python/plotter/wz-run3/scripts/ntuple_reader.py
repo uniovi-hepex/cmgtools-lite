@@ -22,7 +22,7 @@ class ntuple_reader:
             for sample in self.samplename:
                 print(f"   o Adding {sample} -- total entries {self.tree.GetEntries()}")
                 self.tree.Add( sample )
-                self.runs.Add( sample )
+                self.runs.Add( sample.replace("Events", "Runs") )
             print(f"  o Total entries: {self.tree.GetEntries()}")
            
         else:
@@ -47,23 +47,39 @@ class ntuple_reader:
     def get_tree(self):
         return self.tree
 
-    def _treeSum(self):
+    def _treeSum(self, varNormToGenSum):
+        
+        # Method with Runs tree
         if self.runs.GetEntries() == 0: return 0.
         r.gROOT.cd()
         if r.gROOT.FindObject("dummy") != None: r.gROOT.FindObject("dummy").Delete()
         histo = r.TH1D("dummy","dummy",1,0.0,1.0); histo.Sumw2()
-        self.runs.Draw("0.5>>dummy", "genEventSumw", "goff")
-        return histo.GetBinContent(1)
+        self.runs.Draw("0.5>>dummy", varNormToGenSum, "goff")
+        ret = histo.GetBinContent(1)
+        
 
-    def draw(self, what, binning, selection, name, normToGenSum = True):
+        """
+        r.gROOT.cd()
+        #if r.gROOT.FindObject("dummy") != None: r.gROOT.FindObject("dummy").Delete()
+        auxname = varNormToGenSum.replace('*', '_').replace("(", "").replace(")","").replace("/","_").replace("[","").replace("]","")
+        self.tree.Draw(f"{varNormToGenSum} >> {auxname}", "", "hist")
+        histo = r.gROOT.FindObject(auxname)
+        ret = histo.Integral()*histo.GetMean()
+        """
+        #print(varNormToGenSum, 1/ret)
+        return ret 
+
+    def draw(self, what, binning, selection, name, normToGenSum = True, varNormToGenSum = "genEventSumw"):
         """ Draws a histogram of this root file and returns it """
+        print(what, name, binning)
+
         self.tree.Draw( f"{what} >> {name}({binning})", selection, "hist")
         # Get the histogram
         histo = r.gDirectory.Get(f"{name}")
         histo.SetDirectory(0)
         histo.Integral() # Do not remove, otherwise root might delete things
         if normToGenSum:
-            gsw = self._treeSum()
+            gsw = self._treeSum(varNormToGenSum)
             histo.Scale( 1 / gsw )    
         return deepcopy(histo)
  

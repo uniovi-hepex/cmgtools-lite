@@ -188,7 +188,7 @@ def plot_roc(histos, outpath, name, fr = None, plot = "roc", setLogy = False, se
         legend = cv.new_legend((0.25, 0.15, 0.45, 0.35))
         legend.SetTextSize(legend.GetTextSize()*2)
         toDraw0.GetXaxis().SetRangeUser(0.0015, 1)
-        toDraw0.GetYaxis().SetRangeUser(0.8, 1)
+        toDraw0.GetYaxis().SetRangeUser(0.0, 1)
         
     
     elif plot == "significance":
@@ -251,7 +251,7 @@ def plot_roc(histos, outpath, name, fr = None, plot = "roc", setLogy = False, se
     return
 
 if __name__ == "__main__":
-    inpath = "lepmva_results_even_smaller"
+    inpath = "lepmva_results"
     year = sys.argv[1]
     
     inpath = os.path.join(inpath, year)
@@ -273,13 +273,13 @@ if __name__ == "__main__":
 
         # Get legacy FR
         legacy_fr = h_legacy.get_fr_forWp(0.8)
-        h_df = histo( os.path.join(inpath, "%s_df_wIso_mvaEvaluate.root"%ofWhat), "Run3 ")
-        print(os.path.join(inpath, "%s_mvaISO_mvaEvaluate.root"%ofWhat))
-        h_df_ttw = histo( os.path.join(inpath, "%s_mvaISO_mvaEvaluate.root"%ofWhat), "mvaISO ")
-        #h_df_tth = histo( os.path.join(inpath, "%s_pnet_ttH_mvaEvaluate.root"%ofWhat), "Run3 ttH presel")
+        #h_df = histo( os.path.join(inpath, "%s_df_wIso_mvaEvaluate.root"%ofWhat), "Run3 ")
+        #print(os.path.join(inpath, "%s_mvaISO_mvaEvaluate.root"%ofWhat))
+        #h_df_ttw = histo( os.path.join(inpath, "%s_mvaISO_mvaEvaluate.root"%ofWhat), "mvaISO ")
+        h_df_tth = histo( os.path.join(inpath, "%s_df_ttH_mvaEvaluate.root"%ofWhat), "Run3 ttH presel")
 
 #        electron_fr = h_df.get_fr_forWp(0.9)
-        histos = [h_legacy, h_df_ttw, h_df]
+        histos = [h_legacy, h_df_tth]
 #        if ofWhat == "electron":
 #            #h_df_wNoIso = histo( os.path.join(inpath, "%s_df_wNoIso_mvaEvaluate.root"%ofWhat), "Run3 (mvaNoIso) ")
 #            #h_df_wNoIso_tth = histo( os.path.join(inpath, "%s_pnet_wNoIso_ttH_mvaEvaluate.root"%ofWhat), "Run3 ttH presel (with noIso)")
@@ -291,10 +291,10 @@ if __name__ == "__main__":
 #            #histos.append(h_df_wIso_tth)
         
         # Compare ROC curves
-        plot_roc(histos, inpath, "compare_legacy_%s"%ofWhat, None, setLogx = True)
+        plot_roc(histos, inpath, "compare_legacy_%s"%ofWhat, legacy_fr, setLogx = True)
         plot_roc(histos, inpath, "compare_legacy_%s"%ofWhat, None, plot = "yields_fake")
         plot_roc(histos, inpath, "compare_legacy_%s"%ofWhat, None, plot = "significance")
         return
     
     #compare_btag("muon")
-    compare_legacy("electron")
+    compare_legacy("muon")
