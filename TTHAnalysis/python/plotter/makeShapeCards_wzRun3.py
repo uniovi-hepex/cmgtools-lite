@@ -228,35 +228,36 @@ def get_systematics(mca, cuts, report, options, binname, shapes):
       
       # Is it a shape variation?
       isShape = name in shapes #isShape or h.isShapeVariation(name, debug = True)
-      log_msg("Is %s nuisance shape? %s"%(name, isShape))
-      
+#      isShape = isShape or h.isShapeVariation(name, debug = True)
+      log_msg("Is %s nuisance shape? %s "%(name, isShape))#, h.isShapeVariation(name, debug = True)))
       
       variants = list(h.getVariation(name))  
       
       # Treatment of extreme cases: symmetrization
       for bini in range(1, h.GetNbinsX()+1):
         for d in range(2):
+          log_msg("----> Checking variant: %s"%variants[d].GetName())
           # Case variant has no content: shift by a small factor
-          if variants[d].GetBinContent(bini) == 0: 
-            shift = max(5e-6, variants[1-d].GetBinContent(bini))
-            variants[d].SetBinContent(bini, h.raw().GetBinContent(bini)**2/shift)
+          #if variants[d].GetBinContent(bini) == 0: 
+          #  shift = max(5e-6, variants[1-d].GetBinContent(bini))
+          #  variants[d].SetBinContent(bini, h.raw().GetBinContent(bini)**2/shift)
+
           # Case variant is big in comparison with nominal
-          
           # --- Check for float divisions by 0
-          if h.raw().GetBinContent(bini) == 0:
-            log_msg("Histogram %s has 0 content in bin %d for nuisance %s"%(h.GetName(), bini, name), "WARNING")
-            h.raw().SetBinContent(bini, 1e-5) 
-            #sys.exit()
-            
-          if variants[d].GetBinContent( bini )/h.raw().GetBinContent(bini) > 10: 
-            log_msg("Big shift in template for %s %s %s %s in bin %d: variation = %g"
-                    %( binname, p, name, d, bini, variants[d].GetBinContent( bini )/h.raw().GetBinContent(bini)), "WARNING")
-                    
-            variants[d].SetBinContent( bini, 10*h.raw().GetBinContent(bini) )
-          if variants[d].GetBinContent( bini )/h.raw().GetBinContent(bini) < 0.1: 
-            log_msg("Big shift in template for %s %s %s %s in bin %d: variation = %g"
-                    %( binname, p, name, d, bini, variants[d].GetBinContent( bini )/h.raw().GetBinContent(bini)), "WARNING")
-            variants[d].SetBinContent( bini, 0.1*h.raw().GetBinContent(bini) )
+          if h.raw().GetBinContent(bini) == 0: continue
+          #  log_msg("Histogram %s has 0 content in bin %d for nuisance %s"%(h.GetName(), bini, name), "WARNING")
+          #  h.raw().SetBinContent(bini, 1e-5) 
+          #  #sys.exit()
+          #  
+          #if variants[d].GetBinContent( bini )/h.raw().GetBinContent(bini) > 10: 
+          #  log_msg("Big shift in template for %s %s %s %s in bin %d: variation = %g (first case)"
+          #          %( binname, p, name, d, bini, variants[d].GetBinContent( bini )/h.raw().GetBinContent(bini)), "WARNING")
+          #          
+          #  variants[d].SetBinContent( bini, 10*h.raw().GetBinContent(bini) )
+          #if variants[d].GetBinContent( bini )/h.raw().GetBinContent(bini) < 0.1: 
+          #  log_msg("Big shift in template for %s %s %s %s in bin %d: variation = %g (second case)"
+          #          %( binname, p, name, d, bini, variants[d].GetBinContent( bini )/h.raw().GetBinContent(bini)), "WARNING")
+          #  variants[d].SetBinContent( bini, 0.1*h.raw().GetBinContent(bini) )
 
       # Now save into dictionary
       effshape[p] = variants
@@ -338,7 +339,7 @@ def write_datacards(mca, cuts, report, options, systs, outdir, binname, allyield
 # -- Main code -- #
 if __name__ == "__main__":
 #  options = add_parsing_options()
-
+  log_msg("Writing cards") 
   # -- Load MCA and cut files
   mca  = MCAnalysis(args[0], options)
   cuts = CutsFile(args[1], options) 
