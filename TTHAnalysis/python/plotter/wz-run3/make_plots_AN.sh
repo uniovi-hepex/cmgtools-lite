@@ -5,19 +5,20 @@ NC='\033[0m' # No Color
 
 
 mode=$1
-extra=$2
+suffix=$2
+extra=$3
 
 if [[ $mode == "srwz" || $mode == "all" ]]; then
     echo -e " $GREEN >> Plots from analysis signal region $NC"
     
     echo -e " $GREEN o Blinded  $NC"
-    python3 wz-run3/wz-run.py plot --outname plots_AN23147_noAdditionalUnc/SRWZ/all    --ncores 32 --unc  $extra --extra "--addspam 'WZ SR'  --sP flavor3l --pseudoData all_asimov --perBin " --blind --year all
-    python3 wz-run3/wz-run.py plot --outname plots_AN23147_noAdditionalUnc/SRWZ/2022   --ncores 32 --unc  $extra --extra "--addspam 'WZ SR'  --sP flavor3l --pseudoData all_asimov --perBin " --blind --year 2022
-    python3 wz-run3/wz-run.py plot --outname plots_AN23147_noAdditionalUnc/SRWZ/2022EE --ncores 32 --unc  $extra --extra "--addspam 'WZ SR'  --sP flavor3l --pseudoData all_asimov --perBin " --blind --year 2022EE
+    python3 wz-run3/wz-run.py plot --outname plots_AN23147_$suffix/SRWZ/all    --ncores 32 --unc  $extra --extra "--addspam 'WZ SR'  --sP flavor3l --pseudoData all_asimov --perBin " --blind --year all
+    python3 wz-run3/wz-run.py plot --outname plots_AN23147_$suffix/SRWZ/2022   --ncores 32 --unc  $extra --extra "--addspam 'WZ SR'  --sP flavor3l --pseudoData all_asimov --perBin " --blind --year 2022
+    python3 wz-run3/wz-run.py plot --outname plots_AN23147_$suffix/SRWZ/2022EE --ncores 32 --unc  $extra --extra "--addspam 'WZ SR'  --sP flavor3l --pseudoData all_asimov --perBin " --blind --year 2022EE
 
-    python3 wz-run3/wz-run.py plot --outname plots_AN23147_noAdditionalUnc/SRWZ_unblind/2022   --year 2022   --ncores 32 --unc  $extra --extra "--xP flavor3l --addspam 'WZ SR' --perBin "
-    python3 wz-run3/wz-run.py plot --outname plots_AN23147_noAdditionalUnc/SRWZ_unblind/2022EE --year 2022EE --ncores 32 --unc  $extra --extra "--xP flavor3l --addspam 'WZ SR' --perBin "
-    python3 wz-run3/wz-run.py plot --outname plots_AN23147_noAdditionalUnc/SRWZ_unblind/all    --year all    --ncores 32 --unc  $extra --extra "--xP flavor3l --addspam 'WZ SR' --perBin "
+#    python3 wz-run3/wz-run.py plot --outname plots_AN23147_noAdditionalUnc/SRWZ_unblind/2022   --year 2022   --ncores 32 --unc  $extra --extra "--xP flavor3l --addspam 'WZ SR' --perBin "
+#    python3 wz-run3/wz-run.py plot --outname plots_AN23147_noAdditionalUnc/SRWZ_unblind/2022EE --year 2022EE --ncores 32 --unc  $extra --extra "--xP flavor3l --addspam 'WZ SR' --perBin "
+#    python3 wz-run3/wz-run.py plot --outname plots_AN23147_noAdditionalUnc/SRWZ_unblind/all    --year all    --ncores 32 --unc  $extra --extra "--xP flavor3l --addspam 'WZ SR' --perBin "
 
 #    for flav in flav_eee flav_eem flav_mme flav_mmm; do
 #        echo -e " $GREEN o Unblinded ($flav)  $NC"

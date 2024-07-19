@@ -5,87 +5,108 @@ import os
 # Define a dictionary with card configs
 variable_configs = {
     "flavor3l" : {
-    	"variable" : "(abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2",
-        "binning" : {
-           "srwz"   : "4,-0.5,3.5",
-           "crzz"   : "4,-0.5,3.5",
-           "crtt"   : "4,-0.5,3.5",
-           "crconv" : "4,-0.5,3.5",
-        }
-    },
-    "counts" : {
-    	"variable" : "1",
-    	"binning" : {
-           "srwz"   : "1,0.5,1.5",
-           "crzz"   : "1,0.5,1.5",
-           "crtt"   : "1,0.5,1.5",
-           "crconv" : "1,0.5,1.5",
-        }
+        "srwz"   : ( "(abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2", "4,-0.5,3.5" ),
+        "crzz"   : ( "(abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2", "4,-0.5,3.5" ),
+        "crtt"   : ( "(abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2", "4,-0.5,3.5" ),
+        "crconv" : ( "(abs(LepZ1_pdgId)+abs(LepZ2_pdgId)+abs(LepW_pdgId)-33)/2", "4,-0.5,3.5" )
     },
     "lepZ1_pt" : {
-        "variable" : "LepZ1_pt",
-        "binning" : {
-           "srwz"   : "20,20,200",
-           "crzz"   : "20,20,200",
-           "crtt"   : "20,20,200",
-           "crconv" : "10,20,100",
-        }
+        "srwz"   : ( "min(max(LepZ1_pt, 25), 224)", "20,25,225" ),
+        "crzz"   : ( "min(max(LepZ1_pt, 25), 224)", "20,25,225" ),
+        "crtt"   : ( "min(max(LepZ1_pt, 25), 224)", "20,25,225" ),
+        "crconv" : ( "min(max(LepZ1_pt, 25), 124)", "10,25,125" )
     },
-    "lepZ2_pt" : {
-        "variable" : "LepZ2_pt",
-        "binning" : {
-           "srwz"   : "10,15,150",
-           "crzz"   : "10,15,150",
-           "crtt"   : "10,15,150",
-           "crconv" : "4,15,60",
-        }
+    "lepZ2_pt" : {        
+        "srwz"   : ( "min(max(LepZ2_pt, 15), 224)", "10,15,165" ),
+        "crzz"   : ( "min(max(LepZ2_pt, 15), 224)", "10,15,165" ),
+        "crtt"   : ( "min(max(LepZ2_pt, 15), 224)", "10,15,165" ),
+        "crconv" : ( "min(max(LepZ2_pt, 15), 124)", "4,15,75" )
     },
+
     "lepW_pt" : {
-        "variable" : "LepW_pt",
-        "binning" : {
-           "srwz"   : "20,20,200",
-           "crzz"   : "20,20,200",
-           "crtt"   : "20,20,200",
-           "crconv" : "10,20,100",
-        }
+        "srwz"   : ( "min(max(LepW_pt, 25), 224)", "20,25,225" ),
+        "crzz"   : ( "min(max(LepW_pt, 25), 224)", "20,25,225" ),
+        "crtt"   : ( "min(max(LepW_pt, 25), 224)", "20,25,225" ),
+        "crconv" : ( "min(max(LepW_pt, 25), 124)", "10,25,125" )
     },
     "lepZ1_eta" : {
-        "variable" : "LepZ1_eta",
-        "binning" : {
-           "srwz"   : "10,-2.5,2.5",
-           "crzz"   : "5,-2.5,2.5",
-           "crtt"   : "5,-2.5,2.5",
-           "crconv" : "5,-2.5,2.5",
-        }
+        "srwz"   : ( "min(max(LepZ1_eta, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crzz"   : ( "min(max(LepZ1_eta, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crtt"   : ( "min(max(LepZ1_eta, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crconv" : ( "min(max(LepZ1_eta, -2.5), 2.4)", "10,-2.5,2.5" )
     },
     "lepZ2_eta" : {
-        "variable" : "LepZ2_eta",
-        "binning" : {
-           "srwz"   : "10,-2.5,2.5",
-           "crzz"   : "5,-2.5,2.5",
-           "crtt"   : "5,-2.5,2.5",
-           "crconv" : "5,-2.5,2.5",
-        }
+        "srwz"   : ( "min(max(LepZ2_eta, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crzz"   : ( "min(max(LepZ2_eta, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crtt"   : ( "min(max(LepZ2_eta, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crconv" : ( "min(max(LepZ2_eta, -2.5), 2.4)", "10,-2.5,2.5" )
     },
     "lepW_eta" : {
-        "variable" : "LepW_eta",
-        "binning" : {
-           "srwz"   : "10,-2.5,2.5",
-           "crzz"   : "5,-2.5,2.5",
-           "crtt"   : "5,-2.5,2.5",
-           "crconv" : "5,-2.5,2.5",
-        }
+        "srwz"   : ( "min(max(LepW_eta, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crzz"   : ( "min(max(LepW_eta, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crtt"   : ( "min(max(LepW_eta, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crconv" : ( "min(max(LepW_eta, -2.5), 2.4)", "10,-2.5,2.5" )
+    },
+    "lepZ1_phi" : {
+        "srwz"   : ( "min(max(LepZ1_phi, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crzz"   : ( "min(max(LepZ1_phi, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crtt"   : ( "min(max(LepZ1_phi, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crconv" : ( "min(max(LepZ1_phi, -2.5), 2.4)", "10,-2.5,2.5" )
+    },
+    "lepZ2_phi" : {
+        "srwz"   : ( "min(max(LepZ2_phi, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crzz"   : ( "min(max(LepZ2_phi, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crtt"   : ( "min(max(LepZ2_phi, -2.5), 2.4)", "10,-2.5,2.5" ),
+        "crconv" : ( "min(max(LepZ2_phi, -2.5), 2.4)", "10,-2.5,2.5" )
+    },
+    "lepW_phi" : {
+        "srwz"   : ( "min(max(LepW_phi, -3.15), 3.13)", "10,-2.5,2.5" ),
+        "crzz"   : ( "min(max(LepW_phi, -3.15), 3.13)", "10,-2.5,2.5" ),
+        "crtt"   : ( "min(max(LepW_phi, -3.15), 3.13)", "10,-2.5,2.5" ),
+        "crconv" : ( "min(max(LepW_phi, -3.15), 3.13)", "10,-2.5,2.5" )
     },
     "nJets" : {
-        "variable" : "nJet25_Mini",
-        "binning" : {
-           "srwz"   : "[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5]",
-           "crzz"   : "[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5]",
-           "crtt"   : "[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5]",
-           "crconv" : "[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5]",
-        }
-    }
-
+        "srwz"   : ("min(max(nJet25_Mini,0), 4)", "[-0.5,0.5,1.5,2.5,3.5,4.5,5.5]"),
+        "crzz"   : ("min(max(nJet25_Mini,0), 4)", "[-0.5,0.5,1.5,2.5,3.5,4.5,5.5]"),
+        "crtt"   : ("min(max(nJet25_Mini,0), 4)", "[-0.5,0.5,1.5,2.5,3.5,4.5,5.5]"),
+        "crconv" : ("min(max(nJet25_Mini,0), 4)", "[-0.5,0.5,1.5,2.5,3.5,4.5,5.5]"),
+    },
+    "m3l" : {
+        "srwz"   : ("min(max(m3L, 100), 299)", "10,100,300"),
+        "crzz"   : ("min(max(m3L, 100), 299)", "10,100,300"),
+        "crtt"   : ("min(max(m3L, 100), 299)", "10,100,300"),
+        "crconv" : ("min(max(m3L, 100), 299)", "10,100,300"),
+    },
+    "mll_3l" : {
+        "srwz"   : ("min(max(mll_3l, 75), 114)", "20,75,115"),
+        "crzz"   : ("min(max(mll_3l, 75), 114)", "20,75,115"),
+        "crtt"   : ("min(max(mll_3l, 75), 114)", "20,75,115"),
+        "crconv" : ("min(max(mll_3l, 75), 114)", "20,75,115"),
+    },
+    "mll_3l_ee" : {
+        "srwz"   : ("min(if3((abs(LepZ1_pdgId)+abs(LepZ2_pdgId)) == 22, mll_3l, -99), 104)", "25,80,105"),
+        "crzz"   : ("min(if3((abs(LepZ1_pdgId)+abs(LepZ2_pdgId)) == 22, mll_3l, -99), 104)", "25,85,95"),
+        "crtt"   : ("min(if3((abs(LepZ1_pdgId)+abs(LepZ2_pdgId)) == 22, mll_3l, -99), 104)", "20,85,105"),
+        "crconv" : ("min(if3((abs(LepZ1_pdgId)+abs(LepZ2_pdgId)) == 22, mll_3l, -99), 104)", "20,85,105"),
+    },
+    "mll_3l_mm" : {
+        "srwz"   : ("min(if3((abs(LepZ1_pdgId)+abs(LepZ2_pdgId)) == 26, mll_3l, -99), 104)", "25,80,105"),
+        "crzz"   : ("min(if3((abs(LepZ1_pdgId)+abs(LepZ2_pdgId)) == 26, mll_3l, -99), 104)", "30,85,100"),
+        "crtt"   : ("min(if3((abs(LepZ1_pdgId)+abs(LepZ2_pdgId)) == 26, mll_3l, -99), 104)", "20,85,105"),
+        "crconv" : ("min(if3((abs(LepZ1_pdgId)+abs(LepZ2_pdgId)) == 26, mll_3l, -99), 104)", "20,85,105"),
+    },
+    "met" : {
+        "srwz"   : ("min(max(MET_pt_central, 35), 174)", "20,35,175"),
+        "crzz"   : ("min(max(MET_pt_central, 35), 174)", "20,35,175"),
+        "crtt"   : ("min(max(MET_pt_central, 35), 174)", "20,35,175"),
+        "crconv" : ("min(max(MET_pt_central, 35), 174)", "20,35,175"),
+    },
+    "charge" : {
+        "srwz"   : ("if3(LepZ1_pdgId>0,-1,1)+if3(LepZ2_pdgId>0,-1,1)+if3(LepW_pdgId>0,-1,1)", "2,-1.5,1.5"),
+        "crzz"   : ("if3(LepZ1_pdgId>0,-1,1)+if3(LepZ2_pdgId>0,-1,1)+if3(LepW_pdgId>0,-1,1)", "2,-1.5,1.5"),
+        "crtt"   : ("if3(LepZ1_pdgId>0,-1,1)+if3(LepZ2_pdgId>0,-1,1)+if3(LepW_pdgId>0,-1,1)", "2,-1.5,1.5"),
+        "crconv" : ("if3(LepZ1_pdgId>0,-1,1)+if3(LepZ2_pdgId>0,-1,1)+if3(LepW_pdgId>0,-1,1)", "2,-1.5,1.5"),
+    },
 }   
 
 def color_msg(msg, color = "none", indentlevel=0):
@@ -115,6 +136,12 @@ def add_parsing_options():
     	help = "Variable to make card. Comma separated"
     )
 
+    parser.add_argument('--mode', '-m', 
+    	dest = "mode", 
+    	default = "total", 
+    	help = "Produce cards for fiducial or total fit (only theoretical uncertainties change)"
+    )
+
     parser.add_argument('--regions', '-r', 
     	dest = "regions", 
     	default = "srwz,crzz,crtt,crconv",
@@ -136,11 +163,12 @@ if __name__ == "__main__":
 
     opts = add_parsing_options()
     variables = opts.variables.split(",")
+    mode = opts.mode
     regions = opts.regions.split(",")
     submit = opts.submit
 
-    systfile = "wz-run3/common/systs-wz.txt"
-    outfolder = "wz-run3/combine/cards/inclusive/unblinded-fitFlavorForTTZ-groupFakes/"
+    systfile = f"wz-run3/common/systs-wz-{mode}.txt"
+    outfolder = f"wz-run3/combine/cards/inclusive/approval-04thJuly2024/{mode}"
 
     for variable in variables:
         color_msg( f"Making cards for variable {variable}", "green")
@@ -153,7 +181,12 @@ if __name__ == "__main__":
 
                 binname = binname_template.format( region, year, "."+variable if variable != "flavor3l" else "")
                 cutfile = f"wz-run3/common/cuts-{region}.txt"
-                cmd = f"python3 wz-run3/wz-run.py card --uncfile {systfile} --outname {outfolder}/{variable}/{region} --binname {binname}   --cutfile {cutfile} --ncores 16 --year {year} --var \'{varconfig['variable']}\' --binning \"{varconfig['binning'][region]}\" "
+
+                var = varconfig[region][0]
+                binning = varconfig[region][1]
+                
+ 
+                cmd = f"python3 wz-run3/wz-run.py card --uncfile {systfile} --outname {outfolder}/{variable}/{region} --binname {binname}   --cutfile {cutfile} --ncores 24 --year {year} --var \'{var}\' --binning \"{binning}\" "
 
                 if submit:
                     cmd += " --do-submit"

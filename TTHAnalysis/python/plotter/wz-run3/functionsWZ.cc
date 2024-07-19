@@ -361,7 +361,114 @@ float smoothBFlav(float jetpt, float ptmin, float ptmax) {
     return x*wploose + (1-x)*wpmedium;
 }
 
-float abs_log(float quantity) {
-  return abs( log(quantity) );
+float crzz_clasifier(int l1_pdgid, int l2_pdgid, int l3_pdgid, int l4_pdgid, float l1_eta, float l2_eta, float l3_eta, float l4_eta) {
+
+    // Find out how many leptons fall in barrel and how many in endcap
+    int channel = (abs(l1_pdgid) + abs(l2_pdgid) + abs(l3_pdgid) + abs(l4_pdgid) - 44)/4; 
+
+
+    int nbarrel = 0;
+    bool l1barrel = abs(l1_eta) < (abs(l1_pdgid) == 11 ? 1.445 : 1.2); 
+    bool l2barrel = abs(l2_eta) < (abs(l2_pdgid) == 11 ? 1.445 : 1.2); 
+    bool l3barrel = abs(l3_eta) < (abs(l3_pdgid) == 11 ? 1.445 : 1.2); 
+    bool l4barrel = abs(l4_eta) < (abs(l4_pdgid) == 11 ? 1.445 : 1.2); 
+    
+    if (l1barrel) { nbarrel++; }
+    if (l2barrel) { nbarrel++; }
+    if (l3barrel) { nbarrel++; }
+    if (l4barrel) { nbarrel++; }
+
+    if (channel == 0 && nbarrel == 4) { return 0 ;}  // eeee, 4 leptons in barrel
+    if (channel == 1 && nbarrel == 4) { return 1 ;}  // eemm, 4 leptons in barrel
+    if (channel == 2 && nbarrel == 4) { return 2 ;}  // mmmm, 4 leptons in barrel
+
+    if (channel == 0 && nbarrel == 3) { return 3 ;}  // eeee, 3 leptons in barrel
+    if (channel == 1 && nbarrel == 3) { return 4 ;}  // eemm, 3 leptons in barrel
+    if (channel == 2 && nbarrel == 3) { return 5 ;}  // mmmm, 3 leptons in barrel
+
+    if (channel == 0 && nbarrel == 2) { return 6 ;}  // eeee, 2 leptons in barrel
+    if (channel == 1 && nbarrel == 2) { return 7 ;}  // eemm, 2 leptons in barrel 
+    if (channel == 2 && nbarrel == 2) { return 8 ;}  // mmmm, 2 leptons in barrel 
+
+    if (channel == 0 && nbarrel == 1) { return 9 ;}  // eeee, 1 leptons in barrel 
+    if (channel == 1 && nbarrel == 1) { return 10 ;} // eemm, 1 leptons in barrel 
+    if (channel == 2 && nbarrel == 1) { return 11 ;} // mmmm, 1 leptons in barrel 
+
+    if (channel == 0 && nbarrel == 0) { return 12 ;} // eeee, 0 leptons in endcap
+    if (channel == 1 && nbarrel == 0) { return 13 ;} // eemm, 0 leptons in endcap
+    if (channel == 2 && nbarrel == 0) { return 14 ;} // mmmm, 0 leptons in endcap
 }
+
+
+float dy_bias_2022EE(int lep0_pdgid, int lep1_pdgid, int lep2_pdgid, int lep3_pdgid){
+  // lep4_pdgid can be 0 if there are only 3 selected leptons
+  float unc = 1.0;
+
+  // Add extra unc per electron
+  if (lep0_pdgid == 11) { unc = unc + 0.03; }
+  if (lep1_pdgid == 11) { unc = unc + 0.03; }
+  if (lep2_pdgid == 11) { unc = unc + 0.03; }
+  if (lep3_pdgid == 11) { unc = unc + 0.03; }
+ 
+  return unc; 
+}
+
+float trig_eff_unc(int lep0_pdgid, int lep1_pdgid, int lep2_pdgid, int source, int year){
+  // lep4_pdgid can be 0 if there are only 3 selected leptons
+  // source is 0 for statistical uncertainty, 1 for systematic bias
+  // Year is 0  for 2022PreEE, and 1 for 2022PostEE
+  float unc = 1.0;
+
+  int sum = lep0_pdgid + lep1_pdgid + lep2_pdgid;
+
+  /* Just decorrelating
+  // 2022 PreEE statistical uncertaintes
+  if (sum == 33 && year == 0 && source == 0) { unc = 1.02; }
+  if (sum == 35 && year == 0 && source == 0) { unc = 1.02; }
+  if (sum == 37 && year == 0 && source == 0) { unc = 1.02; }
+  if (sum == 39 && year == 0 && source == 0) { unc = 1.02; }
+
+  // 2022 PostEE statistical uncertaintes
+  if (sum == 33 && year == 1 && source == 0) { unc = 1.005; }
+  if (sum == 35 && year == 1 && source == 0) { unc = 1.005; }
+  if (sum == 37 && year == 1 && source == 0) { unc = 1.005; }
+  if (sum == 39 && year == 1 && source == 0) { unc = 1.005; }
+
+  // 2022 PreEE systematic uncertaintes
+  if (sum == 33 && year == 0 && source == 1) { unc = 1.005; }
+  if (sum == 35 && year == 0 && source == 1) { unc = 1.005; }
+  if (sum == 37 && year == 0 && source == 1) { unc = 1.005; }
+  if (sum == 39 && year == 0 && source == 1) { unc = 1.005; }
+
+  // 2022 PostEE systematic uncertaintes
+  if (sum == 33 && year == 1 && source == 1) { unc = 1.01; }
+  if (sum == 35 && year == 1 && source == 1) { unc = 1.01; }
+  if (sum == 37 && year == 1 && source == 1) { unc = 1.01; }
+  if (sum == 39 && year == 1 && source == 1) { unc = 1.01; }
+  */
+
+//  /* With independent measurements
+  // Add extra unc per electron
+  // 2022 PreEE statistical uncertaintyes
+  if (sum == 33 && year == 0 && source == 0) { unc = 1.07; }
+  if (sum == 35 && year == 0 && source == 0) { unc = 1.05; }
+  if (sum == 37 && year == 0 && source == 0) { unc = 1.05; }
+  if (sum == 39 && year == 0 && source == 0) { unc = 1.10; }
+
+  // 2022 PostEE statistical uncertaintyes
+  if (sum == 33 && year == 1 && source == 0) { unc = 1.02; }
+  if (sum == 35 && year == 1 && source == 0) { unc = 1.02; }
+  if (sum == 37 && year == 1 && source == 0) { unc = 1.02; }
+  if (sum == 39 && year == 1 && source == 0) { unc = 1.01; }
+
+  // No need for PreEE systematics since everything closes well.
+  // 2022 PostEE systematic uncertaintyes
+  if (sum == 33 && year == 1 && source == 1) { unc = 1.02; }
+  if (sum == 35 && year == 1 && source == 1) { unc = 1.02; }
+  if (sum == 37 && year == 1 && source == 1) { unc = 1.07; }
+  if (sum == 39 && year == 1 && source == 1) { unc = 1.02; }
+//  */ 
+  return unc; 
+}
+
 void functionsWZ() {}
