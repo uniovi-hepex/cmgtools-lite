@@ -1,0 +1,2 @@
+# This number has been computed by properly normalizing to the fiducial cross section of the WZ sample
+weight   : 1.0001843190102686

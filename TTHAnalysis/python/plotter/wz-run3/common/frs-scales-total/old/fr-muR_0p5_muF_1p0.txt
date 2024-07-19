@@ -1,0 +1,2 @@
+weight : LHEScaleWeight[1]
+alt-norm : LHEScaleSumw[1]

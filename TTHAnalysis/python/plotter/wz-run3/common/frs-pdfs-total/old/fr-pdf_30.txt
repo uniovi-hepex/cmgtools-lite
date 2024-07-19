@@ -1,0 +1,2 @@
+weight : LHEPdfWeight[30]
+alt-norm : LHEPdfSumw[30]
