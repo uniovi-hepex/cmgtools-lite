@@ -1,8 +1,7 @@
 import os, re, sys
 from copy import deepcopy
-import ROOT 
 # Add some other functions useful for debugging
-sys.path.append( os.path.join( os.environ["CMSSW_BASE"], "src/CMGTools/TTHAnalysis/python/plotter/wz-run3/"))
+sys.path.append( os.path.join( os.environ["HOME"], "WorkSpace/wz-run3/CMSSW_12_4_12/src/CMGTools/TTHAnalysis/python/plotter/wz-run3/"))
 from utils.datasets import dataset_mc, dataset_data, dataset_fr, dataset_fr_data, mca
 from cfgs.samples_dbspaths_cfg import dbs_mc, dbs_data
 from functions import color_msg
