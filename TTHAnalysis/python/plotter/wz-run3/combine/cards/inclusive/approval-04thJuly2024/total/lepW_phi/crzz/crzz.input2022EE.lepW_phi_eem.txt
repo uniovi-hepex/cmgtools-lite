@@ -1,0 +1,30 @@
+shapes *        * crzz.input2022EE.lepW_phi_eem.root x_$PROCESS x_$PROCESS_$SYSTEMATIC
+##----------------------------------
+bin         crzz.input2022EE.lepW_phi_eem
+observation 63.0
+##----------------------------------
+##----------------------------------
+bin                                crzz.input2022EE.lepW_phi_eem   crzz.input2022EE.lepW_phi_eem   crzz.input2022EE.lepW_phi_eem   crzz.input2022EE.lepW_phi_eem   crzz.input2022EE.lepW_phi_eem   crzz.input2022EE.lepW_phi_eem   crzz.input2022EE.lepW_phi_eem 
+process                                                prompt_ZZ                     prompt_ggZZ                      prompt_TTX                      prompt_TZQ                      prompt_VVV                       prompt_VH                           convs 
+process                                                        3                               4                               5                               6                               7                               8                              10 
+rate                                                      54.925                           5.351                           0.431                           0.001                           0.368                           0.382                           0.003 
+##----------------------------------
+btag_HF_Corr                 shape                             1                               1                               1                               1                               1                               1                               1 
+btag_LF_2022PostEE           shape                             1                               1                               1                               1                               1                               1                               1 
+btag_LF_corr                 shape                             1                               1                               1                               1                               1                               1                               1 
+btagging_HF_2022PostEE       shape                             1                               1                               1                               1                               1                               1                               1 
+elec_scale_2022PostEE        shape                             1                               1                               1                               1                               1                               1                               1 
+elec_smear_2022PostEE        shape                             1                               1                               1                               1                               1                               1                               1 
+elecidsf                     shape                             1                               1                               1                               1                               1                               1                               1 
+elecrecosf                   shape                             1                               1                               1                               1                               1                               1                               1 
+jer_2022PostEE               shape                             1                               1                               1                               1                               1                               1                               1 
+jestotal_2022PostEE          shape                             1                               1                               1                               1                               1                               1                               1 
+lumi_2022_early                lnN                         1.014                           1.014                           1.014                           1.014                           1.014                           1.014                           1.014 
+muonidsf_ID                  shape                             1                               1                               1                               1                               1                               1                               1 
+normVVV                        lnN                             -                               -                               -                               -                           1.500                               -                               - 
+normttx                        lnN                             -                               -                               -                           1.150                               -                               -                               - 
+normvh                         lnN                             -                               -                               -                               -                               -                           1.250                               - 
+pileup                       shape                             1                               1                               1                               1                               1                               1                               1 
+trigeff_bias_eem_2022PostEE    lnN                         1.010                           1.010                           1.010                           1.010                           1.010                           1.010                           1.010 
+trigeff_stat_eem_2022PostEE    lnN                         1.005                           1.005                           1.005                           1.005                           1.005                           1.005                           1.005 
+* autoMCStats 10

@@ -1,0 +1,29 @@
+shapes *        * crzz.input2022.met_eem.root x_$PROCESS x_$PROCESS_$SYSTEMATIC
+##----------------------------------
+bin         crzz.input2022.met_eem
+observation 26.0
+##----------------------------------
+##----------------------------------
+bin                               crzz.input2022.met_eem   crzz.input2022.met_eem   crzz.input2022.met_eem   crzz.input2022.met_eem   crzz.input2022.met_eem   crzz.input2022.met_eem 
+process                                        prompt_ZZ              prompt_ggZZ               prompt_TTX               prompt_VVV                prompt_VH                    convs 
+process                                                3                        4                        5                        7                        8                       10 
+rate                                              24.936                    2.498                    0.179                    0.160                    0.612                    0.006 
+##----------------------------------
+btag_HF_Corr                shape                      1                        1                        1                        1                        1                        1 
+btag_LF_2022                shape                      1                        1                        1                        1                        1                        1 
+btag_LF_corr                shape                      1                        1                        1                        1                        1                        1 
+btagging_HF_2022            shape                      1                        1                        1                        1                        1                        1 
+elec_scale_2022PreEE        shape                      1                        1                        1                        1                        1                        1 
+elec_smear_2022PreEE        shape                      1                        1                        1                        1                        1                        1 
+elecidsf                    shape                      1                        1                        1                        1                        1                        1 
+elecrecosf                  shape                      1                        1                        1                        1                        1                        1 
+jer_2022PreEE               shape                      1                        1                        1                        1                        1                        1 
+jestotal_2022PreEE          shape                      1                        1                        1                        1                        1                        1 
+lumi_2022_early               lnN                  1.014                    1.014                    1.014                    1.014                    1.014                    1.014 
+muonidsf_ID                 shape                      1                        1                        1                        1                        1                        1 
+normVVV                       lnN                      -                        -                        -                    1.500                        -                        - 
+normvh                        lnN                      -                        -                        -                        -                    1.250                        - 
+pileup                      shape                      1                        1                        1                        1                        1                        1 
+trigeff_bias_eem_2022PreEE    lnN                  1.005                    1.005                    1.005                    1.005                    1.005                    1.005 
+trigeff_stat_eem_2022PreEE    lnN                  1.020                    1.020                    1.020                    1.020                    1.020                    1.020 
+* autoMCStats 10

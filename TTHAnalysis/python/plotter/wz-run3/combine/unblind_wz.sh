@@ -9,8 +9,8 @@ step=$1
 mode=$2
 extra=$3
 
-cardspath="cards/inclusive/forApproval/total/flavor3l/"
-fits_folder="fit-results_approval-v3/total/"
+cardspath="cards/inclusive/approval-04thJuly2024/total/flavor3l/"
+fits_folder="fit-results_approval/total/"
 mask=" "
 
 # --------------- Select mode to run (basically how many things we fit)
