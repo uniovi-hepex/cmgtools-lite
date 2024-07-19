@@ -1,0 +1,227 @@
+# vim: syntax=sh
+# Here the trigger efficiencies are using the inclusive measurement, but are decorrelated into four nuisance parameters
+
+# -- Systematic uncertainties file for WZ analyis -- #
+### Alias definitions
+# signal
+$alias : WZ           : .*prompt_WZ.*
+
+# prompts
+$alias : ZZ           : .*prompt_.*ZZ.*
+$alias : VVV          : .*prompt_VVV.*
+$alias : ttx          : .*prompt_TTX.*
+$alias : tzq          : .*prompt_TZQ.*
+$alias : vh           : .*prompt_VH.*
+$alias : promptMC     : $ZZ|$VVV|$ttx|$tzq
+
+# fakes
+#$alias : DY     : .*fakes_DY.*
+#$alias : VV     : .*fakes_VV.*
+#$alias : TT     : .*fakes_TT.*
+#$alias : ST     : .*fakes_T
+#$alias : Wjets  : .*Wjets.*
+#$alias : NonpromptMC  : $DY|$VV|$TT|$ST|$Wjets
+$alias : NonpromptMC  : .*fakes.* 
+
+# convs
+$alias : convs : .*conv.*
+
+# Correlated groups
+$alias : bkg : $promptMC|$NonpromptMC|$convs
+$alias : allProcs : $WZ|$bkg
+
+## Lumi uncertainties 
+lumi_2022_early  : $allProcs  : .*  : normSymm  :1.014
+
+## Trigger: one parameter of interest per channel
+#trigeffbias_2022PreEE  : $allProcs : .*  : normSymm  : 1.005; year="2022"
+#trigeffbias_2022PostEE : $allProcs : .*  : normSymm  : 1.01;  year="2022EE"
+#trigeffstat_2022PreEE  : $allProcs : .*  : normSymm  : 1.02;  year="2022"
+#trigeffstat_2022PostEE : $allProcs : .*  : normAsymm : 0.991/1.004; year="2022EE"
+
+# 2022 PreEE
+#trigeff_stat_eee_2022PreEE  : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 0\, 0)', year="2022"
+#trigeff_stat_eem_2022PreEE  : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 0\, 0)', year="2022"
+#trigeff_stat_mme_2022PreEE  : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 0\, 0)', year="2022"
+#trigeff_stat_mmm_2022PreEE  : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 0\, 0)', year="2022"
+#trigeff_bias_eee_2022PreEE  : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 1\, 0)', year="2022"
+#trigeff_bias_eem_2022PreEE  : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 1\, 0)', year="2022"
+#trigeff_bias_mme_2022PreEE  : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 1\, 0)', year="2022"
+#trigeff_bias_mmm_2022PreEE  : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 1\, 0)', year="2022"
+
+## 2022 PostEE
+#trigeff_stat_eee_2022PostEE : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 0\, 1)', year="2022EE"
+#trigeff_stat_eem_2022PostEE : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 0\, 1)', year="2022EE"
+#trigeff_stat_mme_2022PostEE : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 0\, 1)', year="2022EE"
+#trigeff_stat_mmm_2022PostEE : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 0\, 1)', year="2022EE"
+#trigeff_bias_eee_2022PostEE : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 1\, 1)', year="2022EE"
+#trigeff_bias_eem_2022PostEE : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 1\, 1)', year="2022EE"
+#trigeff_bias_mme_2022PostEE : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 1\, 1)', year="2022EE"
+#trigeff_bias_mmm_2022PostEE : $allProcs : .*  : templateSymm; AddWeight='trig_eff_unc(abs(LepSel_pdgId[0])\, abs(LepSel_pdgId[1])\, abs(LepSel_pdgId[2])\, 1\, 1)', year="2022EE"
+
+# 2022 PreEE
+trigeff_stat_eee_2022PreEE  : $allProcs : .* : normSymm : 1.02;  year="2022"
+trigeff_stat_eem_2022PreEE  : $allProcs : .* : normSymm : 1.02;  year="2022"
+trigeff_stat_mme_2022PreEE  : $allProcs : .* : normSymm : 1.02;  year="2022"
+trigeff_stat_mmm_2022PreEE  : $allProcs : .* : normSymm : 1.02;  year="2022"
+trigeff_bias_eee_2022PreEE  : $allProcs : .* : normSymm : 1.005; year="2022"
+trigeff_bias_eem_2022PreEE  : $allProcs : .* : normSymm : 1.005; year="2022"
+trigeff_bias_mme_2022PreEE  : $allProcs : .* : normSymm : 1.005; year="2022"
+trigeff_bias_mmm_2022PreEE  : $allProcs : .* : normSymm : 1.005; year="2022"
+
+# 2022 PostEE
+trigeff_stat_eee_2022PostEE  : $allProcs : .*  : normSymm : 1.005; year="2022EE"
+trigeff_stat_eem_2022PostEE  : $allProcs : .*  : normSymm : 1.005; year="2022EE"
+trigeff_stat_mme_2022PostEE  : $allProcs : .*  : normSymm : 1.005; year="2022EE"
+trigeff_stat_mmm_2022PostEE  : $allProcs : .*  : normSymm : 1.005; year="2022EE"
+trigeff_bias_eee_2022PostEE  : $allProcs : .*  : normSymm : 1.01;  year="2022EE"
+trigeff_bias_eem_2022PostEE  : $allProcs : .*  : normSymm : 1.01;  year="2022EE"
+trigeff_bias_mme_2022PostEE  : $allProcs : .*  : normSymm : 1.01;  year="2022EE"
+
+
+## Normalization 
+normVVV   : $VVV         : .* : normSymm : 1.50
+#normConvs : $convs       : .* : normSymm : 1.12
+normfakes : $NonpromptMC : .* : normSymm : 1.30
+normttx   : $tzq         : .* : normSymm : 1.15
+normvh    : $vh          : .* : normSymm : 1.25
+
+## JECs 
+jestotal_2022PreEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesTotalUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesTotalDown.txt'], year="2022"
+jestotal_2022PostEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jesTotalUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jesTotalDown.txt'], year="2022EE"
+jer_2022PreEE  : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jerUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jerDown.txt'], year="2022"
+jer_2022PostEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-jec/fr-standard-jerUp.txt'\,'wz-run3/common/frs-jec/fr-standard-jerDown.txt'], year="2022EE"
+
+## Electron scales and smearings
+elec_scale_2022PreEE  : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-lepScales/fakerate_standard_ScaleUp.txt'\,'wz-run3/common/frs-lepScales/fakerate_standard_ScaleDown.txt'], year="2022" 
+elec_scale_2022PostEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-lepScales/fakerate_standard_ScaleUp.txt'\,'wz-run3/common/frs-lepScales/fakerate_standard_ScaleDown.txt'], year="2022EE" 
+elec_smear_2022PreEE  : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-lepScales/fakerate_standard_SmearUp.txt'\,'wz-run3/common/frs-lepScales/fakerate_standard_SmearDown.txt'], year="2022" 
+elec_smear_2022PostEE : $allProcs : .* : templateAsymm; FakeRates=['wz-run3/common/frs-lepScales/fakerate_standard_SmearUp.txt'\,'wz-run3/common/frs-lepScales/fakerate_standard_SmearDown.txt'], year="2022EE" 
+
+## Lepton SFs 
+elecidsf    : $allProcs : .* : templateAsymm; AddWeights=["electronSF_IDTightUp/electronSF_IDTight"\,"electronSF_IDTightDown/electronSF_IDTight"]
+elecrecosf  : $allProcs : .* : templateAsymm; AddWeights=["electronSF_recoUp/electronSF_reco"\,"electronSF_recoDown/electronSF_reco"]
+muonidsf_ID : $allProcs : .* : templateAsymm; AddWeights=["muonSF_Up/muonSF"\,"muonSF_Down/muonSF"]
+
+## Pileup
+pileup : $allProcs : .* : templateAsymm; AddWeights=["puWeight_fix_up/puWeight_fix"\,"puWeight_fix_dn/puWeight_fix"]
+
+## btag SFs
+btag_LF_corr         : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_mistag_correlatedUp/bTagWeight'\,'bTagWeight_mistag_correlatedDown/bTagWeight']
+btag_LF_2022         : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_mistag_uncorrelatedUp/bTagWeight'\,'bTagWeight_mistag_uncorrelatedDown/bTagWeight'], year="2022"
+btag_LF_2022PostEE   : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_mistag_uncorrelatedUp/bTagWeight'\,'bTagWeight_mistag_uncorrelatedDown/bTagWeight'], year="2022EE"
+
+btag_HF_Corr           : $allProcs : .* : templateAsymm; AddWeights=['bTagWeight_btag_correlatedUp/bTagWeight'\,'bTagWeight_btag_correlatedDown/bTagWeight']
+btagging_HF_2022       : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_btag_uncorrelatedUp/bTagWeight'\,'bTagWeight_btag_uncorrelatedDown/bTagWeight'], year="2022"
+btagging_HF_2022PostEE : $allProcs : .* : templateAsymm ; AddWeights=['bTagWeight_btag_uncorrelatedUp/bTagWeight'\,'bTagWeight_btag_uncorrelatedDown/bTagWeight'], year="2022EE"
+
+## Signal uncertainties
+ISR    : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-ps/fr-isrUp.txt'\,'wz-run3/common/frs-ps/fr-isrDown.txt']
+FSR    : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-ps/fr-fsrUp.txt'\,'wz-run3/common/frs-ps/fr-fsrDown.txt']
+
+wz_muF : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-scales-fiducial/fr-muR_1p0_muF_2p0.txt'\,'wz-run3/common/frs-scales-fiducial/fr-muR_1p0_muF_0p5.txt']
+wz_muR : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-scales-fiducial/fr-muR_2p0_muF_1p0.txt'\,'wz-run3/common/frs-scales-fiducial/fr-muR_0p5_muF_1p0.txt']
+
+wz_pdf1   : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_1.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_1.txt']
+wz_pdf2   : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_2.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_2.txt']
+wz_pdf3   : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_3.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_3.txt']
+wz_pdf4   : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_4.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_4.txt']
+wz_pdf5   : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_5.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_5.txt']
+wz_pdf6   : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_6.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_6.txt']
+wz_pdf7   : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_7.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_7.txt']
+wz_pdf8   : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_8.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_8.txt']
+wz_pdf9   : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_9.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_9.txt']
+wz_pdf10  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_10.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_10.txt']
+wz_pdf11  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_11.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_11.txt']
+wz_pdf12  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_12.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_12.txt']
+wz_pdf13  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_13.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_13.txt']
+wz_pdf14  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_14.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_14.txt']
+wz_pdf15  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_15.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_15.txt']
+wz_pdf16  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_16.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_16.txt']
+wz_pdf17  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_17.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_17.txt']
+wz_pdf18  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_18.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_18.txt']
+wz_pdf19  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_19.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_19.txt']
+wz_pdf20  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_20.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_20.txt']
+wz_pdf21  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_21.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_21.txt']
+wz_pdf22  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_22.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_22.txt']
+wz_pdf23  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_23.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_23.txt']
+wz_pdf24  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_24.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_24.txt']
+wz_pdf25  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_25.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_25.txt']
+wz_pdf26  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_26.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_26.txt']
+wz_pdf27  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_27.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_27.txt']
+wz_pdf28  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_28.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_28.txt']
+wz_pdf29  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_29.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_29.txt']
+wz_pdf30  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_30.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_30.txt']
+wz_pdf31  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_31.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_31.txt']
+wz_pdf32  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_32.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_32.txt']
+wz_pdf33  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_33.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_33.txt']
+wz_pdf34  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_34.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_34.txt']
+wz_pdf35  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_35.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_35.txt']
+wz_pdf36  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_36.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_36.txt']
+wz_pdf37  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_37.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_37.txt']
+wz_pdf38  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_38.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_38.txt']
+wz_pdf39  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_39.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_39.txt']
+wz_pdf40  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_40.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_40.txt']
+wz_pdf41  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_41.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_41.txt']
+wz_pdf42  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_42.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_42.txt']
+wz_pdf43  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_43.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_43.txt']
+wz_pdf44  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_44.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_44.txt']
+wz_pdf45  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_45.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_45.txt']
+wz_pdf46  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_46.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_46.txt']
+wz_pdf47  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_47.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_47.txt']
+wz_pdf48  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_48.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_48.txt']
+wz_pdf49  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_49.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_49.txt']
+wz_pdf50  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_50.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_50.txt']
+wz_pdf51  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_51.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_51.txt']
+wz_pdf52  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_52.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_52.txt']
+wz_pdf53  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_53.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_53.txt']
+wz_pdf54  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_54.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_54.txt']
+wz_pdf55  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_55.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_55.txt']
+wz_pdf56  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_56.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_56.txt']
+wz_pdf57  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_57.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_57.txt']
+wz_pdf58  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_58.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_58.txt']
+wz_pdf59  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_59.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_59.txt']
+wz_pdf60  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_60.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_60.txt']
+wz_pdf61  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_61.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_61.txt']
+wz_pdf62  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_62.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_62.txt']
+wz_pdf63  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_63.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_63.txt']
+wz_pdf64  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_64.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_64.txt']
+wz_pdf65  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_65.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_65.txt']
+wz_pdf66  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_66.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_66.txt']
+wz_pdf67  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_67.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_67.txt']
+wz_pdf68  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_68.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_68.txt']
+wz_pdf69  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_69.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_69.txt']
+wz_pdf70  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_70.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_70.txt']
+wz_pdf71  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_71.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_71.txt']
+wz_pdf72  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_72.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_72.txt']
+wz_pdf73  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_73.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_73.txt']
+wz_pdf74  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_74.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_74.txt']
+wz_pdf75  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_75.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_75.txt']
+wz_pdf76  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_76.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_76.txt']
+wz_pdf77  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_77.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_77.txt']
+wz_pdf78  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_78.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_78.txt']
+wz_pdf79  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_79.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_79.txt']
+wz_pdf80  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_80.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_80.txt']
+wz_pdf81  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_81.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_81.txt']
+wz_pdf82  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_82.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_82.txt']
+wz_pdf83  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_83.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_83.txt']
+wz_pdf84  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_84.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_84.txt']
+wz_pdf85  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_85.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_85.txt']
+wz_pdf86  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_86.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_86.txt']
+wz_pdf87  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_87.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_87.txt']
+wz_pdf88  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_88.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_88.txt']
+wz_pdf89  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_89.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_89.txt']
+wz_pdf90  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_90.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_90.txt']
+wz_pdf91  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_91.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_91.txt']
+wz_pdf92  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_92.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_92.txt']
+wz_pdf93  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_93.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_93.txt']
+wz_pdf94  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_94.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_94.txt']
+wz_pdf95  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_95.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_95.txt']
+wz_pdf96  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_96.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_96.txt']
+wz_pdf97  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_97.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_97.txt']
+wz_pdf98  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_98.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_98.txt']
+wz_pdf99  : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_99.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_99.txt']
+wz_pdf100 : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_100.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_100.txt']
+wz_pdf101 : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_101.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_101.txt']
+wz_pdf102 : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_100.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_100.txt']
+wz_pdf103 : $WZ : .* : templateAsymm; FakeRates=['wz-run3/common/frs-pdfs-fiducial/fr-pdf_101.txt'\,'wz-run3/common/frs-pdfs-fiducial/fr-pdf_101.txt']
