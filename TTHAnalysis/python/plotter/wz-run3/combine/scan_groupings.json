@@ -1,0 +1,38 @@
+{
+    "groupList" : [
+        "theo",
+        "lumi",
+        "experimental"
+    ],
+    "SuperGroups": [
+        "Experimental", 
+        "Normalizations",
+        "Modelling",
+        "None"
+    ],
+    "systsGroup": {
+        "lumi" : {
+            "systs" : [
+                "lumi_2022_early"
+            ],
+            "SuperGroup" : "None",
+            "inTable":"\\qquad Theoretical uncertainties"
+        },
+        "theo" : {
+            "systs" : [
+                "wz_muR",
+                "wz_muF",
+                "'rgx{pdf.*}'"
+            ],
+            "SuperGroup" : "None",
+            "inTable":"\\qquad Theoretical uncertainties"
+        },
+        "experimental" : {
+            "systs" : [
+                "allConstrainedNuisances"
+            ],
+            "SuperGroup" : "None",
+            "inTable":"\\qquad Experimental systematic uncertainty"
+        }
+    }
+}

@@ -1,103 +1,64 @@
+""" Read scan and give postfit systematic table """
+import ROOT as r
+import sys, os, re
+import math
+sys.path.append( os.path.join(os.environ["CMSSW_BASE"], "src/CMGTools/TTHAnalysis/python/plotter/wz-run3"))
+from scripts.make_latex_table import dict_to_latex_table
+from optparse import OptionParser
+from copy import deepcopy 
 import json
-from copy import deepcopy
-import numpy as np
 
-jsonpath = "table_groupings.json"
-with open(jsonpath, "r") as input_json:
-    data = json.load(input_json)
-
-def sort_list(rows):
-    order = []
-    avgs = []
-    for index,row in enumerate(rows.keys()):
-        avgs.append(rows[row])
-    avgs_copy = deepcopy(avgs)
-    avgs_copy = np.sort(avgs_copy)
-
-    for avg in avgs_copy[::-1]:
-        order.append(avgs.index(avg))
-    return order
-
-
-def systs_for_table(filename, sg):
-    systsGroup = data["systsGroup"]
+def parse_file(file_path):
+    data_dict = {}
     
-    val = 0
-    stat = 0
-    syst = 0
-    # Get the values
-    f = open(filename, "r")
-    rows = {}
-    total_up = 0
-    total_down = 0
-    avgs = {} # for sorting rows
-    for syst in f.readlines():  
-        info = syst.split(":")
-        name = str(info[0]).strip().replace("inc_", "")
-        if name == 'val': 
-            val = float(info[1].split("\n")[0])
-            continue
+    jsonpath = "table_groupings.json"
+    with open(jsonpath, "rb") as input_json:
+        data = json.load(input_json)
     
-        up = float(info[1])
-        down = float(info[2].split("\n")[0])
-        avg = (up + down)/2
-        if name == 'stat': 
-            stat = avg
-            continue
-        if systsGroup[name]["SuperGroup"] != sg:
-            continue
-        avgs[name] = avg
 
-        total_up += up*up
-        total_down +=  down*down
-        
-        
-        rows[name] =  "\t \t %s & %3.1f \\\ \n"%(systsGroup[name]["inTable"], avg/val*100)
+    with open(file_path, 'r') as file:
+        for line in file:
+            parts = line.strip().split(' : ')
+            key = parts[0]
+            if key == "val":
+                continue
+            values = list(map(float, parts[1:]))
+            average = sum(values) / len(values) * 100
 
-    f.close() 
-    return rows, avgs, val, stat, total_up, total_down
+            name = data["systsGroup"][ key.replace("inc_", "") ]["inTable"] if key != "inc_stat" else "Statistical Uncertainty"
+            data_dict[name] = average
+    
+    return data_dict
 
-def latex_table(data, filename):
-    supergroups = data["SuperGroups"]
-    r = "\t\t\multicolumn{2}{c}{$r_{\\text{t}\\bar{\\text{t}}\\text{W}}$ = %2.3f $\pm$ %2.3f (stat) $\pm$ %2.3f (syst)}\\\ \n"
-    latex_table = '''
-    \usepackage{tabular}
-    \\begin{table}
-        \\centering
-        \\resizebox{\\textwidth}{!}{
-            \\begin{tabular}{p{12cm}m{3cm}}
-                    \\hline
-    '''
-    latex_table += "\t \t %s & %s \\\\  \n"%("Source", "Avg. Unc (\%)")
-    total_up = 0
-    total_down = 0
-    for sg in supergroups:
-        rows, avgs, val, stat, syst_up, syst_down = systs_for_table(filename, sg)
-        total_up   += syst_up
-        total_down += syst_down
-        names = rows.keys()
-        # sort rows
-        order = sort_list(avgs)
 
-        if sg != "None": latex_table += "\t\t \hline\hline \multicolumn{2}{c}{%s}  \\\ \hline\hline\n"%sg  
-        else: latex_table +=  "\t\t \hline  \n "  
-        for index in order:
-            name = names[index]
-            latex_table += rows[name]
 
-    total_up = np.sqrt(total_up)
-    total_down = np.sqrt(total_down)
-    syst  = (total_up+total_down)/2
+# Example usage
+result     = parse_file('fit-results_approval-v2/total/inclusive/uncertainty-table/outputfit.txt')
+result_eee = parse_file('fit-results_approval-v2/total/eee/uncertainty-table/outputfit.txt')
+result_eem = parse_file('fit-results_approval-v2/total/eem/uncertainty-table/outputfit.txt')
+result_mme = parse_file('fit-results_approval-v2/total/mme/uncertainty-table/outputfit.txt')
+result_mmm = parse_file('fit-results_approval-v2/total/mmm/uncertainty-table/outputfit.txt')
 
-    # Add the statistic uncertainty 
-    latex_table +='''           \t \hline  \n'''
-    latex_table += r%(val, stat, syst) 
-    latex_table +='''            \t \\hline       
-        \\end{tabular}
-    }
-    \\end{table}'''
-    # End table
-    print(latex_table)
-    return
+#table = {
+#    "Source"   : list(result.keys()),
+#    "Inclusive"  : [ "%3.1f"%result[source] if result[source] > 0.01 else "-" for source in list(result.keys())  ],
+#    "\\eee"      : [ "%3.1f"%result_eee[source] if result[source] > 0.01 else "-" for source in list(result_eee.keys())],
+#    "\\eem"      : [ "%3.1f"%result_eem[source] if result[source] > 0.01 else "-" for source in list(result_eem.keys())],
+#    "\\mme"      : [ "%3.1f"%result_mme[source] if result[source] > 0.01 else "-" for source in list(result_mme.keys())],
+#    "\\mmm"      : [ "%3.1f"%result_mmm[source] if result[source] > 0.01 else "-" for source in list(result_mmm.keys())],
+#}
 
-latex_table(data, "fits/all/inclusive/outputfit.txt")
+table = {
+    "Source"   : list(result.keys()),
+    "Inclusive"  : [ "%3.1f"%result[source] if result[source] > 0.01 else "-" for source in list(result.keys())  ],
+    "\\eee"      : [ "%3.1f"%result_eee[source] if float(result_eee[source]) > 0.01 else "-" for source in list(result_eee.keys())],
+    "\\eem"      : [ "%3.1f"%result_eem[source] if float(result_eem[source]) > 0.01 else "-" for source in list(result_eem.keys())],
+    "\\mme"      : [ "%3.1f"%result_mme[source] if float(result_mme[source]) > 0.01 else "-" for source in list(result_mme.keys())],
+    "\\mmm"      : [ "%3.1f"%result_mmm[source] if float(result_mmm[source]) > 0.01 else "-" for source in list(result_mmm.keys())],
+}
+
+# Create the latex table
+caption = """ Breakdown of different sources of systematic and their relative impact in each channel, as well as in the combined measurement. """
+table = dict_to_latex_table(table, caption, "tab:table_syst")
+print(table)
+

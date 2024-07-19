@@ -7,8 +7,10 @@
         "jer",
         "jes",
         "electronID",
+        "electronReco",
         "electronScales",
         "muonID",
+        "Nonprompt",
         "VVV",
         "TZQ",
         "ZZ",
@@ -16,38 +18,35 @@
         "XG",
         "VH",
         "ISRandFSR",
+        "murmuf",
+        "wzpdf",
         "mc_stat"
     ],
     "SuperGroups": [
         "Experimental", 
         "Normalizations",
+        "Modelling",
         "None"
     ],
     "systsGroup": {
         "lumi" : { 
             "systs" : ["lumi_2022_early"],
             "SuperGroup" : "Experimental",
-            "inTable": "\\qquad Luminosity"
+            "inTable": "\\qquad Integrated luminosity"
         },
         "trigger" : { 
             "systs" : [
-                "trigeffbias_2022PreEE", 
-                "trigeffbias_2022PostEE",
-                "trigeffstat_2022PreEE",
-                "trigeffstat_2022PostEE"
+                "'rgx{trig.*}'"
             ],
             "SuperGroup" : "Experimental",
-            "inTable": "\\qquad Trigger"
+            "inTable": "\\qquad Trigger efficiencies"
         },
         "btag" : {
             "systs" : [
-                "btag_LF",
-                "btag_HF_Corr",
-                "btag_HF_2022PreEE",
-                "btag_HF_2022PostEE"
+                "'rgx{btag.*}'"
             ],
             "SuperGroup" : "Experimental",
-            "inTable": "\\qquad B tagging"
+            "inTable": "\\qquad b tagging"
         },
         "pileup" : {
             "systs" : ["pileup"],
@@ -68,7 +67,12 @@
         "electronID" : {
             "systs" : ["elecidsf"],
             "SuperGroup" : "Experimental",
-            "inTable": "\\qquad Electron identification"
+            "inTable": "\\qquad Electron ID efficiencies"
+        },
+        "electronReco" : {
+            "systs" : ["elecrecosf"],
+            "SuperGroup" : "Experimental",
+            "inTable": "\\qquad Electron reconstruction"
         },
         "electronScales" : {
             "systs" : [
@@ -78,17 +82,22 @@
                 "elec_smear_2022PostEE"
             ],
             "SuperGroup" : "Experimental",
-            "inTable": "\\qquad Electron energy corrections"
+            "inTable": "\\qquad Electron energy scale"
         },
         "muonID" : {
             "systs" : ["muonidsf_ID"],
             "SuperGroup" : "Experimental",
-            "inTable": "\\qquad Muon identification"
+            "inTable": "\\qquad Muon efficiencies"
         },
         "VVV" : {
             "systs" : ["normVVV"],
             "SuperGroup" : "Normalizations",
             "inTable": "\\qquad VVV normalization"
+        },
+        "VH" : {
+            "systs" : ["normvh"],
+            "SuperGroup" : "Normalizations",
+            "inTable": "\\qquad \\VH normalization"
         },
         "TZQ" : {
             "systs" : ["normttx"],
@@ -98,7 +107,7 @@
         "ZZ" : {
             "systs" : ["r_zz"],
             "SuperGroup" : "Normalizations",
-            "inTable": "\\qquad \\PZ normalization"
+            "inTable": "\\qquad \\ZZ normalization"
         },
         "TTZ" : {
             "systs" : ["r_ttz"],
@@ -122,79 +131,29 @@
                 "FSR"
             ],
         "SuperGroup":"Modelling",
-        "inTable": "\\qquad ISR/FSR from WZ"
+        "inTable": "\\qquad ISR/FSR"
+        },
+        "murmuf" : {
+            "systs" : [
+                "wz_muF",
+                "wz_muR"
+            ],
+        "SuperGroup":"Modelling",
+        "inTable": "\\qquad WZ scales ($\\mu_R$, $\\mu_F$)"
+        },
+        "wzpdf" : {
+            "systs" : [
+                "'rgx{pdf.*}'"
+            ],
+        "SuperGroup":"Modelling",
+        "inTable": "\\qquad WZ PDF"
         },
         "mc_stat" : {
             "systs" : [
-                "prop_binch10_bin1",
-                "prop_binch10_bin2",
-                "prop_binch10_bin3",
-                "prop_binch10_bin4",
-                "prop_binch11_bin1",
-                "prop_binch11_bin2",
-                "prop_binch11_bin3",
-                "prop_binch11_bin4",
-                "prop_binch12_bin1",
-                "prop_binch12_bin2",
-                "prop_binch12_bin3",
-                "prop_binch12_bin4",
-                "prop_binch13_bin1",
-                "prop_binch13_bin2",
-                "prop_binch13_bin3",
-                "prop_binch13_bin4",
-                "prop_binch14_bin1",
-                "prop_binch14_bin2",
-                "prop_binch14_bin3",
-                "prop_binch14_bin4",
-                "prop_binch15_bin1",
-                "prop_binch15_bin2",
-                "prop_binch15_bin3",
-                "prop_binch15_bin4",
-                "prop_binch16_bin1_convs",
-                "prop_binch16_bin1_fakes_DY",
-                "prop_binch16_bin1_fakes_TT",
-                "prop_binch16_bin1_fakes_VV",
-                "prop_binch16_bin1_prompt_TTX",
-                "prop_binch16_bin1_prompt_TZQ",
-                "prop_binch16_bin1_prompt_VVV",
-                "prop_binch16_bin1_prompt_WZ",
-                "prop_binch16_bin1_prompt_WZ_nonfiducial",
-                "prop_binch16_bin1_prompt_ZZ",
-                "prop_binch16_bin1_prompt_ggZZ",
-                "prop_binch16_bin2",
-                "prop_binch16_bin3",
-                "prop_binch16_bin4",
-                "prop_binch17_bin0",
-                "prop_binch18_bin1",
-                "prop_binch19_bin0",
-                "prop_binch1_bin0",
-                "prop_binch20_bin2",
-                "prop_binch21_bin3",
-                "prop_binch22_bin1",
-                "prop_binch23_bin2",
-                "prop_binch24_bin3",
-                "prop_binch25_bin0",
-                "prop_binch26_bin1",
-                "prop_binch27_bin0",
-                "prop_binch28_bin2",
-                "prop_binch29_bin3",
-                "prop_binch2_bin1",
-                "prop_binch30_bin1",
-                "prop_binch31_bin2",
-                "prop_binch32_bin3",
-                "prop_binch3_bin0",
-                "prop_binch4_bin2",
-                "prop_binch5_bin3",
-                "prop_binch6_bin1",
-                "prop_binch7_bin2",
-                "prop_binch8_bin3",
-                "prop_binch9_bin1",
-                "prop_binch9_bin2",
-                "prop_binch9_bin3",
-                "prop_binch9_bin4"
+                "'rgx{prop.*}'"
             ],
             "SuperGroup" : "None",
-            "inTable":"\\qquad Statistical uncertainty from the predictions"
+            "inTable":"\\qquad MC statistical"
         }
     }
 }
