@@ -23,7 +23,7 @@ class plot_producer(producer):
                   help = '''Event selection requirements file''')
     parser.add_option("--plotfile", dest = "plotfile", type="string", default = "wz-run3/common/plots_wz.txt", 
                   help = '''File with plots''')
-    parser.add_option("--uncfile", dest = "uncfile", type="string", default = "wz-run3/common/systs-wz.txt",
+    parser.add_option("--uncfile", dest = "uncfile", type="string", default = "wz-run3/common/systs-wz-total.txt",
             help = "File with systematic variations")
     parser.add_option("--treename", dest = "treename", default = "NanoAOD", 
                   help = ''' Name of the tree file ''')
@@ -90,7 +90,7 @@ class plot_producer(producer):
     plottingStuff += "--noCms --lspam '#scale[1.1]{#bf{CMS}} #scale[0.9]{#it{Preliminary}}' "
     plottingStuff += "--TotalUncRatioColor 922 922 "
     plottingStuff += "--TotalUncRatioStyle 3444 0 "
-    plottingStuff += "--plotgroup prompt_WZ+=prompt_WZ_nonfiducial "
+    plottingStuff += "--plotgroup prompt_WZ+=prompt_WZ_nonfiducial+ "
     plottingStuff += "--plotgroup fakes_DY+=fakes_VV,fakes_TT,fakes_T,wjets "
 
     if self.year != "all":
