@@ -1,31 +1,31 @@
 ## ZZ
-prompt_ZZ: ZZto4L_part*                   : 1.65   ; FillColor=ROOT.TColor.GetColor(63\,144\,218), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="qqZZ", genSumWeightName="genEventSumw"
-prompt_ggZZ: GluGlutoContinto2Zto2E2Mu*   : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
-prompt_ggZZ: GluGlutoContinto2Zto2E2Tau*  : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
-prompt_ggZZ: GluGlutoContinto2Zto2Mu2Tau* : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
-prompt_ggZZ: GluGlutoContinto2Zto4E*      : 0.003  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
-prompt_ggZZ: GluGlutoContinto2Zto4Mu*     : 0.003  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
-prompt_ggZZ: GluGlutoContinto2Zto4Tau*    : 0.003  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw"
+prompt_ZZ: ZZto4L_part*                   : 1.65   ; FillColor=ROOT.TColor.GetColor(63\,144\,218), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="qqZZ", genSumWeightName="genEventSumw",  FriendsSimple="{P}/lepGEN/"
+prompt_ggZZ: GluGlutoContinto2Zto2E2Mu*   : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_ggZZ: GluGlutoContinto2Zto2E2Tau*  : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_ggZZ: GluGlutoContinto2Zto2Mu2Tau* : 0.006  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_ggZZ: GluGlutoContinto2Zto4E*      : 0.003  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_ggZZ: GluGlutoContinto2Zto4Mu*     : 0.003  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_ggZZ: GluGlutoContinto2Zto4Tau*    : 0.003  ; FillColor=ROOT.TColor.GetColor(146\,218\,221), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ggZZ", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
 
 
 
 
 ## TTX
-prompt_TTX : TTLL_MLL_50            : 0.08646  ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw"
-prompt_TTX : TTLL_MLL_4to50         : 0.03949  ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw"
-prompt_TTX : TTG_1Jets_PTG_10to100  : 4.216    ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw"
-prompt_TTX : TTG_1Jets_PTG_100to200 : 0.411    ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw"
-prompt_TTX : TTG_1Jets_PTG_200      : 0.128    ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw"
-prompt_TTX : TTHtoNon2B_M_125       : 0.254    ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw"
-prompt_TTX : TTLNu_1Jets            : 0.25     ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw"
-prompt_TZQ : TZQB_Zto2L_4FS_MLL_30  : 0.07968  ; FillColor=ROOT.TColor.GetColor(150\,74\,139), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="tZq", genSumWeightName="genEventSumw"
+prompt_TTX : TTLL_MLL_50            : 0.08646  ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_TTX : TTLL_MLL_4to50         : 0.03949  ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_TTX : TTG_1Jets_PTG_10to100  : 4.216    ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_TTX : TTG_1Jets_PTG_100to200 : 0.411    ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_TTX : TTG_1Jets_PTG_200      : 0.128    ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_TTX : TTHtoNon2B_M_125       : 0.254    ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_TTX : TTLNu_1Jets            : 0.25     ; FillColor=ROOT.TColor.GetColor(131\,45\,182), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="ttX", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_TZQ : TZQB_Zto2L_4FS_MLL_30  : 0.07968  ; FillColor=ROOT.TColor.GetColor(150\,74\,139), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="tZq", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
 
 
 ## VVV
-prompt_VVV : WWZ_4F                 : 0.1851   ; FillColor=ROOT.TColor.GetColor(228\,37\,54), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="VVV", genSumWeightName="genEventSumw"
-prompt_VVV : ZZZ                    : 0.01591  ; FillColor=ROOT.TColor.GetColor(228\,37\,54), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="VVV", genSumWeightName="genEventSumw"
+prompt_VVV : WWZ_4F                 : 0.1851   ; FillColor=ROOT.TColor.GetColor(228\,37\,54), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="VVV", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
+prompt_VVV : ZZZ                    : 0.01591  ; FillColor=ROOT.TColor.GetColor(228\,37\,54), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="VVV", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
 
 
 # VH
-prompt_VH : VH_HtoNonbb*     : 1.01  ; FillColor=ROOT.TColor.GetColor(185\,172\,112), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="VH", genSumWeightName="genEventSumw"
+prompt_VH : VH_HtoNonbb*     : 1.01  ; FillColor=ROOT.TColor.GetColor(185\,172\,112), FakeRate="wz-run3/common/fakerate_load_isprompt.txt", Label="VH", genSumWeightName="genEventSumw", FriendsSimple="{P}/lepGEN/"
 
